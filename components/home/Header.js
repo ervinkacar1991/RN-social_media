@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     marginHorizontal: 20,
+    marginBottom: 10,
   },
   iconsContainer: {
     flexDirection: "row",
