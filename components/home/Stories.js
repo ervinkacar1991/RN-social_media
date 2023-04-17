@@ -7,7 +7,7 @@ const Stories = () => {
     <View style={{ marginBottom: 13 }}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {USERS.map((story, index) => (
-          <View key={index}>
+          <View key={index} style={{ alignItems: "center" }}>
             <Image source={{ uri: story.image }} style={styles.story} />
             <Text style={{ color: "white" }}>
               {story.user.length > 9
