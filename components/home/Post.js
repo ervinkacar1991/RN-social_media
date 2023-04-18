@@ -11,16 +11,18 @@ const postFooterIcons = [
   },
   {
     name: "Comment",
-    imageUrl: "https://icons8.com/icon/143/speech-bubble",
+    imageUrl:
+      "https://img.icons8.com/material-outlined/60/ffffff/speech-bubble.png",
   },
   {
     name: "Share",
     imageUrl:
-      "https://img.icons8.com/fluency-systems-regular/60/ffffff/plus-2-math.png",
+      "https://img.icons8.com/fluency-systems-regular/60/ffffff/share.png",
   },
   {
     name: "Save",
-    imageUrl: "https://img.icons8.com/ios/50/ffffff/facebook-save.png",
+    imageUrl:
+      "https://img.icons8.com/fluency-systems-regular/60/ffffff/bookmark-ribbon.png",
   },
 ];
 
@@ -31,7 +33,10 @@ const Post = ({ post }) => {
 
       <PostHeader post={post} />
       <PostImage post={post} />
-      <PostFooter />
+      <View style={{ marginHorizontal: 15, marginTop: 10 }}>
+        <PostFooter />
+        <Likes post={post} />
+      </View>
     </View>
   );
 };
@@ -67,13 +72,30 @@ const PostImage = ({ post }) => (
 );
 
 const PostFooter = () => (
-  <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[0].imageUrl} />
+  <View style={{ flexDirection: "row" }}>
+    <View style={styles.leftFooterIconsContainer}>
+      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[0].imageUrl} />
+      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[1].imageUrl} />
+      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[2].imageUrl} />
+    </View>
+    <View style={{ flex: 1, alignItems: "flex-end" }}>
+      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[3].imageUrl} />
+    </View>
+  </View>
 );
 
 const Icon = ({ imgUrl, imgStyle }) => (
   <TouchableOpacity>
     <Image style={imgStyle} source={{ uri: imgUrl }} />
   </TouchableOpacity>
+);
+
+const Likes = ({ post }) => (
+  <View style={{ flexDirection: "row", marginTop: 4 }}>
+    <Text style={{ color: "white", fontWeight: "600" }}>
+      {post.likes.toLocaleString()}
+    </Text>
+  </View>
 );
 
 const styles = StyleSheet.create({
@@ -89,6 +111,15 @@ const styles = StyleSheet.create({
     width: 33,
     height: 33,
     color: "white",
+  },
+  leftFooterIconsContainer: {
+    flexDirection: "row",
+    width: "33%",
+    justifyContent: "space-between",
+  },
+  shareICon: {
+    transform: [{ rotate: "320deg" }],
+    marginTop: -3,
   },
 });
 

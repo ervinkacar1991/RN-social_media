@@ -23,7 +23,7 @@ export const POSTS = [
     imageUrl:
       "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?cs=srgb&dl=pexels-pixabay-258196.jpg&fm=jpg",
     user: USERS[1].user,
-    likes: 123,
+    likes: 1323,
     caption: "This is a caption",
     profile_picture: USERS[1].image,
     comments: [
