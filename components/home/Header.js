@@ -68,8 +68,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+    fontFamily: "Cochin",
     color: "white",
-    fontSize: 20,
+    fontSize: 26,
   },
   unreadBadge: {
     backgroundColor: "#FF3250",

@@ -3,7 +3,7 @@ import { USERS } from "./users";
 export const POSTS = [
   {
     imageUrl:
-      "https://images.unsplash.com/photo-1610398000003-8b5b0b5b5b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      "https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2017/02/3-poets_walk_central_park.jpg?resize=750%2C500&ssl=1",
     user: USERS[0].user,
     likes: 123,
     caption: "This is a caption",
@@ -21,7 +21,7 @@ export const POSTS = [
   },
   {
     imageUrl:
-      "https://images.unsplash.com/photo-1610398000003-8b5b0b5b5b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?cs=srgb&dl=pexels-pixabay-258196.jpg&fm=jpg",
     user: USERS[1].user,
     likes: 123,
     caption: "This is a caption",
