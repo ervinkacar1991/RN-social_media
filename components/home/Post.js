@@ -36,10 +36,15 @@ const Post = ({ post }) => {
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
         <PostFooter />
         <Likes post={post} />
+        <Caption post={post} />
+        <CommentSection post={post} />
+        <Comments post={post} />
       </View>
     </View>
   );
 };
+
+// https://api-staging.petigo.app/api/v1/feed/posts/
 
 const PostHeader = ({ post }) => (
   <View
@@ -96,6 +101,39 @@ const Likes = ({ post }) => (
       {post.likes.toLocaleString()}
     </Text>
   </View>
+);
+
+const Caption = ({ post }) => (
+  <View style={{ marginTop: 5 }}>
+    <Text style={{ color: "white" }}>
+      <Text style={{ fontWeight: "600" }}>{post.user}</Text>
+      <Text> {post.caption}</Text>
+    </Text>
+  </View>
+);
+
+const CommentSection = ({ post }) => (
+  <View style={{ marginTop: 5 }}>
+    {!!post.comments.length && (
+      <Text style={{ color: "gray" }}>
+        View {post.comments.length > 1 ? "all" : ""} {post.comments.length}{" "}
+        {post.comments.length > 1 ? "comments" : "comment"}
+      </Text>
+    )}
+  </View>
+);
+
+const Comments = ({ post }) => (
+  <>
+    {post.comments.map((comment, index) => (
+      <View key={index} style={{ flexDirection: "row", marginTop: 5 }}>
+        <Text style={{ color: "white" }}>
+          <Text style={{ fontWeight: "600" }}>{comment.user}</Text>{" "}
+          {comment.comment}
+        </Text>
+      </View>
+    ))}
+  </>
 );
 
 const styles = StyleSheet.create({

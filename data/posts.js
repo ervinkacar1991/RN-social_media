@@ -6,7 +6,8 @@ export const POSTS = [
       "https://i0.wp.com/digital-photography-school.com/wp-content/uploads/2017/02/3-poets_walk_central_park.jpg?resize=750%2C500&ssl=1",
     user: USERS[0].user,
     likes: 123,
-    caption: "This is a caption",
+    caption:
+      "Lorem ipsum dolor sit amet lorem dolor foo bar ggg nnn h wanoiwnwoai",
     profile_picture: USERS[0].image,
     comments: [
       {
@@ -24,7 +25,8 @@ export const POSTS = [
       "https://images.pexels.com/photos/258196/pexels-photo-258196.jpeg?cs=srgb&dl=pexels-pixabay-258196.jpg&fm=jpg",
     user: USERS[1].user,
     likes: 1323,
-    caption: "This is a caption",
+    caption:
+      "This is a caption acone onaen anenf eoieoic m  ne eiop apoi eanienenbveaoeao",
     profile_picture: USERS[1].image,
     comments: [
       {
