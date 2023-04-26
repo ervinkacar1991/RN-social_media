@@ -1,4 +1,4 @@
-import { View, Image, TextInput } from "react-native";
+import { View, Image, TextInput, Button } from "react-native";
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -21,6 +21,7 @@ const FormikPostUploader = () => {
       initialValues={{ imageUrl: "", caption: "" }}
       onSubmit={(value) => console.log(value)}
       validationSchema={uploadPostSchema}
+      validateOnMount={true}
     >
       {({
         handleBlur,
@@ -39,7 +40,7 @@ const FormikPostUploader = () => {
             }}
           >
             <Image
-              source={{ uri: PLACEHOLDER_IMG }}
+              source={{ uri: thumbnailUrl ? thumbnailUrl : PLACEHOLDER_IMG }}
               style={{ width: 100, height: 100 }}
             />
 
@@ -57,6 +58,7 @@ const FormikPostUploader = () => {
           </View>
           <Divider />
           <TextInput
+            onChange={(e) => setThumbnailUrl(e.nativeEvent.text)}
             style={{ color: "white", fontSize: 18 }}
             placeholder="Enter Image Url"
             placeholderTextColor="gray"
@@ -69,6 +71,11 @@ const FormikPostUploader = () => {
               {errors.imageUrl}
             </Text>
           )}
+          <Button
+            onPress={handleSubmit}
+            title="Share"
+            disabled={!isValid}
+          ></Button>
         </>
       )}
     </Formik>
