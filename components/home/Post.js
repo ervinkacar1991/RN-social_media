@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
   footerIcon: {
     width: 33,
     height: 33,
-    color: "white",
   },
   leftFooterIconsContainer: {
     flexDirection: "row",
