@@ -7,35 +7,49 @@ import Validator from "email-validator";
 
 const LoginForm = ({ navigation }) => {
   const LoginFormSchema = Yup.object().shape({
-    email: Yup.string().email().required("An email is required"),
+    username: Yup.string().required("A username is required"),
     password: Yup.string()
       .required()
       .min(8, "Your password has to have at least 8 characters"),
   });
 
+  const handleLogin = async (values) => {
+    try {
+      const response = await fetch(
+        "https://api-staging.petigo.app/api/v1/accounts/login/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+      const token = await response.json();
+      // console.log("Login successful");
+      console.log(response.status);
+      console.log({ token });
+    } catch (error) {
+      console.log("Login failed");
+    }
+  };
+
   return (
     <View style={styles.wrapper}>
       <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        initialValues={{ username: "", password: "" }}
+        onSubmit={handleLogin}
         validationSchema={LoginFormSchema}
         validateOnMount={true}
       >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          isValid,
-        }) => (
+        {({ handleChange, handleBlur, handleSubmit, values }) => (
           <>
             <View
               style={[
                 styles.inputField,
                 {
                   borderColor:
-                    values.email.length < 1 || Validator.validate(values.email)
+                    1 > values.username.length || values.username.length > 6
                       ? "#ccc"
                       : "red",
                 },
@@ -43,14 +57,12 @@ const LoginForm = ({ navigation }) => {
             >
               <TextInput
                 placeholderTextColor="#444"
-                placeholder="Username or email"
+                placeholder="Username"
                 autoCapitalize="none"
-                keyboardType="email-address"
-                textContentType="emailAddress"
-                autoFocus={true}
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
+                textContentType="username"
+                onChangeText={handleChange("username")}
+                onBlur={handleBlur("username")}
+                value={values.username}
               />
             </View>
             <View
@@ -81,7 +93,7 @@ const LoginForm = ({ navigation }) => {
             </View>
             <Pressable
               titleSize={20}
-              style={styles.button(isValid)}
+              style={styles.button}
               onPress={handleSubmit}
             >
               <Text style={styles.buttonText}>Login</Text>
@@ -109,13 +121,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
   },
-  button: (isValid) => ({
-    backgroundColor: isValid ? "#0096F6" : "#9ACAF7",
+  button: {
+    backgroundColor: "#0096F6",
     alignItems: "center",
     justifyContent: "center",
     minHeight: 42,
     borderRadius: 4,
-  }),
+  },
   buttonText: {
     fontWeight: "600",
     color: "#fff",

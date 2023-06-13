@@ -14,11 +14,52 @@ const SignupForm = ({ navigation }) => {
       .min(6, "Your password has to have at least 8 characters"),
   });
 
+  const handleSignUp = async (values) => {
+    const url = "https://api-staging.petigo.app/api/v1/accounts/signup/";
+
+    const requestBody = {
+      username: values.username,
+      name: values.name,
+      bio: values.bio,
+      email: values.email,
+      mobile: values.mobile,
+      password: values.password,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Uspešno ste se registrovali:", data);
+        navigation.navigate("LoginScreen");
+      } else {
+        const errorData = await response.json();
+        console.log("Greška prilikom registracije:", errorData);
+      }
+    } catch (error) {
+      console.error("Došlo je do greške pri izvršavanju zahteva:", error);
+    }
+  };
+
   return (
     <View style={styles.wrapper}>
       <Formik
-        initialValues={{ email: "", username: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        initialValues={{
+          username: "",
+          name: "",
+          bio: "",
+          email: "",
+          mobile: "",
+          password: "",
+        }}
+        onSubmit={handleSignUp}
         validationSchema={LoginFormSchema}
         validateOnMount={true}
       >
@@ -31,6 +72,71 @@ const SignupForm = ({ navigation }) => {
           isValid,
         }) => (
           <>
+            <View
+              style={[
+                styles.inputField,
+                {
+                  borderColor:
+                    1 > values.username.length || values.username.length > 4
+                      ? "#ccc"
+                      : "red",
+                },
+              ]}
+            >
+              <TextInput
+                placeholderTextColor="#444"
+                placeholder="Username"
+                autoCapitalize="none"
+                textContentType="username"
+                onChangeText={handleChange("username")}
+                onBlur={handleBlur("username")}
+                value={values.username}
+              />
+            </View>
+            <View
+              style={[
+                styles.inputField,
+                {
+                  borderColor:
+                    1 > values.name.length || values.name.length > 6
+                      ? "#ccc"
+                      : "red",
+                },
+              ]}
+            >
+              <TextInput
+                placeholderTextColor="#444"
+                placeholder="Name"
+                autoCapitalize="none"
+                textContentType="name"
+                onChangeText={handleChange("name")}
+                onBlur={handleBlur("name")}
+                value={values.name}
+              />
+            </View>
+            <View
+              style={[
+                styles.inputField,
+                {
+                  borderColor:
+                    1 > values.bio.length || values.bio.length > 6
+                      ? "#ccc"
+                      : "red",
+                },
+              ]}
+            >
+              <TextInput
+                placeholderTextColor="#444"
+                placeholder="Bio"
+                autoCapitalize="none"
+                keyboardType="default"
+                textContentType="text"
+                autoFocus={true}
+                onChangeText={handleChange("bio")}
+                onBlur={handleBlur("bio")}
+                value={values.bio}
+              />
+            </View>
             <View
               style={[
                 styles.inputField,
@@ -54,12 +160,14 @@ const SignupForm = ({ navigation }) => {
                 value={values.email}
               />
             </View>
+
             <View
               style={[
                 styles.inputField,
                 {
                   borderColor:
-                    1 > values.username.length || values.username.length > 6
+                    values.mobile.length < 1 ||
+                    Validator.validate(values.mobile)
                       ? "#ccc"
                       : "red",
                 },
@@ -67,14 +175,17 @@ const SignupForm = ({ navigation }) => {
             >
               <TextInput
                 placeholderTextColor="#444"
-                placeholder="Username"
+                placeholder="Mobile"
                 autoCapitalize="none"
-                textContentType="username"
-                onChangeText={handleChange("username")}
-                onBlur={handleBlur("username")}
-                value={values.username}
+                keyboardType="phone-pad"
+                textContentType="telephoneNumber"
+                autoFocus={true}
+                onChangeText={handleChange("mobile")}
+                onBlur={handleBlur("mobile")}
+                value={values.mobile}
               />
             </View>
+
             <View
               style={[
                 styles.inputField,
