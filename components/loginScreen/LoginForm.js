@@ -1,9 +1,16 @@
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Validator from "email-validator";
+import axios from "axios";
 
 const LoginForm = ({ navigation }) => {
   const LoginFormSchema = Yup.object().shape({
@@ -12,25 +19,31 @@ const LoginForm = ({ navigation }) => {
       .required()
       .min(8, "Your password has to have at least 8 characters"),
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleLogin = async (values) => {
+    setLoading(true);
+    setError("");
     try {
-      const response = await fetch(
+      const response = await axios.post(
         "https://api-staging.petigo.app/api/v1/accounts/login/",
+        values,
         {
-          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(values),
         }
       );
-      const token = await response.json();
+      const token = response.data;
       // console.log("Login successful");
       console.log(response.status);
       console.log({ token });
     } catch (error) {
       console.log("Login failed");
+      setError("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,14 +55,14 @@ const LoginForm = ({ navigation }) => {
         validationSchema={LoginFormSchema}
         validateOnMount={true}
       >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, isValid }) => (
           <>
             <View
               style={[
                 styles.inputField,
                 {
                   borderColor:
-                    1 > values.username.length || values.username.length > 6
+                    1 > values.username.length || values.username.length > 3
                       ? "#ccc"
                       : "red",
                 },
@@ -91,12 +104,18 @@ const LoginForm = ({ navigation }) => {
             <View style={{ alignItems: "flex-end", marginBottom: 30 }}>
               <Text style={{ color: "#5BB0F5" }}>Forgot password</Text>
             </View>
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
             <Pressable
               titleSize={20}
-              style={styles.button}
+              style={styles.button(isValid)}
               onPress={handleSubmit}
             >
-              <Text style={styles.buttonText}>Login</Text>
+              {loading ? (
+                <ActivityIndicator color="#ffffff" />
+              ) : (
+                <Text style={styles.buttonText}>Login</Text>
+              )}
             </Pressable>
             <View style={styles.signupContainer}>
               <Text>Don't have an account?</Text>
@@ -121,13 +140,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
   },
-  button: {
-    backgroundColor: "#0096F6",
+  button: (isValid) => ({
+    backgroundColor: isValid ? "#0096F6" : "#9ACAF7",
     alignItems: "center",
     justifyContent: "center",
     minHeight: 42,
     borderRadius: 4,
-  },
+  }),
   buttonText: {
     fontWeight: "600",
     color: "#fff",
