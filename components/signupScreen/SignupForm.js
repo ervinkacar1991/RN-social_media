@@ -1,9 +1,17 @@
-import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+  TouchableOpacity,
+} from "react-native";
 import React, { useState } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Validator from "email-validator";
+import api from "../sevices/api";
 
 const SignupForm = ({ navigation }) => {
   const LoginFormSchema = Yup.object().shape({
@@ -12,11 +20,20 @@ const SignupForm = ({ navigation }) => {
     password: Yup.string()
       .required()
       .min(6, "Your password has to have at least 8 characters"),
+    bio: Yup.string().required("Bio je obavezan"),
+    mobile: Yup.string()
+      .required("Broj mobilnog telefona je obavezan")
+      .matches(
+        /^[0-9]{10}$/,
+        "Broj mobilnog telefona nije u ispravnom formatu"
+      ),
+    name: Yup.string().required("Ime je obavezno"),
   });
 
-  const handleSignUp = async (values) => {
-    const url = "https://api-staging.petigo.app/api/v1/accounts/signup/";
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  const handleSignUp = async (values) => {
     const requestBody = {
       username: values.username,
       name: values.name,
@@ -26,14 +43,20 @@ const SignupForm = ({ navigation }) => {
       password: values.password,
     };
 
+    setLoading(true);
+    setError("");
+
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      // const response = await fetch(url, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(requestBody),
+      // });
+
+      const response = await api.signup(requestBody);
+      console.log("Uspešno ste se registrovali:", response);
 
       if (response.ok) {
         const data = await response.json();
@@ -45,6 +68,8 @@ const SignupForm = ({ navigation }) => {
       }
     } catch (error) {
       console.error("Došlo je do greške pri izvršavanju zahteva:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -130,7 +155,7 @@ const SignupForm = ({ navigation }) => {
                 placeholder="Bio"
                 autoCapitalize="none"
                 keyboardType="default"
-                textContentType="text"
+                textContentType="none"
                 autoFocus={true}
                 onChangeText={handleChange("bio")}
                 onBlur={handleBlur("bio")}
@@ -166,10 +191,10 @@ const SignupForm = ({ navigation }) => {
                 styles.inputField,
                 {
                   borderColor:
-                    values.mobile.length < 1 ||
-                    Validator.validate(values.mobile)
-                      ? "#ccc"
-                      : "red",
+                    values.mobile.length > 0 &&
+                    !Validator.validate(values.mobile)
+                      ? "red"
+                      : "#ccc",
                 },
               ]}
             >
@@ -212,12 +237,17 @@ const SignupForm = ({ navigation }) => {
             <View style={{ alignItems: "flex-end", marginBottom: 30 }}>
               {/* <Text style={{ color: "#5BB0F5" }}>Forgot password</Text> */}
             </View>
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
             <Pressable
               titleSize={20}
               style={styles.button(isValid)}
               onPress={handleSubmit}
             >
-              <Text style={styles.buttonText}>Sign Up</Text>
+              {loading ? (
+                <ActivityIndicator color="#ffffff" />
+              ) : (
+                <Text style={styles.buttonText}>Sign Up</Text>
+              )}
             </Pressable>
             <View style={styles.signupContainer}>
               <Text>Already have an account?</Text>

@@ -10,14 +10,14 @@ import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import api from "../sevices/api";
 
 const LoginForm = ({ navigation }) => {
   const LoginFormSchema = Yup.object().shape({
     username: Yup.string().required("A username is required"),
     password: Yup.string()
       .required()
-      .min(8, "Your password has to have at least 8 characters"),
+      .min(6, "Your password has to have at least 8 characters"),
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -26,19 +26,23 @@ const LoginForm = ({ navigation }) => {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post(
-        "https://api-staging.petigo.app/api/v1/accounts/login/",
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const token = response.data;
-      // console.log("Login successful");
-      console.log(response.status);
-      console.log({ token });
+      // const response = await axios.post(
+      //   "https://api-staging.petigo.app/api/v1/accounts/login/",
+      //   values,
+      //   {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+      const response = await api.login(values);
+      const { token, user } = response;
+      console.log("Login successful");
+      console.log(response);
+      //@TODO: asyncstorage, napravi context gde ces da cuvas usera i njegove podatke(username,token..)
+      //token cuvaj loklano u context i u asyncstorage. Sve radnje i funkcije sa userom, radi iz konteksta i odatle
+      //exportaj funkcije koje ces da koristis u komponentama.
+      navigation.replace("HomeScreen");
     } catch (error) {
       console.log("Login failed");
       setError("Login failed. Please try again.");
@@ -110,6 +114,7 @@ const LoginForm = ({ navigation }) => {
               titleSize={20}
               style={styles.button(isValid)}
               onPress={handleSubmit}
+              disabled={loading}
             >
               {loading ? (
                 <ActivityIndicator color="#ffffff" />
@@ -140,12 +145,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
   },
-  button: (isValid) => ({
+  button: (isValid, isLoading) => ({
     backgroundColor: isValid ? "#0096F6" : "#9ACAF7",
     alignItems: "center",
     justifyContent: "center",
     minHeight: 42,
     borderRadius: 4,
+    opacity: isLoading ? 0.5 : 1,
   }),
   buttonText: {
     fontWeight: "600",
