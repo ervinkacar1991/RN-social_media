@@ -21,12 +21,7 @@ const SignupForm = ({ navigation }) => {
       .required()
       .min(6, "Your password has to have at least 8 characters"),
     bio: Yup.string().required("Bio je obavezan"),
-    mobile: Yup.string()
-      .required("Broj mobilnog telefona je obavezan")
-      .matches(
-        /^[0-9]{10}$/,
-        "Broj mobilnog telefona nije u ispravnom formatu"
-      ),
+    mobile: Yup.string().required("Broj mobilnog telefona je obavezan"),
     name: Yup.string().required("Ime je obavezno"),
   });
 
@@ -192,7 +187,7 @@ const SignupForm = ({ navigation }) => {
                 {
                   borderColor:
                     values.mobile.length > 0 &&
-                    !Validator.validate(values.mobile)
+                    !/^(\+\d{1,3})?\d{9,14}$/.test(values.mobile)
                       ? "red"
                       : "#ccc",
                 },

@@ -31,22 +31,23 @@ const Post = ({ post }) => {
     <View style={{ marginBottom: 30 }}>
       <Divider style={{ marginTop: 10 }} />
 
-      <PostHeader post={post} />
+      <PostHeader
+        name={post.user.name}
+        profileImg={post.user.photo_thumbnail}
+      />
       <PostImage post={post} />
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
         <PostFooter />
-        <Likes post={post} />
-        <Caption post={post} />
+        <Likes likes={post.likes} />
+        {/* <Caption post={post} />
         <CommentSection post={post} />
-        <Comments post={post} />
+        <Comments post={post} /> */}
       </View>
     </View>
   );
 };
 
-// https://api-staging.petigo.app/api/v1/feed/posts/
-
-const PostHeader = ({ post }) => (
+const PostHeader = ({ name, profileImg }) => (
   <View
     style={{
       flexDirection: "row",
@@ -56,9 +57,9 @@ const PostHeader = ({ post }) => (
     }}
   >
     <View style={{ flexDirection: "row", alignItems: "center" }}>
-      <Image source={{ uri: post.profile_picture }} style={styles.story} />
+      <Image source={{ uri: profileImg }} style={styles.story} />
       <Text style={{ color: "white", marginLeft: 5, fontWeight: "700" }}>
-        {post.user}
+        {name}
       </Text>
     </View>
     <View>
@@ -69,10 +70,13 @@ const PostHeader = ({ post }) => (
 
 const PostImage = ({ post }) => (
   <View style={{ width: "100%", height: 450 }}>
-    <Image
-      source={{ uri: post.imageUrl }}
-      style={{ height: "100%", resizeMode: "cover" }}
-    />
+    {post.images.map((image) => (
+      <Image
+        key={image.id}
+        source={{ uri: image.image }}
+        style={{ height: "100%", resizeMode: "cover" }}
+      />
+    ))}
   </View>
 );
 
@@ -95,10 +99,10 @@ const Icon = ({ imgUrl, imgStyle }) => (
   </TouchableOpacity>
 );
 
-const Likes = ({ post }) => (
+const Likes = ({ post, likes }) => (
   <View style={{ flexDirection: "row", marginTop: 4 }}>
     <Text style={{ color: "white", fontWeight: "600" }}>
-      {post.likes.toLocaleString()}
+      {`${likes.toLocaleString()} likes`}
     </Text>
   </View>
 );

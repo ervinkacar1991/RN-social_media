@@ -6,19 +6,23 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import api from "../sevices/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UserContext } from "../../context/UserContext";
+
+const LoginFormSchema = Yup.object().shape({
+  username: Yup.string().required("A username is required"),
+  password: Yup.string()
+    .required()
+    .min(6, "Your password has to have at least 8 characters"),
+});
 
 const LoginForm = ({ navigation }) => {
-  const LoginFormSchema = Yup.object().shape({
-    username: Yup.string().required("A username is required"),
-    password: Yup.string()
-      .required()
-      .min(6, "Your password has to have at least 8 characters"),
-  });
+  const { handleSetToken, handleSetUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -37,8 +41,16 @@ const LoginForm = ({ navigation }) => {
       // );
       const response = await api.login(values);
       const { token, user } = response;
+
+      await AsyncStorage.setItem("token", token);
+      handleSetToken(token);
+      handleSetUser(user);
+
+      const storedToken = await AsyncStorage.getItem("token");
+      // console.log("Stored token:", storedToken);
+
       console.log("Login successful");
-      console.log(response);
+      // console.log(response);
       //@TODO: asyncstorage, napravi context gde ces da cuvas usera i njegove podatke(username,token..)
       //token cuvaj loklano u context i u asyncstorage. Sve radnje i funkcije sa userom, radi iz konteksta i odatle
       //exportaj funkcije koje ces da koristis u komponentama.

@@ -10,9 +10,15 @@ const signup = async (values) => {
   return resp.data;
 };
 
+const fetchPosts = async () => {
+  const resp = await instance.get("/feed/posts/");
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
+  fetchPosts,
 };
 
 export default Object.freeze(api);
