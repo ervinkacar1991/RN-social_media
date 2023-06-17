@@ -10,7 +10,7 @@ import React, { useContext, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import api from "../sevices/api";
+import api from "../../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from "../../context/UserContext";
 
@@ -21,6 +21,11 @@ const LoginFormSchema = Yup.object().shape({
     .min(6, "Your password has to have at least 8 characters"),
 });
 
+export interface LoginValues {
+  username: string;
+  password: string;
+}
+
 const LoginForm = ({ navigation }) => {
   const { handleSetToken, handleSetUser } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
@@ -30,15 +35,6 @@ const LoginForm = ({ navigation }) => {
     setLoading(true);
     setError("");
     try {
-      // const response = await axios.post(
-      //   "https://api-staging.petigo.app/api/v1/accounts/login/",
-      //   values,
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
       const response = await api.login(values);
       const { token, user } = response;
 
@@ -47,7 +43,6 @@ const LoginForm = ({ navigation }) => {
       handleSetUser(user);
 
       const storedToken = await AsyncStorage.getItem("token");
-      // console.log("Stored token:", storedToken);
 
       console.log("Login successful");
       // console.log(response);
@@ -63,10 +58,12 @@ const LoginForm = ({ navigation }) => {
     }
   };
 
+  const initialValues: LoginValues = { username: "", password: "" };
+
   return (
     <View style={styles.wrapper}>
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={initialValues}
         onSubmit={handleLogin}
         validationSchema={LoginFormSchema}
         validateOnMount={true}
@@ -123,9 +120,12 @@ const LoginForm = ({ navigation }) => {
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
             <Pressable
-              titleSize={20}
-              style={styles.button(isValid)}
-              onPress={handleSubmit}
+              style={[
+                styles.button,
+                isValid ? styles.buttonValid : styles.buttonInvalid,
+                loading ? { opacity: 0.5 } : null,
+              ]}
+              onPress={() => handleSubmit()}
               disabled={loading}
             >
               {loading ? (
@@ -157,14 +157,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
   },
-  button: (isValid, isLoading) => ({
-    backgroundColor: isValid ? "#0096F6" : "#9ACAF7",
+  button: {
     alignItems: "center",
     justifyContent: "center",
     minHeight: 42,
     borderRadius: 4,
-    opacity: isLoading ? 0.5 : 1,
-  }),
+  },
+  buttonValid: {
+    backgroundColor: "#0096F6",
+  },
+  buttonInvalid: {
+    backgroundColor: "#9ACAF7",
+  },
   buttonText: {
     fontWeight: "600",
     color: "#fff",
@@ -175,6 +179,12 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     marginTop: 50,
+  },
+  errorText: {
+    fontSize: 12,
+    color: "red",
+    fontWeight: "600",
+    marginTop: 10,
   },
 });
 

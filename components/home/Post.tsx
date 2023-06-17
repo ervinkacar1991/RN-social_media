@@ -39,9 +39,9 @@ const Post = ({ post }) => {
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
         <PostFooter />
         <Likes likes={post.likes} />
-        {/* <Caption post={post} />
-        <CommentSection post={post} />
-        <Comments post={post} /> */}
+        {/* <Caption post={post} /> */}
+        {/* <CommentSection comments={post.comments} /> */}
+        <Comments comments={post.comments} />
       </View>
     </View>
   );
@@ -99,7 +99,7 @@ const Icon = ({ imgUrl, imgStyle }) => (
   </TouchableOpacity>
 );
 
-const Likes = ({ post, likes }) => (
+const Likes = ({ likes }) => (
   <View style={{ flexDirection: "row", marginTop: 4 }}>
     <Text style={{ color: "white", fontWeight: "600" }}>
       {`${likes.toLocaleString()} likes`}
@@ -116,27 +116,22 @@ const Caption = ({ post }) => (
   </View>
 );
 
-const CommentSection = ({ post }) => (
+const CommentSection = ({ comments }) => (
   <View style={{ marginTop: 5 }}>
-    {!!post.comments.length && (
-      <Text style={{ color: "gray" }}>
-        View {post.comments.length > 1 ? "all" : ""} {post.comments.length}{" "}
-        {post.comments.length > 1 ? "comments" : "comment"}
-      </Text>
-    )}
+    <Text style={{ color: "gray" }}>
+      View {comments > 1 ? "all" : ""} {comments}{" "}
+      {comments > 1 ? "comments" : "comment"}
+    </Text>
   </View>
 );
 
-const Comments = ({ post }) => (
+const Comments = ({ comments }) => (
   <>
-    {post.comments.map((comment, index) => (
-      <View key={index} style={{ flexDirection: "row", marginTop: 5 }}>
-        <Text style={{ color: "white" }}>
-          <Text style={{ fontWeight: "600" }}>{comment.user}</Text>{" "}
-          {comment.comment}
-        </Text>
-      </View>
-    ))}
+    <View style={{ flexDirection: "row", marginTop: 5 }}>
+      <Text style={{ color: "white" }}>
+        <Text style={{ fontWeight: "600" }}>{`${comments} comments`}</Text>
+      </Text>
+    </View>
   </>
 );
 

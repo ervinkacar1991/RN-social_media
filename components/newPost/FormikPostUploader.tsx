@@ -81,7 +81,7 @@ const FormikPostUploader = ({ navigation }) => {
             </Text>
           )}
           <Button
-            onPress={handleSubmit}
+            onPress={() => handleSubmit()}
             title="Share"
             disabled={!isValid}
           ></Button>

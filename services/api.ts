@@ -1,6 +1,7 @@
+import { LoginValues } from "../components/loginScreen/LoginForm";
 import instance from "./config";
 
-const login = async (values) => {
+const login = async (values: LoginValues) => {
   const resp = await instance.post("/accounts/login/", values);
   return resp.data;
 };
