@@ -16,10 +16,19 @@ const fetchPosts = async () => {
   return resp.data;
 };
 
+//fetch likes
+//{{baseUrl}}/api/v1/feed/:username/posts/:post_id/likes/?cursor=ipsum&limit=82318339
+
+const fetchLikes = async (username, post_id) => {
+  const resp = await instance.get(`/feed/${username}/posts/${post_id}/likes/`);
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
   fetchPosts,
+  fetchLikes,
 };
 
 export default Object.freeze(api);

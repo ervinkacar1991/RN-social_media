@@ -1,6 +1,9 @@
 import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React, { useState } from "react";
 import { Divider } from "react-native-paper";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+const Tab = createBottomTabNavigator();
 
 export const bottomTabIcons = [
   {

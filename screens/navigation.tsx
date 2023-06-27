@@ -5,18 +5,30 @@ import HomeScreen from "./HomeScreen";
 import NewPostScreen from "./NewPostScreen";
 import LoginScreen from "./LoginScreen";
 import SignupScreen from "./SignupScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-const Stack = createStackNavigator();
+type RootStackParamList = {
+  HomeScreen: undefined;
+  NewPostScreen: undefined;
+  LoginScreen: undefined;
+  SignupScreen: undefined;
+};
+type BottomTabParamList = {
+  SignedInStack: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const screenOptions = {
   headerShown: false,
 };
 
-const SignedInStack = () => {
+const SignedInStack: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="LoginScreen"
+        initialRouteName="HomeScreen"
         screenOptions={screenOptions}
       >
         <Stack.Screen name="HomeScreen" component={HomeScreen} />

@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { Divider } from "react-native-paper";
+import { useQuery } from "react-query";
 
 const postFooterIcons = [
   {
