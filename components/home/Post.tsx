@@ -1,4 +1,11 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 import React from "react";
 import { Divider } from "react-native-paper";
 import { useQuery } from "react-query";
@@ -69,17 +76,25 @@ const PostHeader = ({ name, profileImg }) => (
   </View>
 );
 
-const PostImage = ({ post }) => (
-  <View style={{ width: "100%", height: 450 }}>
-    {post.images.map((image) => (
-      <Image
-        key={image.id}
-        source={{ uri: image.image }}
-        style={{ height: "100%", resizeMode: "cover" }}
+const PostImage = ({ post }) => {
+  const renderImage = ({ item }) => (
+    <Image source={{ uri: item.image }} style={styles.image} />
+  );
+
+  return (
+    <View style={{ width: "100%", height: 450 }}>
+      <FlatList
+        data={post.images}
+        renderItem={renderImage}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.imageContainer}
       />
-    ))}
-  </View>
-);
+    </View>
+  );
+};
 
 const PostFooter = () => (
   <View style={{ flexDirection: "row" }}>
@@ -108,23 +123,23 @@ const Likes = ({ likes }) => (
   </View>
 );
 
-const Caption = ({ post }) => (
-  <View style={{ marginTop: 5 }}>
-    <Text style={{ color: "white" }}>
-      <Text style={{ fontWeight: "600" }}>{post.user}</Text>
-      <Text> {post.caption}</Text>
-    </Text>
-  </View>
-);
+// const Caption = ({ post }) => (
+//   <View style={{ marginTop: 5 }}>
+//     <Text style={{ color: "white" }}>
+//       <Text style={{ fontWeight: "600" }}>{post.user}</Text>
+//       <Text> {post.caption}</Text>
+//     </Text>
+//   </View>
+// );
 
-const CommentSection = ({ comments }) => (
-  <View style={{ marginTop: 5 }}>
-    <Text style={{ color: "gray" }}>
-      View {comments > 1 ? "all" : ""} {comments}{" "}
-      {comments > 1 ? "comments" : "comment"}
-    </Text>
-  </View>
-);
+// const CommentSection = ({ comments }) => (
+//   <View style={{ marginTop: 5 }}>
+//     <Text style={{ color: "gray" }}>
+//       View {comments > 1 ? "all" : ""} {comments}{" "}
+//       {comments > 1 ? "comments" : "comment"}
+//     </Text>
+//   </View>
+// );
 
 const Comments = ({ comments }) => (
   <>
@@ -157,6 +172,15 @@ const styles = StyleSheet.create({
   shareICon: {
     transform: [{ rotate: "320deg" }],
     marginTop: -3,
+  },
+  imageContainer: {
+    width: "100%",
+    height: 450,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
 });
 
