@@ -143,11 +143,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginLeft: 6,
     borderWidth: 1.6,
-    borderColor: "#ff8501",
+    borderColor: "#9EC5AB",
   },
   footerIcon: {
-    width: 33,
-    height: 33,
+    width: 30,
+    height: 30,
   },
   leftFooterIconsContainer: {
     flexDirection: "row",

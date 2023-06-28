@@ -6,9 +6,7 @@ import Post from "../components/home/Post";
 import { useQuery } from "react-query";
 import { UserContext } from "../context/UserContext";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"; // Dodata linija
-
 import api from "../services/api";
-import BottomTabs, { bottomTabIcons } from "../components/home/BottomTab";
 
 interface CustomError {
   message: string;
@@ -45,9 +43,8 @@ const HomeScreen = ({ navigation }) => {
           data={data.results.reverse()}
           renderItem={({ item }) => <Post post={item} />}
         />
-        {/* {console.log(data.results[0])} */}
 
-        <BottomTabs icons={bottomTabIcons} />
+        {/* <BottomTabs icons={bottomTabIcons} /> */}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -55,7 +52,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "black",
+    backgroundColor: "#01200F",
     flex: 1,
   },
 });
