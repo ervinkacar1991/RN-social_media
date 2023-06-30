@@ -40,7 +40,7 @@ const Post = ({ post }) => {
       <Divider style={{ marginTop: 10 }} />
 
       <PostHeader
-        name={post.user.name}
+        name={post?.user?.name}
         profileImg={post.user.photo_thumbnail}
       />
       <PostImage post={post} />
@@ -62,16 +62,19 @@ const PostHeader = ({ name, profileImg }) => (
       justifyContent: "space-between",
       margin: 5,
       alignItems: "center",
+      paddingVertical: 4,
     }}
   >
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       <Image source={{ uri: profileImg }} style={styles.story} />
-      <Text style={{ color: "white", marginLeft: 5, fontWeight: "700" }}>
+      <Text style={{ color: "white", marginLeft: 5, fontWeight: "600" }}>
         {name}
       </Text>
     </View>
     <View>
-      <Text style={{ color: "white", fontWeight: "900" }}>...</Text>
+      <Text style={{ color: "white", marginRight: 5, fontWeight: "900" }}>
+        ...
+      </Text>
     </View>
   </View>
 );

@@ -24,11 +24,19 @@ const fetchLikes = async (username, post_id) => {
   return resp.data;
 };
 
+const fetchSearchUsers = async (searchTerm) => {
+  const resp = await instance.get(
+    `/search/users/?search=${searchTerm}&limit=10`
+  );
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
   fetchPosts,
   fetchLikes,
+  fetchSearchUsers,
 };
 
 export default Object.freeze(api);
