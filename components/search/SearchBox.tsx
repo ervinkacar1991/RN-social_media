@@ -2,7 +2,12 @@ import { View, TextInput, StyleSheet } from "react-native";
 import React from "react";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 
-const SearchBox = () => {
+const SearchBox = ({ onSearch }) => {
+  const handleInputChange = (text) => {
+    onSearch(text);
+    console.log(text);
+  };
+
   return (
     <View
       style={{
@@ -10,6 +15,7 @@ const SearchBox = () => {
         alignItems: "center",
         width: "100%",
         position: "relative",
+        marginTop: 10,
       }}
     >
       <Ionic
@@ -27,6 +33,7 @@ const SearchBox = () => {
         placeholder="Search"
         placeholderTextColor="#909090"
         style={styles.searchInput}
+        onChangeText={handleInputChange}
       />
     </View>
   );
@@ -42,7 +49,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     padding: 8,
     paddingLeft: 40,
-    // marginTop: 10,
   },
 });
 
