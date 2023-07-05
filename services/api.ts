@@ -19,12 +19,12 @@ const fetchPosts = async () => {
 //fetch likes
 //{{baseUrl}}/api/v1/feed/:username/posts/:post_id/likes/?cursor=ipsum&limit=82318339
 
-const fetchLikes = async (username, post_id) => {
+const fetchLikes = async (username: string, post_id: string) => {
   const resp = await instance.get(`/feed/${username}/posts/${post_id}/likes/`);
   return resp.data;
 };
 
-const fetchSearchUsers = async (searchTerm) => {
+const fetchSearchUsers = async (searchTerm: string) => {
   const resp = await instance.get(
     `/search/users/?search=${searchTerm}&limit=10`
   );

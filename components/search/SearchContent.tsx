@@ -5,7 +5,7 @@ import SearchPeople from "./searchContentTabs/SearchPeople";
 import SearchUsers from "./searchContentTabs/SearchUsers";
 import SearchPosts from "./searchContentTabs/SearchPosts";
 
-interface CustomError {
+export interface CustomError {
   message: string;
 }
 interface ImageData {
@@ -17,7 +17,7 @@ interface SearchContentProps {
   data: ImageData[];
   isLoading: boolean;
   isError: boolean;
-  error: CustomError | null;
+  error: Error | CustomError;
   activeTab: number;
   setActiveTab: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -41,11 +41,11 @@ const SearchContent = ({
   if (isError) {
     return (
       <View>
-        <Text>Error: {(error as CustomError)?.message}</Text>
+        <Text>Error: {error.message}</Text>
       </View>
     );
   }
-  // console.log(data.bio);
+
   return (
     <View>
       <SearchTabs activeTab={activeTab} setActiveTab={setActiveTab} />

@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import { Divider } from "react-native-paper";
-import { useQuery } from "react-query";
 
 const postFooterIcons = [
   {

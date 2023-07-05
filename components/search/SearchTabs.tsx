@@ -4,8 +4,12 @@ import SearchPeople from "./searchContentTabs/SearchPeople";
 import SearchUsers from "./searchContentTabs/SearchUsers";
 import SearchPosts from "./searchContentTabs/SearchPosts";
 
-const SearchTabs = () => {
-  const [activeTab, setActiveTab] = useState(0);
+interface SearchTabsProps {
+  activeTab: number;
+  setActiveTab: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const SearchTabs = ({ activeTab, setActiveTab }: SearchTabsProps) => {
   const tabs = ["People", "Users", "Posts"];
 
   let renderedComponent: React.ReactNode;
