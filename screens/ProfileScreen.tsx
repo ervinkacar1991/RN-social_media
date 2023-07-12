@@ -1,13 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import ProfileBody from "../components/profileScreen/ProfileBody";
+import { ProfileBody } from "../components/profileScreen/ProfileBody";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"; // Dodata linija
+import ProfileScreenHeader from "../components/profileScreen/ProfileScreenHeader";
 
 const ProfileScreen = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <ProfileBody />
+        <ProfileScreenHeader />
       </SafeAreaView>
     </SafeAreaProvider>
   );

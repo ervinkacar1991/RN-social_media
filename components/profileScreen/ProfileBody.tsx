@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 
-const ProfileBody = () => {
+export const ProfileBody = () => {
   return (
     <View
       style={{
@@ -30,19 +30,19 @@ const ProfileBody = () => {
         </Text>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
+        <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
           300
         </Text>
         <Text style={{ color: "white" }}>Posts</Text>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
+        <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
           300
         </Text>
         <Text style={{ color: "white" }}>Followers</Text>
       </View>
       <View style={{ alignItems: "center" }}>
-        <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>
+        <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
           300
         </Text>
         <Text style={{ color: "white" }}>Following</Text>
@@ -50,5 +50,3 @@ const ProfileBody = () => {
     </View>
   );
 };
-
-export default ProfileBody;
