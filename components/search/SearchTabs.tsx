@@ -58,7 +58,7 @@ const SearchTabs = ({ activeTab, setActiveTab }: SearchTabsProps) => {
 
 const styles = StyleSheet.create({
   tabsContainer: {
-    width: "90%",
+    width: "95%",
     alignSelf: "center",
     flexDirection: "row",
     borderBottomWidth: 1,

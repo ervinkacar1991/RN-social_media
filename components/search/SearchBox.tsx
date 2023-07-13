@@ -25,6 +25,7 @@ const SearchBox = ({ onSearch }) => {
         style={{
           position: "absolute",
           left: 25,
+          top: 19,
           zIndex: 1,
           opacity: 0.7,
         }}
@@ -41,14 +42,15 @@ const SearchBox = ({ onSearch }) => {
 
 const styles = StyleSheet.create({
   searchInput: {
-    width: "90%",
+    width: "95%",
     backgroundColor: "#EBEBEB",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     fontSize: 15,
-    padding: 8,
+    padding: 9,
     paddingLeft: 40,
+    marginTop: 10,
   },
 });
 
