@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { UserContext } from "../context/UserContext";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"; // Dodata linija
 import api from "../services/api";
+import Feather from "react-native-vector-icons/Feather";
 
 interface CustomError {
   message: string;
@@ -19,8 +20,16 @@ const HomeScreen = ({ navigation }) => {
 
   if (isLoading) {
     return (
-      <View>
-        <Text>Loading...</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#01200F",
+        }}
+      >
+        {/* <Text style={{ color: "white" }}>Loading...</Text> */}
+        <Feather name="loader" size={32} color="white" />
       </View>
     );
   }

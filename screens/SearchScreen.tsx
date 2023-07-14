@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#01200F",
     flex: 1,
-    position: "relative",
+    // position: "relative",
   },
 });
 

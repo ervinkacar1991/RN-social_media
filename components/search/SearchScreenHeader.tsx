@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons as Ionic } from "@expo/vector-icons";
@@ -27,24 +27,10 @@ const SearchScreenHeader: React.FC<SearchTabsProps> = ({ initialTab = 0 }) => {
     setSearchTerm(text);
   };
   return (
-    <View
-      style={{
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#01200F",
-        padding: 10,
-      }}
-    >
-      <View
-        style={{
-          width: "100%",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
         <TouchableOpacity>
-          <Ionic name="arrow-back" style={{ fontSize: 30, color: "white" }} />
+          <Ionic name="arrow-back" style={styles.icon} />
         </TouchableOpacity>
         <View
         //   style={{
@@ -57,16 +43,14 @@ const SearchScreenHeader: React.FC<SearchTabsProps> = ({ initialTab = 0 }) => {
               fontSize: 15,
               color: "white",
               fontWeight: "bold",
+              marginRight: 20,
             }}
           >
             Search
           </Text>
         </View>
 
-        <Feather
-          name="more-vertical"
-          style={{ fontSize: 20, color: "white" }}
-        />
+        <Feather name="more-vertical" style={{ color: "#01200F" }} />
       </View>
 
       <SearchBox onSearch={setSearchTerm} />
@@ -82,5 +66,24 @@ const SearchScreenHeader: React.FC<SearchTabsProps> = ({ initialTab = 0 }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#01200F",
+    padding: 10,
+  },
+  headerContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  icon: {
+    fontSize: 30,
+    color: "white",
+  },
+});
 
 export default SearchScreenHeader;
