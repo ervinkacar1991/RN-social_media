@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
 import { ProfileBody } from "./ProfileBody";
+import ProfileButtons from "./ProfileButtons";
 
 const ProfileScreenHeader = () => {
   return (
@@ -44,6 +45,7 @@ const ProfileScreenHeader = () => {
         </View>
       </View>
       <ProfileBody />
+      <ProfileButtons />
     </View>
   );
 };
