@@ -1,6 +1,6 @@
 import { View, StyleSheet, Image, Text } from "react-native";
 import React from "react";
-import SignupForm from "../components/signupScreen/SignupForm";
+import SignupForm from "../components/signupScreen/signUpForm";
 
 const SIGNUP_LOGO =
   "https://cdn2.iconfinder.com/data/icons/call-to-action-1/512/7.Log_in-512.png";

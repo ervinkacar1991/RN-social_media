@@ -17,7 +17,7 @@ const ProfileButtons = () => {
         alignItems: "center",
       }}
     >
-      <TouchableOpacity onPress={handleButtonPress} style={{ width: "42%" }}>
+      <TouchableOpacity onPress={handleButtonPress} style={{ width: "44%" }}>
         <View
           style={{
             width: "100%",
@@ -37,7 +37,7 @@ const ProfileButtons = () => {
       </TouchableOpacity>
       <View
         style={{
-          width: "42%",
+          width: "44%",
           height: 35,
           borderWidth: 1,
           borderColor: "#DEDEDE",

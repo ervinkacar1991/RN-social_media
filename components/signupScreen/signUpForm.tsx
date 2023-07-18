@@ -151,7 +151,6 @@ const SignupForm = ({ navigation }) => {
                 autoCapitalize="none"
                 keyboardType="default"
                 textContentType="none"
-                autoFocus={true}
                 onChangeText={handleChange("bio")}
                 onBlur={handleBlur("bio")}
                 value={values.bio}
@@ -174,7 +173,6 @@ const SignupForm = ({ navigation }) => {
                 autoCapitalize="none"
                 keyboardType="email-address"
                 textContentType="emailAddress"
-                autoFocus={true}
                 onChangeText={handleChange("email")}
                 onBlur={handleBlur("email")}
                 value={values.email}
@@ -199,7 +197,6 @@ const SignupForm = ({ navigation }) => {
                 autoCapitalize="none"
                 keyboardType="phone-pad"
                 textContentType="telephoneNumber"
-                autoFocus={true}
                 onChangeText={handleChange("mobile")}
                 onBlur={handleBlur("mobile")}
                 value={values.mobile}

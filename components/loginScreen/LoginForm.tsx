@@ -45,11 +45,6 @@ const LoginForm = ({ navigation }) => {
       const storedToken = await AsyncStorage.getItem("token");
 
       console.log("Login successful");
-      // console.log(response);
-      //@TODO: asyncstorage, napravi context gde ces da cuvas usera i njegove podatke(username,token..)
-      //token cuvaj loklano u context i u asyncstorage. Sve radnje i funkcije sa userom, radi iz konteksta i odatle
-      //exportaj funkcije koje ces da koristis u komponentama.
-      navigation.replace("HomeScreen");
     } catch (error) {
       console.log("Login failed");
       setError("Login failed. Please try again.");
@@ -136,7 +131,9 @@ const LoginForm = ({ navigation }) => {
             </Pressable>
             <View style={styles.signupContainer}>
               <Text>Don't have an account?</Text>
-              <TouchableOpacity onPress={() => navigation.push("SignupScreen")}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SignupScreen")}
+              >
                 <Text style={{ color: "#6BB0F5" }}> Sign Up</Text>
               </TouchableOpacity>
             </View>
