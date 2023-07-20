@@ -1,7 +1,9 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const UserProfileButtons = () => {
+  const navigation = useNavigation() as any;
   return (
     <View
       style={{
@@ -14,7 +16,9 @@ const UserProfileButtons = () => {
       }}
     >
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={() => {
+          navigation.navigate("EditProfile");
+        }}
         style={{
           width: "100%",
         }}

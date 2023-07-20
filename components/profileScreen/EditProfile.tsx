@@ -11,7 +11,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import { useToast } from "react-native-toast-notifications";
 
-const EditProfile = () => {
+const EditProfile = ({ navigation }) => {
   const toast = useToast();
 
   const handleShowToast = () => {
@@ -21,6 +21,7 @@ const EditProfile = () => {
       animationType: "slide-in",
       textStyle: { fontWeight: "bold" },
     });
+    navigation.goBack();
   };
 
   return (
@@ -41,7 +42,11 @@ const EditProfile = () => {
             padding: 10,
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
             <Ionic name="close-outline" style={{ fontSize: 35 }} />
           </TouchableOpacity>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>Edit Profile</Text>

@@ -17,12 +17,17 @@ type RootStackParamList = {
   LoginScreen: undefined;
   SignupScreen: undefined;
 };
-type BottomTabParamList = {
-  SignedInStack: undefined;
+// type BottomTabParamList = {
+//   SignedInStack: undefined;
+// };
+
+type ProfileStackParamList = {
+  ProfileScreen: undefined;
+  EditProfile: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+// const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const screenOptions = {
   headerShown: false,
@@ -75,8 +80,24 @@ const AuthorizedStack: React.FC = () => {
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Reels" component={ReelsScreen} />
       <Tab.Screen name="Activity" component={ActivityScreen} />
-      <Tab.Screen name="Profile" component={EditProfile} />
+      <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>
+  );
+};
+
+const PStack = createStackNavigator<ProfileStackParamList>();
+
+const ProfileStack: React.FC = () => {
+  return (
+    <PStack.Navigator
+      initialRouteName="ProfileScreen"
+      screenOptions={({ route }) => ({
+        headerShown: false,
+      })}
+    >
+      <PStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <PStack.Screen name="EditProfile" component={EditProfile} />
+    </PStack.Navigator>
   );
 };
 
