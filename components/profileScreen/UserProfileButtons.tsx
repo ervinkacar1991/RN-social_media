@@ -35,7 +35,7 @@ const UserProfileButtons = () => {
               color: "white",
               fontWeight: "bold",
               letterSpacing: 1,
-              opacity: 0.5,
+              opacity: 0.7,
             }}
           >
             Edit Profile

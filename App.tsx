@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthorizedStack, UnauthorizedStack } from "./screens/navigation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ToastProvider } from "react-native-toast-notifications";
 
 const queryClient = new QueryClient();
 
@@ -56,7 +57,9 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <Root />
+        <ToastProvider offsetBottom={80} swipeEnabled={true}>
+          <Root />
+        </ToastProvider>
       </UserProvider>
     </QueryClientProvider>
   );

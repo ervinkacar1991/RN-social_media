@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"; // Dodata linija
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ProfileScreenHeader from "../components/profileScreen/ProfileScreenHeader";
 
 const ProfileScreen = () => {

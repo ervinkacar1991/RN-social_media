@@ -24,9 +24,6 @@ const ProfileScreenHeader = () => {
           justifyContent: "space-between",
         }}
       >
-        {/* <TouchableOpacity>
-          <Ionic name="arrow-back" style={{ fontSize: 30, color: "white" }} />
-        </TouchableOpacity> */}
         <View
           style={{
             flexDirection: "row",

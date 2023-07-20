@@ -9,6 +9,7 @@ import SearchScreen from "./SearchScreen";
 import ReelsScreen from "./ReelsScreen";
 import ActivityScreen from "./ActivityScreen";
 import ProfileScreen from "./ProfileScreen";
+import EditProfile from "../components/profileScreen/EditProfile";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -74,7 +75,7 @@ const AuthorizedStack: React.FC = () => {
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Reels" component={ReelsScreen} />
       <Tab.Screen name="Activity" component={ActivityScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={EditProfile} />
     </Tab.Navigator>
   );
 };
