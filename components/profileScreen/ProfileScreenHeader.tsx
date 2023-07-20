@@ -5,6 +5,7 @@ import { Ionicons as Ionic } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
 import { ProfileBody } from "./ProfileBody";
 import ProfileButtons from "./ProfileButtons";
+import UserProfileButtons from "./UserProfileButtons";
 
 const ProfileScreenHeader = () => {
   return (
@@ -16,36 +17,70 @@ const ProfileScreenHeader = () => {
         padding: 10,
       }}
     >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <TouchableOpacity>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* <TouchableOpacity>
           <Ionic name="arrow-back" style={{ fontSize: 30, color: "white" }} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
             alignItems: "center",
-            width: "92%",
+            // width: "92%",
           }}
         >
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 18,
               color: "white",
               marginLeft: 10,
               fontWeight: "bold",
             }}
           >
-            Ervin Kacar
+            ervin_kacar
           </Text>
           <Feather
-            name="more-vertical"
-            style={{ fontSize: 20, color: "white" }}
+            name="chevron-down"
+            style={{
+              fontSize: 20,
+              color: "white",
+              paddingHorizontal: 5,
+              opacity: 0.5,
+            }}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginRight: 10,
+          }}
+        >
+          <Feather
+            name="plus-square"
+            style={{
+              fontSize: 25,
+              color: "white",
+              paddingHorizontal: 13,
+            }}
+          />
+          <Feather
+            name="menu"
+            style={{
+              fontSize: 25,
+              color: "white",
+            }}
           />
         </View>
       </View>
       <ProfileBody />
-      <ProfileButtons />
+      {/* <ProfileButtons /> */}
+      <UserProfileButtons />
     </View>
   );
 };
