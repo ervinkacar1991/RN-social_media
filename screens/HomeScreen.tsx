@@ -1,13 +1,13 @@
 import { StyleSheet, FlatList, View, Text } from "react-native";
 import React, { useContext } from "react";
 import Header from "../components/home/Header";
-import Stories from "../components/home/Stories";
 import Post from "../components/home/Post";
 import { useQuery } from "react-query";
 import { UserContext } from "../context/UserContext";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"; // Dodata linija
 import api from "../services/api";
 import Feather from "react-native-vector-icons/Feather";
+import Recommended from "../components/home/Recommended";
 
 interface CustomError {
   message: string;
@@ -46,10 +46,11 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <Header navigation={navigation} />
-        <Stories />
+
         {/* {console.log(data.results)} */}
         <FlatList
           data={data.results.reverse()}
+          ListHeaderComponent={<Recommended />}
           renderItem={({ item }) => <Post post={item} />}
         />
 

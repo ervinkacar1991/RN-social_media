@@ -26,22 +26,8 @@ const EditProfile = ({ navigation }) => {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView
-        style={{
-          width: "100%",
-          height: "100%",
-          // backgroundColor: "#01200F",
-          backgroundColor: "white",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: 10,
-          }}
-        >
+      <SafeAreaView style={styles.container}>
+        <View style={styles.iconContainer}>
           <TouchableOpacity
             onPress={() => {
               navigation.goBack();
@@ -89,7 +75,7 @@ const EditProfile = ({ navigation }) => {
             <Text style={{ opacity: 0.5 }}>Username</Text>
             <TextInput
               placeholder="accountname"
-              defaultValue="Ervin Kacar"
+              defaultValue="el_babus"
               style={styles.textInput}
             />
           </View>
@@ -102,12 +88,38 @@ const EditProfile = ({ navigation }) => {
             <TextInput placeholder="Bio" style={styles.textInput} />
           </View>
         </View>
+        <View style={{ padding: 10 }}>
+          <Text
+            style={{
+              marginVertical: 10,
+              padding: 10,
+              color: "#3493D9",
+              borderWidth: 1,
+              borderColor: "#EFEFEF",
+              borderRadius: 5,
+            }}
+          >
+            Personal information setting
+          </Text>
+        </View>
       </SafeAreaView>
     </SafeAreaProvider>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    height: "100%",
+    // backgroundColor: "#01200F",
+    backgroundColor: "white",
+  },
+  iconContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+  },
   textInput: {
     fontSize: 16,
     borderBottomWidth: 1,

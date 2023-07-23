@@ -12,7 +12,7 @@ const signup = async (values) => {
 };
 
 const fetchPosts = async () => {
-  const resp = await instance.get("/feed/posts/");
+  const resp = await instance.get("/feed/public-posts/");
   return resp.data;
 };
 
@@ -21,6 +21,11 @@ const fetchPosts = async () => {
 
 const fetchLikes = async (username: string, post_id: string) => {
   const resp = await instance.get(`/feed/${username}/posts/${post_id}/likes/`);
+  return resp.data;
+};
+
+const fetchSuggestedUsers = async () => {
+  const resp = await instance.get("/search/users/suggestions/");
   return resp.data;
 };
 
@@ -37,6 +42,7 @@ const api = {
   fetchPosts,
   fetchLikes,
   fetchSearchUsers,
+  fetchSuggestedUsers,
 };
 
 export default Object.freeze(api);

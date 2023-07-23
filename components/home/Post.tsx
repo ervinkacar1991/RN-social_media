@@ -34,12 +34,13 @@ const postFooterIcons = [
 ];
 
 const Post = ({ post }) => {
+  console.log(post);
   return (
     <View style={{ marginBottom: 30 }}>
       <Divider style={{ marginTop: 10 }} />
 
       <PostHeader
-        name={post?.user?.name}
+        name={post?.user?.username}
         profileImg={post.user.photo_thumbnail}
       />
       <PostImage post={post} />

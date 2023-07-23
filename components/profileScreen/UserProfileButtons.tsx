@@ -37,8 +37,8 @@ const UserProfileButtons = () => {
           <Text
             style={{
               color: "white",
-              fontWeight: "bold",
-              letterSpacing: 1,
+              fontWeight: "600",
+              letterSpacing: 0.5,
               opacity: 0.7,
             }}
           >
