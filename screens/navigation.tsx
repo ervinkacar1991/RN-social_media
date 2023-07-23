@@ -10,6 +10,7 @@ import ReelsScreen from "./ReelsScreen";
 import ActivityScreen from "./ActivityScreen";
 import ProfileScreen from "./ProfileScreen";
 import EditProfile from "../components/profileScreen/EditProfile";
+import SeeAllRecommendedScreen from "../components/home/SeeAllRecommendedScreen";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -24,6 +25,11 @@ type RootStackParamList = {
 type ProfileStackParamList = {
   ProfileScreen: undefined;
   EditProfile: undefined;
+};
+
+type HomeStackParamList = {
+  HomeScreen: undefined;
+  SeeAllRecommendedScreen: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -51,7 +57,7 @@ const AuthorizedStack: React.FC = () => {
           let iconColor = focused ? "white" : "gray";
           if (route.name === "Home") {
             iconName = focused ? "home-sharp" : "home-outline";
-            size = focused ? size + 8 : size + 2;
+            // size = focused ? size + 5 : size + 2;
           } else if (route.name === "Search") {
             iconName = focused ? "search" : "ios-search-outline";
           } else if (route.name === "Reels") {
@@ -60,9 +66,8 @@ const AuthorizedStack: React.FC = () => {
               : "caret-forward-circle-outline";
           } else if (route.name === "Activity") {
             iconName = focused ? "ios-heart" : "ios-heart-outline";
-            size = focused ? size + 8 : size + 2;
           } else if (route.name === "Profile") {
-            iconName = focused ? "ios-person-circle" : "ios-person-outline";
+            iconName = focused ? "ios-person" : "ios-person-outline";
           }
 
           return (
@@ -76,7 +81,7 @@ const AuthorizedStack: React.FC = () => {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Reels" component={ReelsScreen} />
       <Tab.Screen name="Activity" component={ActivityScreen} />
@@ -98,6 +103,25 @@ const ProfileStack: React.FC = () => {
       <PStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <PStack.Screen name="EditProfile" component={EditProfile} />
     </PStack.Navigator>
+  );
+};
+
+const HStack = createStackNavigator<HomeStackParamList>();
+
+const HomeStack: React.FC = () => {
+  return (
+    <HStack.Navigator
+      initialRouteName="HomeScreen"
+      screenOptions={({ route }) => ({
+        headerShown: false,
+      })}
+    >
+      <HStack.Screen name="HomeScreen" component={HomeScreen} />
+      <HStack.Screen
+        name="SeeAllRecommendedScreen"
+        component={SeeAllRecommendedScreen}
+      />
+    </HStack.Navigator>
   );
 };
 

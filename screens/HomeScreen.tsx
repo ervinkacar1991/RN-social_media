@@ -4,7 +4,7 @@ import Header from "../components/home/Header";
 import Post from "../components/home/Post";
 import { useQuery } from "react-query";
 import { UserContext } from "../context/UserContext";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"; // Dodata linija
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
 import Feather from "react-native-vector-icons/Feather";
 import Recommended from "../components/home/Recommended";

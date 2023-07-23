@@ -4,8 +4,11 @@ import { useQuery } from "react-query";
 import api from "../../services/api";
 import { suggestionsData } from "../../suggestionsData";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { useNavigation } from "@react-navigation/native";
 
 const Recommended = () => {
+  const navigation = useNavigation() as any;
+
   const [isFollow, setIsFollow] = useState(false);
 
   // console.log(suggestionsData);
@@ -101,9 +104,11 @@ const Recommended = () => {
         <Text
           style={{ color: "white", paddingVertical: 10, fontWeight: "bold" }}
         >
-          Recommended
+          Suggested For You
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("SeeAllRecommendedScreen")}
+        >
           <Text
             style={{
               color: "#2493D9",
