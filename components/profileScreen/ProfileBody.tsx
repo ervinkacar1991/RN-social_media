@@ -1,7 +1,7 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 
-export const ProfileBody = () => {
+export const ProfileBody = ({ data }) => {
   return (
     <View
       style={{
@@ -14,7 +14,7 @@ export const ProfileBody = () => {
       <View style={{ alignItems: "center" }}>
         <Image
           source={{
-            uri: "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg",
+            uri: data?.photo,
           }}
           style={{ width: 80, height: 80, borderRadius: 100 }}
           resizeMode="cover"
@@ -26,7 +26,7 @@ export const ProfileBody = () => {
             color: "white",
           }}
         >
-          Ervin Kacar
+          {data?.name}
         </Text>
       </View>
       <View style={{ alignItems: "center" }}>

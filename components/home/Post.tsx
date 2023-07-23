@@ -34,7 +34,7 @@ const postFooterIcons = [
 ];
 
 const Post = ({ post }) => {
-  console.log(post);
+  // console.log(post);
   return (
     <View style={{ marginBottom: 30 }}>
       <Divider style={{ marginTop: 10 }} />

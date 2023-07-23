@@ -3,6 +3,7 @@ import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
+import { suggestionsData } from "../../suggestionsData";
 
 const SeeAllRecommendedScreen = ({ navigation }) => {
   return (

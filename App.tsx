@@ -5,7 +5,6 @@ import { UserContext, UserProvider } from "./context/UserContext";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthorizedStack, UnauthorizedStack } from "./screens/navigation";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ToastProvider } from "react-native-toast-notifications";
 
 const queryClient = new QueryClient();
@@ -30,21 +29,21 @@ const AuthNavigator = () => {
 };
 
 const Root = () => {
-  const { handleSetToken } = useContext(UserContext);
+  // const { handleSetToken } = useContext(UserContext);
 
-  const loadFromStorage = async () => {
-    const token = await AsyncStorage.getItem("token");
+  // const loadFromStorage = async () => {
+  //   const token = await AsyncStorage.getItem("token");
 
-    if (token) {
-      handleSetToken(token);
+  //   if (token) {
+  //     handleSetToken(token);
 
-      //TODO: fetch user i postavi ga na contexr
-    }
-  };
+  //     //TODO: fetch user i postavi ga na contexr
+  //   }
+  // };
 
-  useEffect(() => {
-    loadFromStorage();
-  }, []);
+  // useEffect(() => {
+  //   loadFromStorage();
+  // }, []);
 
   return (
     <NavigationContainer>

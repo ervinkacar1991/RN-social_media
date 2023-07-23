@@ -8,6 +8,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import api from "../services/api";
 import Feather from "react-native-vector-icons/Feather";
 import Recommended from "../components/home/Recommended";
+import colors from "../colorPalette/colors";
 
 interface CustomError {
   message: string;
@@ -62,7 +63,7 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#01200F",
+    backgroundColor: colors.backgroundColor,
     flex: 1,
   },
 });

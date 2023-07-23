@@ -1,4 +1,11 @@
-import { createContext, useCallback, useMemo, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  createContext,
+  useCallback,
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
 
 interface User {
   id: string;
@@ -23,6 +30,7 @@ interface UserProviderProps {
 const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setuser] = useState<User | null>(null);
   const [token, setToken] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleSetToken = useCallback((token: string) => {
     setToken(token);
@@ -30,6 +38,18 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
   const handleSetUser = useCallback((newUser: User | null) => {
     setuser(newUser);
+  }, []);
+
+  const loadFromStorage = async () => {
+    const storedToken = await AsyncStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+    setIsLoading(false); // Postavite isLoading na false kada se završi učitavanje
+  };
+
+  useEffect(() => {
+    loadFromStorage();
   }, []);
 
   const value = useMemo<IUserContext>(() => {

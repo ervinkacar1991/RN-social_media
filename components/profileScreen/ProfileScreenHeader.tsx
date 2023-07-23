@@ -7,7 +7,9 @@ import { ProfileBody } from "./ProfileBody";
 import ProfileButtons from "./ProfileButtons";
 import UserProfileButtons from "./UserProfileButtons";
 
-const ProfileScreenHeader = () => {
+const ProfileScreenHeader = ({ data }) => {
+  console.log(data);
+
   return (
     <View
       style={{
@@ -39,7 +41,7 @@ const ProfileScreenHeader = () => {
               fontWeight: "bold",
             }}
           >
-            ervin_kacar
+            {data?.username}
           </Text>
           <Feather
             name="chevron-down"
@@ -75,7 +77,7 @@ const ProfileScreenHeader = () => {
           />
         </View>
       </View>
-      <ProfileBody />
+      <ProfileBody data={data} />
       {/* <ProfileButtons /> */}
       <UserProfileButtons />
     </View>
