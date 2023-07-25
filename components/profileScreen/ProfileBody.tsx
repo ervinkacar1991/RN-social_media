@@ -25,6 +25,7 @@ export const ProfileBody = ({ data }) => {
           style={{
             paddingVertical: 5,
             fontWeight: "bold",
+            letterSpacing: 0.7,
             color: "white",
           }}
         >
@@ -44,14 +45,14 @@ export const ProfileBody = ({ data }) => {
           <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
             300
           </Text>
-          <Text style={{ color: "white" }}>Followers</Text>
+          <Text style={{ color: "#a9a4a4" }}>Followers</Text>
         </View>
 
         <View style={{ alignItems: "center" }}>
           <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
             300
           </Text>
-          <Text style={{ color: "white" }}>Following</Text>
+          <Text style={{ color: "#a9a4a4" }}>Following</Text>
         </View>
       </View>
     </View>

@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 
 const CustomTabBarIcon = ({ focused, size, routeName }) => {
@@ -19,11 +18,7 @@ const CustomTabBarIcon = ({ focused, size, routeName }) => {
     iconName = focused ? "ios-person" : "ios-person-outline";
   }
 
-  return (
-    <View style={{ marginTop: 5 }}>
-      <Ionic name={iconName} size={size} color={iconColor} />
-    </View>
-  );
+  return <Ionic name={iconName} size={size} color={iconColor} />;
 };
 
 export default CustomTabBarIcon;

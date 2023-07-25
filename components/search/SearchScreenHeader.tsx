@@ -7,6 +7,7 @@ import SearchContent from "./SearchContent";
 import { useQuery } from "react-query";
 import api from "../../services/api";
 import SearchBox from "./SearchBox";
+import colors from "../../colorPalette/colors";
 interface SearchTabsProps {
   initialTab?: number;
 }
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#01200F",
+    backgroundColor: colors.backgroundColor,
     padding: 10,
   },
   headerContainer: {

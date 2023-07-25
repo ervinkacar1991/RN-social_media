@@ -19,9 +19,9 @@ const RenderRecommendedList = ({ item }) => {
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 0.5,
-        borderColor: "#004512",
+        // borderColor: "#DEDEDE",
         borderRadius: 5,
-        backgroundColor: colors.backgroundColor,
+        backgroundColor: "#242424",
       }}
     >
       <TouchableOpacity
@@ -33,7 +33,7 @@ const RenderRecommendedList = ({ item }) => {
       >
         <AntDesign
           name="close"
-          style={{ fontSize: 20, color: "white", opacity: 0.5 }}
+          style={{ fontSize: 20, opacity: 0.5, color: "white" }}
         />
       </TouchableOpacity>
       <Image
@@ -53,7 +53,7 @@ const RenderRecommendedList = ({ item }) => {
       >
         {item.name}
       </Text>
-      <Text style={{ fontSize: 12, color: "white" }}>{item.username}</Text>
+      <Text style={{ fontSize: 12, color: "#a9a4a4" }}>{item.username}</Text>
       <TouchableOpacity
         style={{ width: "80%", paddingVertical: 10 }}
         onPress={() => setIsFollow(!isFollow)}
@@ -62,9 +62,9 @@ const RenderRecommendedList = ({ item }) => {
           style={{
             width: "100%",
             height: 25,
-            backgroundColor: isFollow ? null : colors.buttonBackgroundColor,
-            borderWidth: isFollow ? 1 : 0,
-            borderColor: "#DEDEDE",
+            backgroundColor: isFollow
+              ? "#464545"
+              : colors.buttonBackgroundColor,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 8,

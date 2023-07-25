@@ -1,6 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import colors from "../../colorPalette/colors";
 
 const UserProfileButtons = () => {
   const navigation = useNavigation() as any;
@@ -28,8 +29,7 @@ const UserProfileButtons = () => {
             width: "100%",
             height: 35,
             borderRadius: 5,
-            borderColor: "#DEDEDE",
-            borderWidth: 1,
+            backgroundColor: colors.buttonBackgroundColor,
             justifyContent: "center",
             alignItems: "center",
           }}
@@ -38,8 +38,8 @@ const UserProfileButtons = () => {
             style={{
               color: "white",
               fontWeight: "600",
-              letterSpacing: 0.5,
-              opacity: 0.7,
+              letterSpacing: 0.7,
+              // opacity: 0.7,
             }}
           >
             Edit Profile

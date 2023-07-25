@@ -50,7 +50,7 @@ const AuthorizedStack: React.FC = () => {
         tabBarShowLabel: false,
         headerShown: false,
         tabBarStyle: {
-          height: 100,
+          height: 80,
           backgroundColor: colors.backgroundColor,
           borderTopColor: "black",
           borderTopEndRadius: 20,

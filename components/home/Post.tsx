@@ -34,10 +34,16 @@ const postFooterIcons = [
 ];
 
 const Post = ({ post }) => {
-  // console.log(post);
   return (
     <View style={{ marginBottom: 30 }}>
-      <Divider style={{ marginTop: 10 }} />
+      <Divider
+        style={{
+          marginTop: 10,
+          width: "90%",
+          alignSelf: "center",
+          backgroundColor: "#3d3c3c",
+        }}
+      />
 
       <PostHeader
         name={post?.user?.username}
@@ -161,7 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginLeft: 6,
     borderWidth: 1.6,
-    borderColor: "#9EC5AB",
+    borderColor: "#B8B8FF",
   },
   footerIcon: {
     width: 30,
