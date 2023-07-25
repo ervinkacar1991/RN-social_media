@@ -63,8 +63,8 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.backgroundColor,
     flex: 1,
+    backgroundColor: colors.backgroundColor,
   },
 });
 

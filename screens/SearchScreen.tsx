@@ -4,6 +4,7 @@ import SearchBox from "../components/search/SearchBox";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import SearchContent, { CustomError } from "../components/search/SearchContent";
 import SearchScreenHeader from "../components/search/SearchScreenHeader";
+import colors from "../colorPalette/colors";
 
 const SearchScreen = () => {
   return (
@@ -17,7 +18,7 @@ const SearchScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#01200F",
+    backgroundColor: colors.backgroundColor,
     flex: 1,
     // position: "relative",
   },

@@ -11,6 +11,8 @@ import ActivityScreen from "./ActivityScreen";
 import ProfileScreen from "./ProfileScreen";
 import EditProfile from "../components/profileScreen/EditProfile";
 import SeeAllRecommendedScreen from "../components/home/SeeAllRecommendedScreen";
+import colors from "../colorPalette/colors";
+import CustomTabBarIcon from "../CustomTabBarIcon";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -48,37 +50,20 @@ const AuthorizedStack: React.FC = () => {
         tabBarShowLabel: false,
         headerShown: false,
         tabBarStyle: {
-          height: 65,
-          backgroundColor: "#011502",
+          height: 100,
+          backgroundColor: colors.backgroundColor,
           borderTopColor: "black",
+          borderTopEndRadius: 20,
+          borderTopStartRadius: 20,
+          position: "absolute",
         },
-        tabBarIcon: ({ focused, size }) => {
-          let iconName;
-          let iconColor = focused ? "white" : "gray";
-          if (route.name === "Home") {
-            iconName = focused ? "home-sharp" : "home-outline";
-            // size = focused ? size + 5 : size + 2;
-          } else if (route.name === "Search") {
-            iconName = focused ? "search" : "ios-search-outline";
-          } else if (route.name === "Reels") {
-            iconName = focused
-              ? "caret-forward-circle"
-              : "caret-forward-circle-outline";
-          } else if (route.name === "Activity") {
-            iconName = focused ? "ios-heart" : "ios-heart-outline";
-          } else if (route.name === "Profile") {
-            iconName = focused ? "ios-person" : "ios-person-outline";
-          }
-
-          return (
-            <Ionic
-              name={iconName}
-              size={size}
-              color={iconColor}
-              style={{ marginTop: 5 }}
-            />
-          );
-        },
+        tabBarIcon: ({ focused, size }) => (
+          <CustomTabBarIcon
+            focused={focused}
+            size={size}
+            routeName={route.name}
+          />
+        ),
       })}
     >
       <Tab.Screen name="Home" component={HomeStack} />

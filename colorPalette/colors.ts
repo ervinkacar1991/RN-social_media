@@ -1,6 +1,7 @@
 const colors = {
-  backgroundColor: "#011502",
-  buttonBackgroundColor: "#137547",
+  backgroundColor: "black",
+  buttonBackgroundColor: "#405DE6",
+  bottomTabsBackgroundColor: "#405DE6",
 };
 
 export default colors;

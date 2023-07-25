@@ -17,7 +17,7 @@ const fetchUser = async () => {
 };
 
 const fetchPosts = async () => {
-  const resp = await instance.get("/feed/public-posts/");
+  const resp = await instance.get("/feed/posts/");
   return resp.data;
 };
 
