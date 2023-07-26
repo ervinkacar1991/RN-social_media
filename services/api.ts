@@ -38,6 +38,11 @@ const fetchSearchUsers = async (searchTerm: string) => {
   return resp.data;
 };
 
+const fetchUserEntities = async (username: string) => {
+  const resp = await instance.get(`/entities/${username}/pets/`);
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
@@ -46,6 +51,7 @@ const api = {
   fetchSearchUsers,
   fetchSuggestedUsers,
   fetchUser,
+  fetchUserEntities,
 };
 
 export default Object.freeze(api);

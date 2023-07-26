@@ -1,6 +1,6 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
-import ProfileScreenHeader from "./ProfileScreenHeader";
+import colors from "../../colorPalette/colors";
 
 export const ProfileBody = ({ data }) => {
   return (
@@ -8,17 +8,20 @@ export const ProfileBody = ({ data }) => {
       style={{
         flexDirection: "row",
         alignItems: "center",
-        // justifyContent: "space-around",
-        // paddingVertical: 20,
-        position: "relative",
       }}
     >
       <View style={{ alignItems: "center", left: 15 }}>
         <Image
           source={{
-            uri: data?.photo,
+            uri: data?.user?.photo,
           }}
-          style={{ width: 150, height: 150, borderRadius: 100 }}
+          style={{
+            width: 150,
+            height: 150,
+            borderRadius: 100,
+            borderWidth: 3,
+            borderColor: colors.storyBorderColor,
+          }}
           resizeMode="cover"
         />
         <Text
@@ -29,14 +32,14 @@ export const ProfileBody = ({ data }) => {
             color: "white",
           }}
         >
-          {data?.name}
+          {data?.user?.name}
         </Text>
       </View>
       <View
         style={{
           flexDirection: "row",
           position: "absolute",
-          right: 40,
+          right: 30,
           bottom: 0,
           gap: 45,
         }}

@@ -3,10 +3,12 @@ import React from "react";
 import { Feather } from "react-native-vector-icons";
 import { ProfileBody } from "./ProfileBody";
 import UserProfileButtons from "./UserProfileButtons";
+import UsersPostList from "./UsersPostList";
 
-const ProfileScreenHeader = ({ data }) => {
+const ProfileScreenContent = ({ data }) => {
   return (
     <View>
+      {/* Cover Photo */}
       <Image
         source={{
           uri: data?.cover,
@@ -31,6 +33,9 @@ const ProfileScreenHeader = ({ data }) => {
       <View style={styles.profileBodyContainer}>
         <ProfileBody data={data} />
         <UserProfileButtons />
+        <View>
+          <UsersPostList username={data?.username} />
+        </View>
       </View>
     </View>
   );
@@ -87,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreenHeader;
+export default ProfileScreenContent;

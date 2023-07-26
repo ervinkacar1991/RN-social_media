@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#01200F",
+          backgroundColor: colors.backgroundColor,
         }}
       >
         {/* <Text style={{ color: "white" }}>Loading...</Text> */}
