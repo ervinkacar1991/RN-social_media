@@ -8,11 +8,11 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SearchScreen from "./SearchScreen";
 import ReelsScreen from "./ReelsScreen";
 import ActivityScreen from "./ActivityScreen";
-import ProfileScreen from "./ProfileScreen";
-import EditProfile from "../components/profileScreen/EditProfile";
+import EditProfile from "../components/profile/EditProfile";
 import SeeAllRecommendedScreen from "../components/home/SeeAllRecommendedScreen";
 import colors from "../colorPalette/colors";
 import CustomTabBarIcon from "../CustomTabBarIcon";
+import Profile from "./Profile";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -85,7 +85,7 @@ const ProfileStack: React.FC = () => {
         headerShown: false,
       })}
     >
-      <PStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <PStack.Screen name="ProfileScreen" component={Profile} />
       <PStack.Screen name="EditProfile" component={EditProfile} />
     </PStack.Navigator>
   );

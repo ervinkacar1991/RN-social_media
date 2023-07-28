@@ -12,8 +12,8 @@ const UserProfileButtons = () => {
         flexDirection: "row",
         justifyContent: "space-evenly",
         alignItems: "center",
-        paddingVertical: 5,
-        padding: 10,
+        marginTop: 20,
+        // paddingVertical: 5,
       }}
     >
       <TouchableOpacity

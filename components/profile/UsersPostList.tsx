@@ -1,25 +1,27 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import React from "react";
 import { Entypo } from "@expo/vector-icons";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import { useQuery } from "react-query";
-import api from "../../services/api";
+import { FlatList } from "react-native-gesture-handler";
 import { ActivityIndicator } from "react-native-paper";
 import colors from "../../colorPalette/colors";
 
-const UsersPostList = ({ username }) => {
-  const { isLoading, isError, data, error } = useQuery(
-    ["fetchUserPets", username],
-    () => api.fetchUserEntities(username)
-  );
+const UsersPostList = ({ pets }) => {
+  //   const { isLoading, isError, data, error } = useQuery(
+  //     ["fetchUserPets", username],
+  //     () => api.fetchUserEntities(username)
+  //   );
   //   console.log(data);
 
-  if (isLoading) {
-    return <ActivityIndicator size="large" color="gray" />;
-  }
+  //   if (isLoading) {
+  //     return <ActivityIndicator size="large" color="gray" />;
+  //   }
 
   return (
-    <View>
+    <View
+      style={{
+        backgroundColor: colors.backgroundColor,
+        marginTop: 10,
+      }}
+    >
       <Text style={styles.storyHighlights}>Story Highlights</Text>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity activeOpacity={0.7} style={{ alignItems: "center" }}>
@@ -42,7 +44,7 @@ const UsersPostList = ({ username }) => {
         </TouchableOpacity>
 
         <FlatList
-          data={data}
+          data={pets}
           keyExtractor={(item) => item.id}
           horizontal
           showsHorizontalScrollIndicator={false}

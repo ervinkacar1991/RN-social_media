@@ -10,6 +10,7 @@ import { Ionicons as Ionic } from "@expo/vector-icons";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import React from "react";
 import { useToast } from "react-native-toast-notifications";
+import colors from "../../colorPalette/colors";
 
 const EditProfile = ({ navigation }) => {
   const toast = useToast();
@@ -20,6 +21,7 @@ const EditProfile = ({ navigation }) => {
       type: "success",
       animationType: "slide-in",
       textStyle: { fontWeight: "bold" },
+      style: { backgroundColor: colors.buttonBackgroundColor },
     });
     navigation.goBack();
   };
