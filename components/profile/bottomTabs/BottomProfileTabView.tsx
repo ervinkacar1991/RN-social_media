@@ -5,7 +5,9 @@ import Tags from "./Tags";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 import colors from "../../../colorPalette/colors";
 
-const BottomProfileTabView = () => {
+const BottomProfileTabView = ({ username }) => {
+  const WrappedPosts = () => <Posts username={username} />;
+
   const Tab = createMaterialTopTabNavigator();
   return (
     <Tab.Navigator
@@ -33,7 +35,7 @@ const BottomProfileTabView = () => {
         },
       })}
     >
-      <Tab.Screen name="Posts" component={Posts} />
+      <Tab.Screen name="Posts" component={WrappedPosts} />
       <Tab.Screen name="Tags" component={Tags} />
     </Tab.Navigator>
   );

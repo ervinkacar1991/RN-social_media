@@ -43,6 +43,11 @@ const fetchUserEntities = async (username: string) => {
   return resp.data;
 };
 
+const fetchUserPosts = async (username: string) => {
+  const resp = await instance.get(`/feed/${username}/posts/`);
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
@@ -52,6 +57,7 @@ const api = {
   fetchSuggestedUsers,
   fetchUser,
   fetchUserEntities,
+  fetchUserPosts,
 };
 
 export default Object.freeze(api);

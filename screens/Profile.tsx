@@ -55,7 +55,7 @@ const Profile = () => {
         <ProfileHeader user={userData} />
         <UserProfileButtons />
         <UsersPostList pets={userPets} />
-        <BottomProfileTabView />
+        <BottomProfileTabView username={userData?.username} />
         {/* <Text style={{ color: "white" }}>Profile</Text> */}
       </SafeAreaView>
     </SafeAreaProvider>
