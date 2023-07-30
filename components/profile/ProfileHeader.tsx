@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import colors from "../../colorPalette/colors";
 import ProfileInfo from "./ProfileInfo";
@@ -21,7 +21,9 @@ const ProfileHeader = ({ user }) => {
         </View>
         <View style={styles.menuContainer}>
           <Feather name="plus-square" style={styles.plusIcon} />
-          <Feather name="menu" style={styles.menuIcon} />
+          <TouchableOpacity>
+            <Feather name="menu" style={styles.menuIcon} />
+          </TouchableOpacity>
         </View>
       </View>
       <ProfileInfo />

@@ -18,10 +18,10 @@ const RenderRecommendedList = ({ item }) => {
         margin: 3,
         justifyContent: "center",
         alignItems: "center",
-        borderWidth: 0.5,
-        // borderColor: "#DEDEDE",
+        borderWidth: 0.2,
+        borderColor: "#5d5a5a",
         borderRadius: 5,
-        backgroundColor: "#242424",
+        backgroundColor: colors.recommendedBackgroundColor,
       }}
     >
       <TouchableOpacity
