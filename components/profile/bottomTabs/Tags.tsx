@@ -4,7 +4,7 @@ import React from "react";
 const Tags = () => {
   return (
     <View>
-      <Text>Tags</Text>
+      <Text style={{ color: "white" }}>Tags</Text>
     </View>
   );
 };

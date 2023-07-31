@@ -1,17 +1,21 @@
-import { View, Text, StyleSheet } from "react-native";
+// ProfileScreen.js
+
+import { StyleSheet, View, FlatList } from "react-native";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import colors from "../colorPalette/colors";
-import { useQuery } from "react-query";
-import api from "../services/api";
 import { Feather } from "@expo/vector-icons";
 import { ActivityIndicator } from "react-native-paper";
-import ProfileHeader from "../components/profile/ProfileHeader";
+import { useQuery } from "react-query";
+import api from "../services/api";
+import colors from "../colorPalette/colors";
+import ProfileBottom from "../components/profile/bottomTabs/ProfileBottom";
 import UsersPostList from "../components/profile/UsersPostList";
 import UserProfileButtons from "../components/profile/UserProfileButtons";
-import BottomProfileTabView from "../components/profile/bottomTabs/BottomProfileTabView";
+import ProfileHeader from "../components/profile/ProfileHeader";
 
-const Profile = () => {
+const ProfileScreen = () => {
+  const tabs = ["Posts"];
+
   const fetchUserData = () => api.fetchUser();
   const fetchUserPets = (username) => api.fetchUserEntities(username);
 
@@ -41,29 +45,36 @@ const Profile = () => {
     );
   }
 
-  if (isUserError || isPetsError) {
-    return (
-      <View style={styles.errorContainer}>
-        <Feather name="alert-triangle" size={32} color="white" />
-      </View>
-    );
-  }
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <ProfileHeader user={userData} />
-        <UserProfileButtons />
-        <UsersPostList pets={userPets} />
-        <BottomProfileTabView username={userData?.username} />
+        <FlatList
+          ListHeaderComponent={
+            <>
+              <ProfileHeader user={userData} />
+              <UserProfileButtons />
+              <UsersPostList pets={userPets} />
+            </>
+          }
+          data={tabs}
+          renderItem={({ index }) => (
+            <ProfileBottom
+              key={index}
+              username={userData?.username}
+              initialTab={index}
+            />
+          )}
+          keyExtractor={(item) => item}
+        />
       </SafeAreaView>
     </SafeAreaProvider>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundColor,
+    backgroundColor: "black",
   },
   loaderContainer: {
     flex: 1,
@@ -71,12 +82,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.backgroundColor,
   },
-  errorContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: colors.backgroundColor,
-  },
 });
 
-export default Profile;
+export default ProfileScreen;

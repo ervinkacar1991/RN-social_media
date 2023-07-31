@@ -56,13 +56,16 @@ const Posts = ({ username }) => {
         keyExtractor={(item) => item.id}
         numColumns={numColumns}
       />
+      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
+      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
+      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: colors.backgroundColor,
   },
 

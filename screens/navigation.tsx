@@ -13,6 +13,7 @@ import SeeAllRecommendedScreen from "../components/home/SeeAllRecommendedScreen"
 import colors from "../colorPalette/colors";
 import CustomTabBarIcon from "../CustomTabBarIcon";
 import Profile from "./Profile";
+import ProfileScreen from "./ProfileScreen";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -85,7 +86,7 @@ const ProfileStack: React.FC = () => {
         headerShown: false,
       })}
     >
-      <PStack.Screen name="ProfileScreen" component={Profile} />
+      <PStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <PStack.Screen name="EditProfile" component={EditProfile} />
     </PStack.Navigator>
   );
