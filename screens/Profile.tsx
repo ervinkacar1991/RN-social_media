@@ -56,7 +56,6 @@ const Profile = () => {
         <UserProfileButtons />
         <UsersPostList pets={userPets} />
         <BottomProfileTabView username={userData?.username} />
-        {/* <Text style={{ color: "white" }}>Profile</Text> */}
       </SafeAreaView>
     </SafeAreaProvider>
   );

@@ -41,7 +41,7 @@ const Post = ({ post }) => {
           marginTop: 10,
           width: "90%",
           alignSelf: "center",
-          backgroundColor: "#3d3c3c",
+          backgroundColor: "#2e2e2e",
         }}
       />
 
