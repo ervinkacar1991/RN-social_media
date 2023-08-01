@@ -12,6 +12,7 @@ import ProfileBottom from "../components/profile/bottomTabs/ProfileBottom";
 import UsersPostList from "../components/profile/UsersPostList";
 import UserProfileButtons from "../components/profile/UserProfileButtons";
 import ProfileHeader from "../components/profile/ProfileHeader";
+import BottomProfileTabView from "../components/profile/bottomTabs/BottomProfileTabView";
 
 const ProfileScreen = () => {
   const tabs = ["Posts"];
@@ -57,12 +58,14 @@ const ProfileScreen = () => {
             </>
           }
           data={tabs}
+          // StickyHeaderComponent={() => ()}
           renderItem={({ index }) => (
             <ProfileBottom
               key={index}
               username={userData?.username}
               initialTab={index}
             />
+            // <BottomProfileTabView key={index} username={userData?.username} />
           )}
           keyExtractor={(item) => item}
         />

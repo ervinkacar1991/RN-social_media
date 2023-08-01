@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   activeTabButton: {
     borderBottomColor: colors.buttonBackgroundColor,
-    borderBottomWidth: 2,
+    borderBottomWidth: 3,
     flex: 1,
   },
   iconContainer: {

@@ -1,7 +1,9 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ user }) => {
+  const navigation = useNavigation() as any;
   return (
     <View
       style={{
@@ -13,16 +15,24 @@ const ProfileInfo = () => {
       }}
     >
       <View style={{ alignItems: "center" }}>
-        <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
-          300
-        </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("UserProfileInfo")}
+        >
+          <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
+            300
+          </Text>
+        </TouchableOpacity>
         <Text style={{ color: "#a9a4a4" }}>Followers</Text>
       </View>
 
       <View style={{ alignItems: "center" }}>
-        <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
-          300
-        </Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("UserProfileInfo")}
+        >
+          <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
+            300
+          </Text>
+        </TouchableOpacity>
         <Text style={{ color: "#a9a4a4" }}>Following</Text>
       </View>
     </View>

@@ -48,6 +48,16 @@ const fetchUserPosts = async (username: string) => {
   return resp.data;
 };
 
+const fetchUserFollowers = async (username: string) => {
+  const resp = await instance.get(`/relations/${username}/followers/`);
+  return resp.data;
+};
+
+const fetchUserFollowing = async (username: string) => {
+  const resp = await instance.get(`/relations/${username}/following/`);
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
@@ -58,6 +68,8 @@ const api = {
   fetchUser,
   fetchUserEntities,
   fetchUserPosts,
+  fetchUserFollowers,
+  fetchUserFollowing,
 };
 
 export default Object.freeze(api);
