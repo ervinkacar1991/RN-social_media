@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { Feather, Ionicons as Ionic } from "@expo/vector-icons";
 
-const UserProfileInfoHeader = ({ navigation }) => {
+const UserProfileInfoHeader = ({ navigation, user }) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity
@@ -15,13 +15,13 @@ const UserProfileInfoHeader = ({ navigation }) => {
       <View>
         <Text
           style={{
-            fontSize: 15,
+            fontSize: 16,
             color: "white",
             fontWeight: "bold",
             marginRight: 20,
           }}
         >
-          Search
+          {user}
         </Text>
       </View>
 

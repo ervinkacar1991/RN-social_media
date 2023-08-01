@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const ListOfFollowing = () => {
+const ListOfFollowing = ({ user }) => {
   return (
     <View>
       <Text>ListOfFollowing</Text>

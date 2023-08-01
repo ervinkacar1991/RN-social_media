@@ -5,7 +5,10 @@ import colors from "../../../colorPalette/colors";
 import ListOfFollowers from "./ListOfFollowers";
 import ListOfFollowing from "./ListOfFollowing";
 
-const UserProfileInfoTabView = () => {
+const UserProfileInfoTabView = ({ user }) => {
+  const WrappedFollowers = () => <ListOfFollowers user={user} />;
+  const WrappedFollowing = () => <ListOfFollowing user={user} />;
+
   const Tab = createMaterialTopTabNavigator();
 
   const capitalizeFirstLetter = (str: string) => {
@@ -39,12 +42,18 @@ const UserProfileInfoTabView = () => {
         },
       })}
     >
-      <Tab.Screen name="Followers" component={ListOfFollowers} />
-      <Tab.Screen name="Following" component={ListOfFollowing} />
+      <Tab.Screen
+        name="Followers"
+        component={WrappedFollowers}
+        options={{ lazy: true }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="Following"
+        component={WrappedFollowing}
+        options={{ lazy: true }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default UserProfileInfoTabView;

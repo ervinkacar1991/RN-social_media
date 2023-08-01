@@ -5,12 +5,14 @@ import colors from "../../../colorPalette/colors";
 import UserProfileInfoTabView from "../../../components/profile/userProfileInfo/UserProfileInfoTabView";
 import UserProfileInfoHeader from "./UserProfileInfoHeader";
 
-const UserProfileInfoScreen = ({ navigation }) => {
+const UserProfileInfoScreen = ({ navigation, route }) => {
+  const { user } = route.params;
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <UserProfileInfoHeader navigation={navigation} />
-        <UserProfileInfoTabView />
+        <UserProfileInfoHeader navigation={navigation} user={user} />
+        <UserProfileInfoTabView user={user} />
       </SafeAreaView>
     </SafeAreaProvider>
   );
