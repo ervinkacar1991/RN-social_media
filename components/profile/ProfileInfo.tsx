@@ -27,7 +27,7 @@ const ProfileInfo = ({ user }) => {
 
       <View style={{ alignItems: "center" }}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("UserProfileInfo")}
+          onPress={() => navigation.navigate("UserProfileInfo", { user })}
         >
           <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
             300
