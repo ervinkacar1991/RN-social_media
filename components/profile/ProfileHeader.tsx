@@ -13,7 +13,18 @@ const DefaultCovereUri =
 const ProfileHeader = ({ user }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleLogout = () => {};
+  const handleLogout = async () => {};
+
+  // const { isLoading, data, isError } = useQuery("logout", api.logout);
+
+  // const handleLogout = async () => {
+  //   try {
+  //     await api.logout();
+  //     setIsModalVisible(false);
+  //   } catch (error) {
+  //     console.error("Greška pri odjavljivanju:", error);
+  //   }
+  // };
 
   return (
     <View>
@@ -39,15 +50,19 @@ const ProfileHeader = ({ user }) => {
           isVisible={isModalVisible}
           onBackdropPress={() => setIsModalVisible(false)}
           style={styles.modal}
-          animationIn="slideInUp" // Customize the animation here
-          animationOut="slideOutDown" // Customize the animation here
+          animationIn="slideInRight"
+          animationOut="slideOutRight"
+          animationInTiming={500}
+          animationOutTiming={500}
+          backdropTransitionInTiming={500}
+          backdropTransitionOutTiming={500}
         >
           <View style={styles.modalContent}>
             <TouchableOpacity
               style={styles.logoutButton}
               onPress={() => handleLogout()}
             >
-              <Text style={styles.logoutButtonText}>Logout</Text>
+              <Feather name="log-out" size={20} color="white" />
             </TouchableOpacity>
           </View>
         </Modal>
@@ -140,25 +155,27 @@ const styles = StyleSheet.create({
     color: "white",
   },
   modal: {
-    justifyContent: "flex-end",
-    margin: 0,
+    justifyContent: "flex-start",
+    marginTop: 85,
+    marginLeft: 310,
   },
   modalContent: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
     backgroundColor: colors.storyBorderColor,
     padding: 16,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   logoutButton: {
+    width: 40,
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: colors.buttonBackgroundColor,
-    padding: 15,
-    borderRadius: 30,
-  },
-  logoutButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
-    textAlign: "center",
+    padding: 10,
+    borderRadius: 50,
   },
 });
 

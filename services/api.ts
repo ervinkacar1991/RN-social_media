@@ -11,6 +11,11 @@ const signup = async (values) => {
   return resp.data;
 };
 
+const logout = async () => {
+  const resp = await instance.post("/accounts/logout/");
+  return resp.data;
+};
+
 const fetchUser = async () => {
   const resp = await instance.get("/accounts/me/");
   return resp.data;
@@ -61,6 +66,7 @@ const fetchUserFollowing = async (username: string) => {
 const api = {
   login,
   signup,
+  logout,
   fetchPosts,
   fetchLikes,
   fetchSearchUsers,

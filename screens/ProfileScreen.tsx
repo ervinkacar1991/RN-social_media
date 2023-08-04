@@ -65,7 +65,6 @@ const ProfileScreen = () => {
               username={userData?.username}
               initialTab={index}
             />
-            // <BottomProfileTabView key={index} username={userData?.username} />
           )}
           keyExtractor={(item) => item}
         />

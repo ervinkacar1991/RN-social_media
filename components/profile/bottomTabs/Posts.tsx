@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import { useQuery } from "react-query";
@@ -12,18 +13,28 @@ import api from "../../../services/api";
 import colors from "../../../colorPalette/colors";
 import { ActivityIndicator } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get("window").width;
 const numColumns = 3;
 const imageSize = (windowWidth - 16 * (numColumns - 3)) / numColumns;
 
-const renderPostItem = ({ item }) => (
-  <View style={[styles.postContainer, { width: imageSize, height: imageSize }]}>
-    <Image style={styles.postImage} source={{ uri: item.images[0].image }} />
-  </View>
-);
-
 const Posts = ({ username }) => {
+  const navigation = useNavigation();
+  const renderPostItem = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => navigation.navigate("PostsDetails", { posts: postsData })}
+    >
+      <View
+        style={[styles.postContainer, { width: imageSize, height: imageSize }]}
+      >
+        <Image
+          style={styles.postImage}
+          source={{ uri: item.images[0].image }}
+        />
+      </View>
+    </TouchableOpacity>
+  );
   const {
     isLoading: isPostsLoading,
     data: postsData,
