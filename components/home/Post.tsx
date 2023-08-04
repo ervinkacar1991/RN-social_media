@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Divider } from "react-native-paper";
+import colors from "../../colorPalette/colors";
 
 const postFooterIcons = [
   {
@@ -41,7 +42,7 @@ const Post = ({ post }) => {
           marginTop: 10,
           width: "90%",
           alignSelf: "center",
-          backgroundColor: "#2e2e2e",
+          backgroundColor: colors.dividerBackgroundColor,
         }}
       />
 
@@ -131,15 +132,6 @@ const Likes = ({ likes }) => (
     </Text>
   </View>
 );
-
-// const Caption = ({ post }) => (
-//   <View style={{ marginTop: 5 }}>
-//     <Text style={{ color: "white" }}>
-//       <Text style={{ fontWeight: "600" }}>{post.user}</Text>
-//       <Text> {post.caption}</Text>
-//     </Text>
-//   </View>
-// );
 
 // const CommentSection = ({ comments }) => (
 //   <View style={{ marginTop: 5 }}>

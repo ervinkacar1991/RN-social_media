@@ -53,7 +53,9 @@ const RenderRecommendedList = ({ item }) => {
       >
         {item.name}
       </Text>
-      <Text style={{ fontSize: 12, color: "#a9a4a4" }}>{item.username}</Text>
+      <Text style={{ fontSize: 12, color: colors.secondaryTextColor }}>
+        {item.username}
+      </Text>
       <TouchableOpacity
         style={{ width: "80%", paddingVertical: 10 }}
         onPress={() => setIsFollow(!isFollow)}

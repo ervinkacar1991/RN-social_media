@@ -31,7 +31,7 @@ type ProfileStackParamList = {
   ProfileScreen: undefined;
   EditProfile: undefined;
   UserProfileInfo: undefined;
-  PostsDetails: undefined;
+  UserPostsDetails: undefined;
 };
 
 type HomeStackParamList = {
@@ -93,7 +93,7 @@ const ProfileStack: React.FC = () => {
       <PStack.Screen name="ProfileScreen" component={ProfileScreen} />
       <PStack.Screen name="EditProfile" component={EditProfile} />
       <PStack.Screen name="UserProfileInfo" component={UserProfileInfoScreen} />
-      <PStack.Screen name="PostsDetails" component={UserPostsDetails} />
+      <PStack.Screen name="UserPostsDetails" component={UserPostsDetails} />
     </PStack.Navigator>
   );
 };

@@ -20,10 +20,12 @@ const numColumns = 3;
 const imageSize = (windowWidth - 16 * (numColumns - 3)) / numColumns;
 
 const Posts = ({ username }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation() as any;
   const renderPostItem = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate("PostsDetails", { posts: postsData })}
+      onPress={() =>
+        navigation.navigate("UserPostsDetails", { posts: postsData })
+      }
     >
       <View
         style={[styles.postContainer, { width: imageSize, height: imageSize }]}
