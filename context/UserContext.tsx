@@ -19,6 +19,7 @@ interface IUserContext {
   handleSetToken: (token: string) => void;
   token: string;
   handleSetUser: (user: any) => void;
+  handleLogout: () => void;
 }
 
 const UserContext = createContext<IUserContext | null>(null);
@@ -36,6 +37,16 @@ const UserProvider = ({ children }: UserProviderProps) => {
     setToken(token);
   }, []);
 
+  const handleLogout = useCallback(async () => {
+    await AsyncStorage.removeItem("token");
+    handleSetToken(null);
+  }, []);
+
+  // const handleDeleteToken = useCallback((token: string) => {
+  //   setToken(null);
+  //   AsyncStorage.removeItem("token");
+  // }, []);
+
   const handleSetUser = useCallback((newUser: User | null) => {
     setuser(newUser);
   }, []);
@@ -45,7 +56,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
     if (storedToken) {
       setToken(storedToken);
     }
-    setIsLoading(false); // Postavite isLoading na false kada se završi učitavanje
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -58,6 +69,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
       handleSetToken,
       token,
       handleSetUser,
+      handleLogout,
     };
   }, [user, token, handleSetToken, handleSetUser]);
 

@@ -42,8 +42,6 @@ const LoginForm = ({ navigation }) => {
       handleSetToken(token);
       handleSetUser(user);
 
-      const storedToken = await AsyncStorage.getItem("token");
-
       console.log("Login successful");
     } catch (error) {
       console.log("Login failed");

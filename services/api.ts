@@ -1,4 +1,5 @@
 import { LoginValues } from "../components/loginScreen/LoginForm";
+import { User } from "../models/User";
 import instance from "./config";
 
 const login = async (values: LoginValues) => {
@@ -16,8 +17,8 @@ const logout = async () => {
   return resp.data;
 };
 
-const fetchUser = async () => {
-  const resp = await instance.get("/accounts/me/");
+const fetchUser = async (): Promise<User> => {
+  const resp = await instance.get<User>("/accounts/me/");
   return resp.data;
 };
 

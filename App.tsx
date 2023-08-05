@@ -9,10 +9,9 @@ import { ToastProvider } from "react-native-toast-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const queryClient = new QueryClient();
-
+const Stack = createNativeStackNavigator();
 const AuthNavigator = () => {
   const { token } = useContext(UserContext);
-  const Stack = createNativeStackNavigator();
 
   return (
     <Stack.Navigator
@@ -39,6 +38,8 @@ const Root = () => {
       handleSetToken(token);
 
       //TODO: fetch user i postavi ga na contexr
+    } else {
+      handleSetToken(null);
     }
   };
 

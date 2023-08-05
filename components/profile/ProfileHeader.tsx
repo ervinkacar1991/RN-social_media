@@ -1,30 +1,28 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import colors from "../../colorPalette/colors";
 import ProfileInfo from "./ProfileInfo";
 import { Feather } from "@expo/vector-icons";
 import { useQuery } from "react-query";
 import api from "../../services/api";
-import Modal from "react-native-modal";
+// import Modal from "react-native-modal";
+import { UserContext } from "../../context/UserContext";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
 
 const ProfileHeader = ({ user }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const handleLogout = async () => {};
+  const { handleSetToken, handleLogout } = useContext(UserContext);
 
   // const { isLoading, data, isError } = useQuery("logout", api.logout);
 
-  // const handleLogout = async () => {
-  //   try {
-  //     await api.logout();
-  //     setIsModalVisible(false);
-  //   } catch (error) {
-  //     console.error("Greška pri odjavljivanju:", error);
-  //   }
-  // };
+  // const onLogout = async () => {};
+
+  const onLogout = () => {
+    handleLogout();
+    setIsModalVisible(false);
+  };
 
   return (
     <View>
@@ -42,11 +40,11 @@ const ProfileHeader = ({ user }) => {
         </View>
         <View style={styles.menuContainer}>
           <Feather name="plus-square" style={styles.plusIcon} />
-          <TouchableOpacity onPress={() => setIsModalVisible(true)}>
-            <Feather name="menu" style={styles.menuIcon} />
+          <TouchableOpacity onPress={onLogout}>
+            <Feather name="log-out" style={styles.menuIcon} />
           </TouchableOpacity>
         </View>
-        <Modal
+        {/* <Modal
           isVisible={isModalVisible}
           onBackdropPress={() => setIsModalVisible(false)}
           style={styles.modal}
@@ -58,14 +56,11 @@ const ProfileHeader = ({ user }) => {
           backdropTransitionOutTiming={500}
         >
           <View style={styles.modalContent}>
-            <TouchableOpacity
-              style={styles.logoutButton}
-              onPress={() => handleLogout()}
-            >
+            <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
               <Feather name="log-out" size={20} color="white" />
             </TouchableOpacity>
           </View>
-        </Modal>
+        </Modal> */}
       </View>
       <ProfileInfo user={user?.username} />
 
