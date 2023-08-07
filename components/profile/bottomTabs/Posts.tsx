@@ -24,7 +24,10 @@ const Posts = ({ username }) => {
   const renderPostItem = ({ item }) => (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("UserPostsDetails", { posts: postsData })
+        navigation.navigate("UserPostsDetails", {
+          posts: postsData,
+          postId: item.id,
+        })
       }
     >
       <View
@@ -44,6 +47,8 @@ const Posts = ({ username }) => {
   } = useQuery(["fetchUserPosts", username], () =>
     api.fetchUserPosts(username)
   );
+
+  // console.log(postsData.results.map((item) => item.id));
 
   if (isPostsLoading) {
     return (
@@ -69,6 +74,10 @@ const Posts = ({ username }) => {
         keyExtractor={(item) => item.id}
         numColumns={numColumns}
       />
+      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
+      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
+      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
+      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
       <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
       <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
       <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>

@@ -58,7 +58,6 @@ const ProfileScreen = () => {
             </>
           }
           data={tabs}
-          // StickyHeaderComponent={() => ()}
           renderItem={({ index }) => (
             <ProfileBottom
               key={index}
@@ -67,6 +66,7 @@ const ProfileScreen = () => {
             />
           )}
           keyExtractor={(item) => item}
+          // stickyHeaderIndices={[1]}
         />
       </SafeAreaView>
     </SafeAreaProvider>

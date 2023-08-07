@@ -17,8 +17,6 @@ const ProfileHeader = ({ user }) => {
 
   // const { isLoading, data, isError } = useQuery("logout", api.logout);
 
-  // const onLogout = async () => {};
-
   const onLogout = () => {
     handleLogout();
     setIsModalVisible(false);
