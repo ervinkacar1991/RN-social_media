@@ -12,20 +12,20 @@ const UserPostsDetails = ({ navigation, route }) => {
 
   const flatlistRef = useRef(null);
 
-  useEffect(() => {
-    const index = posts.results.findIndex((item) => item.id === postId);
+  // useEffect(() => {
+  const index = posts.results.findIndex((item) => item.id === postId);
 
-    setTimeout(() => {
-      flatlistRef?.current?.scrollToIndex({ animated: true, index: index });
-    });
-  }, [1000]);
+  //   setTimeout(() => {
+  //     flatlistRef?.current?.scrollToIndex({ animated: true, index: index });
+  //   });
+  // }, [1000]);
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <UserPostsDetailsHeader username={username} navigation={navigation} />
         <FlatList
-          ref={flatlistRef}
+          // ref={flatlistRef}
           data={posts.results}
           renderItem={({ item }) => <UserPostsDetailsBody post={item} />}
           getItemLayout={(data, index) => ({
@@ -33,6 +33,7 @@ const UserPostsDetails = ({ navigation, route }) => {
             offset: 620 * index,
             index,
           })}
+          initialScrollIndex={index}
         />
       </SafeAreaView>
     </SafeAreaProvider>
