@@ -62,7 +62,7 @@ const ProfileScreen = () => {
             <ProfileBottom
               key={index}
               username={userData?.username}
-              initialTab={index}
+              // initialTab={index}
             />
           )}
           keyExtractor={(item) => item}

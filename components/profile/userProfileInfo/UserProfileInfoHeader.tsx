@@ -10,7 +10,7 @@ const UserProfileInfoHeader = ({ navigation, user }) => {
           navigation.goBack();
         }}
       >
-        <Ionic name="arrow-back" style={styles.icon} />
+        <Ionic name="md-chevron-back" style={styles.icon} />
       </TouchableOpacity>
       <View>
         <Text

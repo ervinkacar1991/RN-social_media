@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../colorPalette/colors";
 import UserPostsDetailsHeader from "./UserPostsDetailsHeader";
@@ -7,18 +7,9 @@ import UserPostsDetailsBody from "./UserPostsDetailsBody";
 
 const UserPostsDetails = ({ navigation, route }) => {
   const { posts, postId } = route.params;
-  // console.log(postId);
   const username = posts.results[0].user.username;
 
-  const flatlistRef = useRef(null);
-
-  // useEffect(() => {
   const index = posts.results.findIndex((item) => item.id === postId);
-
-  //   setTimeout(() => {
-  //     flatlistRef?.current?.scrollToIndex({ animated: true, index: index });
-  //   });
-  // }, [1000]);
 
   return (
     <SafeAreaProvider>

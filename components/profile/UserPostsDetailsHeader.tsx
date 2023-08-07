@@ -10,7 +10,7 @@ const UserPostsDetailsHeader = ({ username, navigation }) => {
   return (
     <View style={styles.headerContainer}>
       <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Ionic name="arrow-back" style={styles.icon} />
+        <Ionic name="md-chevron-back" style={styles.icon} />
       </TouchableOpacity>
       <View style={styles.infoContainer}>
         <Text style={styles.username}>{capitalizeUsername}</Text>

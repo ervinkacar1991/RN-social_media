@@ -1,36 +1,65 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Modal,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import colors from "../../colorPalette/colors";
 import ProfileInfo from "./ProfileInfo";
 import { Feather } from "@expo/vector-icons";
 import { useQuery } from "react-query";
 import api from "../../services/api";
-// import Modal from "react-native-modal";
 import { UserContext } from "../../context/UserContext";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
 
 const ProfileHeader = ({ user }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const { handleSetToken, handleLogout } = useContext(UserContext);
-
-  // const { isLoading, data, isError } = useQuery("logout", api.logout);
+  const [modalImageUri, setModalImageUri] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
 
   const onLogout = () => {
     handleLogout();
-    setIsModalVisible(false);
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+  const onMenuItemPress = (menuItem) => {
+    // Logika za menu iteme
+    console.log("Selected menu item:", menuItem);
+    // You can close the dropdown here if needed
+    toggleDropdown();
+  };
+  const onBackgroundPress = () => {
+    toggleDropdown();
+  };
+
+  const onProfileImagePress = (photoUri) => {
+    setModalImageUri(photoUri);
+    toggleModal();
   };
 
   return (
     <View>
-      <Image
-        source={{
-          uri: user?.cover ? user?.cover : DefaultCovereUri,
-        }}
-        style={styles.coverPhoto}
-        resizeMode="cover"
-      />
+      <TouchableOpacity>
+        <Image
+          source={{
+            uri: user?.cover ? user?.cover : DefaultCovereUri,
+          }}
+          style={styles.coverPhoto}
+          resizeMode="cover"
+        />
+      </TouchableOpacity>
       <View style={styles.topIcons}>
         <View style={styles.usernameContainer}>
           <Text style={styles.username}>{user?.username}</Text>
@@ -41,35 +70,55 @@ const ProfileHeader = ({ user }) => {
           <TouchableOpacity onPress={onLogout}>
             <Feather name="log-out" style={styles.menuIcon} />
           </TouchableOpacity>
+          <TouchableOpacity onPress={toggleDropdown}>
+            <Feather name="more-vertical" style={styles.menuIcon} />
+          </TouchableOpacity>
         </View>
-        {/* <Modal
-          isVisible={isModalVisible}
-          onBackdropPress={() => setIsModalVisible(false)}
-          style={styles.modal}
-          animationIn="slideInRight"
-          animationOut="slideOutRight"
-          animationInTiming={500}
-          animationOutTiming={500}
-          backdropTransitionInTiming={500}
-          backdropTransitionOutTiming={500}
+        <Modal
+          visible={isDropdownVisible}
+          transparent={true}
+          animationType="fade"
+          onRequestClose={toggleDropdown}
         >
-          <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-              <Feather name="log-out" size={20} color="white" />
-            </TouchableOpacity>
-          </View>
-        </Modal> */}
+          <TouchableWithoutFeedback onPress={onBackgroundPress}>
+            <View style={styles.modalBackground}>
+              <View style={styles.dropdownContainer}>
+                <TouchableOpacity
+                  style={styles.dropdownItem}
+                  onPress={() => onMenuItemPress("Change Cover")}
+                >
+                  <Text style={styles.dropdownText}>Change Cover</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.dropdownItem}
+                  onPress={() => onMenuItemPress("Change Profile Photo")}
+                >
+                  <Text style={styles.dropdownText}>Change Profile Photo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.dropdownItem}
+                  onPress={() => onMenuItemPress("Share")}
+                >
+                  <Text style={styles.dropdownText}>Share</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
       </View>
+
       <ProfileInfo user={user?.username} />
 
       <View style={styles.profileInfoContainer}>
-        <Image
-          source={{
-            uri: user?.photo,
-          }}
-          style={styles.profilePhoto}
-          resizeMode="cover"
-        />
+        <TouchableOpacity onPress={() => onProfileImagePress(user?.photo)}>
+          <Image
+            source={{
+              uri: user?.photo,
+            }}
+            style={styles.profilePhoto}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
 
         <Text
           style={{
@@ -82,6 +131,25 @@ const ProfileHeader = ({ user }) => {
           {user?.name}
         </Text>
       </View>
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        onRequestClose={toggleModal}
+        animationType="slide"
+      >
+        <View style={styles.modalContainer}>
+          {/* Prikazivanje slike u modalu */}
+          <TouchableOpacity onPress={toggleModal}>
+            <Image
+              source={{
+                uri: modalImageUri,
+              }}
+              style={styles.modalImage}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -93,6 +161,22 @@ const styles = StyleSheet.create({
   coverPhoto: {
     height: 200,
     width: "100%",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+  },
+
+  modalImage: {
+    width: 350,
+    height: 350,
+    borderRadius: 175,
+    marginBottom: 200,
+    borderColor: colors.storyBorderColor,
+    borderWidth: 2,
+    aspectRatio: 1,
   },
   profileInfoContainer: {
     position: "absolute",
@@ -169,6 +253,32 @@ const styles = StyleSheet.create({
     backgroundColor: colors.buttonBackgroundColor,
     padding: 10,
     borderRadius: 50,
+  },
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    // justifyContent: "center",
+    alignItems: "flex-end",
+    paddingHorizontal: 15,
+    paddingVertical: 50,
+  },
+
+  dropdownContainer: {
+    marginTop: 30,
+    marginRight: 10,
+    alignSelf: "flex-end",
+    backgroundColor: "white",
+    borderRadius: 5,
+    elevation: 5,
+    paddingHorizontal: 10,
+  },
+  dropdownItem: {
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderColor: "lightgray",
+  },
+  dropdownText: {
+    fontSize: 18,
   },
 });
 

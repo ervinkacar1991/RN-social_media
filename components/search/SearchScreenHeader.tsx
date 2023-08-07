@@ -31,7 +31,7 @@ const SearchScreenHeader: React.FC<SearchTabsProps> = ({ initialTab = 0 }) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity>
-          <Ionic name="arrow-back" style={styles.icon} />
+          <Ionic name="md-chevron-back" style={styles.icon} />
         </TouchableOpacity>
         <View
         //   style={{
