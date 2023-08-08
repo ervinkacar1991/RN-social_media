@@ -44,6 +44,23 @@ const fetchSearchUsers = async (searchTerm: string) => {
   return resp.data;
 };
 
+const fetchSearchPosts = async (searchTerm: string) => {
+  try {
+    const resp = await instance.get(`/search/posts/?search=${searchTerm}`);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
+};
+const fetchSearchPeople = async (searchTerm: string) => {
+  try {
+    const resp = await instance.get(`/search/pets/?search=${searchTerm}`);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const fetchUserEntities = async (username: string) => {
   const resp = await instance.get(`/entities/${username}/pets/`);
   return resp.data;
@@ -71,6 +88,8 @@ const api = {
   fetchPosts,
   fetchLikes,
   fetchSearchUsers,
+  fetchSearchPeople,
+  fetchSearchPosts,
   fetchSuggestedUsers,
   fetchUser,
   fetchUserEntities,

@@ -9,9 +9,8 @@ const CustomTabBarIcon = ({ focused, size, routeName }) => {
   } else if (routeName === "Search") {
     iconName = focused ? "search" : "ios-search-outline";
   } else if (routeName === "Reels") {
-    iconName = focused
-      ? "caret-forward-circle"
-      : "caret-forward-circle-outline";
+    iconName = focused ? "add-circle" : "add-circle-outline";
+    size = focused ? 50 : 30;
   } else if (routeName === "Activity") {
     iconName = focused ? "ios-heart" : "ios-heart-outline";
   } else if (routeName === "Profile") {

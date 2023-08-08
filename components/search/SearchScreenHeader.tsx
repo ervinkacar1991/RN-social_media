@@ -8,21 +8,46 @@ import { useQuery } from "react-query";
 import api from "../../services/api";
 import SearchBox from "./SearchBox";
 import colors from "../../colorPalette/colors";
-interface SearchTabsProps {
-  initialTab?: number;
-}
 
-const SearchScreenHeader: React.FC<SearchTabsProps> = ({ initialTab = 0 }) => {
+const SearchScreenHeader = ({ initialTab = 0 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [activeTab, setActiveTab] = useState(initialTab);
 
-  const { isLoading, isError, data, error } = useQuery(
-    ["searchpeople", searchTerm],
+  const {
+    isLoading: usersLoading,
+    isError: usersError,
+    data: usersData,
+    error: usersQueryError,
+  } = useQuery(
+    ["searchusers", searchTerm],
     () => api.fetchSearchUsers(searchTerm),
     { enabled: !!searchTerm }
   );
 
-  if (data) console.log(data.results);
+  const {
+    isLoading: postsLoading,
+    isError: postsError,
+    data: postsData,
+    error: postsQueryError,
+  } = useQuery(
+    ["searchposts", searchTerm],
+    () => api.fetchSearchPosts(searchTerm),
+    { enabled: !!searchTerm }
+  );
+
+  const {
+    isLoading: peopleLoading,
+    isError: peopleError,
+    data: peopleData,
+    error: peopleQueryError,
+  } = useQuery(
+    ["searchpeople", searchTerm],
+    () => api.fetchSearchPeople(searchTerm),
+    { enabled: !!searchTerm }
+  );
+
+  // if (usersData) console.log(usersData);
+  // if (postsData) console.log(postsData);
+  // if (peopleData) console.log(peopleData);
 
   const onInputChange = (text: string) => {
     setSearchTerm(text);
@@ -33,12 +58,7 @@ const SearchScreenHeader: React.FC<SearchTabsProps> = ({ initialTab = 0 }) => {
         <TouchableOpacity>
           <Ionic name="md-chevron-back" style={styles.icon} />
         </TouchableOpacity>
-        <View
-        //   style={{
-        //     flex: 1,
-        //     alignItems: "center",
-        //   }}
-        >
+        <View>
           <Text
             style={{
               fontSize: 15,
@@ -57,12 +77,9 @@ const SearchScreenHeader: React.FC<SearchTabsProps> = ({ initialTab = 0 }) => {
       <SearchBox onSearch={setSearchTerm} />
 
       <SearchContent
-        data={data?.results}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        isLoading={isLoading}
-        isError={isError}
-        error={error as Error}
+        usersData={usersData}
+        postsData={postsData}
+        peopleData={peopleData}
       />
     </View>
   );

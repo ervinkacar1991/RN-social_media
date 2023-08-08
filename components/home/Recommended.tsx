@@ -7,7 +7,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../colorPalette/colors";
 
-const RenderRecommendedList = ({ item }) => {
+const RenderRecommendedList = ({ item, onDelete }) => {
   const [isFollow, setIsFollow] = useState(false);
 
   return (
@@ -30,6 +30,7 @@ const RenderRecommendedList = ({ item }) => {
           top: 10,
           right: 10,
         }}
+        onPress={onDelete}
       >
         <AntDesign
           name="close"
@@ -83,6 +84,7 @@ const RenderRecommendedList = ({ item }) => {
 
 const Recommended = () => {
   const navigation = useNavigation() as any;
+  const [recommendedItems, setRecommendedItems] = useState(suggestionsData);
 
   // console.log(suggestionsData);
 
@@ -94,7 +96,12 @@ const Recommended = () => {
   // if (isLoading) {
   //   return <Text>Loading...</Text>;
   // }
-
+  const handleDeleteRecommended = (itemId) => {
+    const updatedRecommendedItems = recommendedItems.filter(
+      (item) => item.id !== itemId
+    );
+    setRecommendedItems(updatedRecommendedItems);
+  };
   return (
     <View>
       <View
@@ -124,9 +131,14 @@ const Recommended = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={suggestionsData}
+        data={recommendedItems}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <RenderRecommendedList item={item} />}
+        renderItem={({ item }) => (
+          <RenderRecommendedList
+            item={item}
+            onDelete={() => handleDeleteRecommended(item.id)}
+          />
+        )}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />

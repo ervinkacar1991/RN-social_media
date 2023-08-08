@@ -4,7 +4,7 @@ import React from "react";
 const SearchPeople = () => {
   return (
     <View>
-      <Text style={{ color: "white" }}>SearchPeople</Text>
+      <Text>SearchPeople</Text>
     </View>
   );
 };
