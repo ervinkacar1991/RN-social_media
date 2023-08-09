@@ -5,7 +5,7 @@ import { Ionicons as Ionic } from "@expo/vector-icons";
 const SearchBox = ({ onSearch }) => {
   const handleInputChange = (text) => {
     onSearch(text);
-    // console.log(text);
+    console.log(text);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const SearchUsers = () => {
+const SearchUsers = ({ users }) => {
   return (
     <View>
       <Text>SearchUsers</Text>

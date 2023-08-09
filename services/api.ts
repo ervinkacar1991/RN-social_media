@@ -81,6 +81,11 @@ const fetchUserFollowing = async (username: string) => {
   return resp.data;
 };
 
+const fetchNotifications = async () => {
+  const resp = await instance.get("/common/notifications/");
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
@@ -96,6 +101,7 @@ const api = {
   fetchUserPosts,
   fetchUserFollowers,
   fetchUserFollowing,
+  fetchNotifications,
 };
 
 export default Object.freeze(api);
