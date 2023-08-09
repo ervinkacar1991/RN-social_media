@@ -15,6 +15,7 @@ const UserPostsDetails = ({ navigation, route }) => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <UserPostsDetailsHeader username={username} navigation={navigation} />
+
         <FlatList
           // ref={flatlistRef}
           data={posts.results}

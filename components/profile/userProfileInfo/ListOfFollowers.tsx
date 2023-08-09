@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,11 +7,11 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
 import { useQuery } from "react-query";
 import api from "../../../services/api";
 import { ActivityIndicator } from "react-native";
 import colors from "../../../colorPalette/colors";
+import UserInfoSearchBox from "./UserInfoSearchBox";
 
 const DefaultAvatarUri =
   "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
@@ -23,6 +24,7 @@ const UserInfoFollowersList = ({ item }) => {
   const handleRemovePress = () => {
     // Logika za remove
   };
+
   return (
     <View style={styles.listItem}>
       <Image
@@ -31,7 +33,6 @@ const UserInfoFollowersList = ({ item }) => {
         }}
         style={styles.userPhoto}
       />
-
       <View style={styles.infoContainer}>
         <Text style={styles.username}>{item.username}</Text>
         <TouchableOpacity
@@ -48,7 +49,12 @@ const UserInfoFollowersList = ({ item }) => {
 };
 
 const ListOfFollowers = ({ user }) => {
-  // console.log(user);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (text) => {
+    setSearchTerm(text);
+  };
+
   const {
     isLoading,
     data: userFollowersInfo,
@@ -64,13 +70,15 @@ const ListOfFollowers = ({ user }) => {
       </View>
     );
   }
+
   if (!userFollowersInfo) {
     return (
       <View>
-        <Text>Evo sad ce</Text>
+        <Text>Evo sad će</Text>
       </View>
     );
   }
+
   if (isError) {
     return (
       <View>
@@ -79,10 +87,15 @@ const ListOfFollowers = ({ user }) => {
     );
   }
 
+  const filteredFollowers = userFollowersInfo.results.filter((follower) =>
+    follower.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <View style={styles.container}>
+      <UserInfoSearchBox onSearch={handleSearch} />
       <FlatList
-        data={userFollowersInfo.results}
+        data={filteredFollowers}
         renderItem={UserInfoFollowersList}
         contentContainerStyle={styles.listContainer}
       />

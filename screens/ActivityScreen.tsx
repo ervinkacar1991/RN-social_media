@@ -10,7 +10,7 @@ const ActivityScreen = () => {
     "getNotifications",
     api.fetchNotifications
   );
-  console.log(data);
+  // console.log(data);
 
   return (
     <SafeAreaProvider>
