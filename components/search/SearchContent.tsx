@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-
 import SearchPeople from "./searchContentTabs/SearchPeople";
 import SearchUsers from "./searchContentTabs/SearchUsers";
 import SearchPosts from "./searchContentTabs/SearchPosts";
@@ -28,8 +27,6 @@ const SearchContent = ({ usersData, postsData, peopleData }) => {
   const WrappedSearchPeople = () => <SearchPeople people={peopleData} />;
   const WrappedSearchPosts = () => <SearchPosts posts={postsData} />;
   const WrappedSearchUsers = () => <SearchUsers users={usersData} />;
-
-  // console.log(usersData);
 
   const Tab = createMaterialTopTabNavigator();
 

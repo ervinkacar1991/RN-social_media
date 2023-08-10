@@ -48,14 +48,11 @@ const HomeScreen = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
         <Header navigation={navigation} />
 
-        {/* {console.log(data.results)} */}
         <FlatList
           data={data.results.reverse()}
           ListHeaderComponent={<Recommended />}
           renderItem={({ item }) => <Post post={item} />}
         />
-
-        {/* <BottomTabs icons={bottomTabIcons} /> */}
       </SafeAreaView>
     </SafeAreaProvider>
   );

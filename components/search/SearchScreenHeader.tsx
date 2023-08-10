@@ -49,6 +49,10 @@ const SearchScreenHeader = ({ navigation }) => {
   // if (postsData) console.log(postsData);
   // if (peopleData) console.log(peopleData);
 
+  const popleResult = peopleData?.results || [];
+  const usersResult = usersData?.results || [];
+  const postsResult = postsData?.results || [];
+
   const onInputChange = (text: string) => {
     setSearchTerm(text);
   };
@@ -79,7 +83,7 @@ const SearchScreenHeader = ({ navigation }) => {
       <SearchContent
         usersData={usersData}
         postsData={postsData}
-        peopleData={peopleData}
+        peopleData={popleResult}
       />
     </View>
   );
