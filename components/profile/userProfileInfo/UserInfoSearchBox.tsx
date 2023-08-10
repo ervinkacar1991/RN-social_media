@@ -20,7 +20,7 @@ const UserInfoSearchBox = ({ onSearch }) => {
     >
       <Ionic
         name="search"
-        size={19}
+        size={18}
         color={colors.userInfoSearchBoxTextColor}
         style={{
           position: "absolute",

@@ -4,6 +4,10 @@ import { Ionicons as Ionic } from "@expo/vector-icons";
 import colors from "../../colorPalette/colors";
 
 const ActivitySearchBox = () => {
+  const handleInputChange = (text) => {
+    console.log(text);
+  };
+
   return (
     <View
       style={{
@@ -30,7 +34,7 @@ const ActivitySearchBox = () => {
         placeholder="Search"
         placeholderTextColor="#909090"
         style={styles.searchInput}
-        // onChangeText={handleInputChange}
+        onChangeText={handleInputChange}
       />
     </View>
   );

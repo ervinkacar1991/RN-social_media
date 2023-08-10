@@ -1,11 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Feather, Ionicons as Ionic } from "@expo/vector-icons";
 import colors from "../../colorPalette/colors";
 import { Divider } from "react-native-paper";
 import ActivitySearchBox from "./ActivitySearchBox";
 
 const ActivityScreenHeader = () => {
+  const [showSearchBox, setShowSearchBox] = useState(false);
+
+  const toggleSearchBox = () => {
+    setShowSearchBox(!showSearchBox);
+  };
+
   return (
     <View>
       <View style={styles.headerContainer}>
@@ -19,7 +25,7 @@ const ActivityScreenHeader = () => {
           <Text style={styles.headerText}>Notifications</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={toggleSearchBox}>
             <Ionic
               name="search"
               size={25}
@@ -37,7 +43,8 @@ const ActivityScreenHeader = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <ActivitySearchBox />
+      {showSearchBox && <ActivitySearchBox />}
+
       <Divider style={styles.divider} />
       <View style={styles.markAllAsReadContainer}>
         <Text style={styles.markAllAsReadText}>Mark all as read</Text>

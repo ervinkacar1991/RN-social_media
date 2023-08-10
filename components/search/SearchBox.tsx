@@ -1,6 +1,7 @@
 import { View, TextInput, StyleSheet } from "react-native";
 import React from "react";
 import { Ionicons as Ionic } from "@expo/vector-icons";
+import colors from "../../colorPalette/colors";
 
 const SearchBox = ({ onSearch }) => {
   const handleInputChange = (text) => {
@@ -25,7 +26,7 @@ const SearchBox = ({ onSearch }) => {
         style={{
           position: "absolute",
           left: 25,
-          top: 19,
+          top: 20,
           zIndex: 1,
           opacity: 0.7,
         }}
@@ -43,14 +44,15 @@ const SearchBox = ({ onSearch }) => {
 const styles = StyleSheet.create({
   searchInput: {
     width: "95%",
-    backgroundColor: "#EBEBEB",
+    backgroundColor: colors.userInfoSearchBoxBackgroundColor,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    fontSize: 15,
+    fontSize: 17,
     padding: 9,
     paddingLeft: 40,
     marginTop: 10,
+    color: colors.primaryTextColor,
   },
 });
 
