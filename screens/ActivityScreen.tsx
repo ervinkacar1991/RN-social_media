@@ -4,6 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import colors from "../colorPalette/colors";
 import api from "../services/api";
 import { useQuery } from "react-query";
+import ActivityScreenHeader from "../components/activityScreen/ActivityScreenHeader";
 
 const ActivityScreen = () => {
   const { isLoading, data, error } = useQuery(
@@ -15,7 +16,7 @@ const ActivityScreen = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <Text style={{ color: "white" }}>Activity Screennn</Text>
+        <ActivityScreenHeader />
       </SafeAreaView>
     </SafeAreaProvider>
   );

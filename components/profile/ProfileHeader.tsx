@@ -101,6 +101,12 @@ const ProfileHeader = ({ user }) => {
                 >
                   <Text style={styles.dropdownText}>Share</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.dropdownItem}
+                  onPress={() => onMenuItemPress("Settings")}
+                >
+                  <Text style={styles.dropdownText}>Settings</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </TouchableWithoutFeedback>
