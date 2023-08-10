@@ -49,10 +49,10 @@ const UserInfoFollowersList = ({ item }) => {
 };
 
 const ListOfFollowers = ({ user }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchFollowersTerm, setSearchFollowersTerm] = useState("");
 
-  const handleSearch = (text) => {
-    setSearchTerm(text);
+  const handleFollowersSearch = (text) => {
+    setSearchFollowersTerm(text);
   };
 
   const {
@@ -88,12 +88,12 @@ const ListOfFollowers = ({ user }) => {
   }
 
   const filteredFollowers = userFollowersInfo.results.filter((follower) =>
-    follower.username.toLowerCase().includes(searchTerm.toLowerCase())
+    follower.username.toLowerCase().includes(searchFollowersTerm.toLowerCase())
   );
 
   return (
     <View style={styles.container}>
-      <UserInfoSearchBox onSearch={handleSearch} />
+      <UserInfoSearchBox onSearch={handleFollowersSearch} />
       <FlatList
         data={filteredFollowers}
         renderItem={UserInfoFollowersList}

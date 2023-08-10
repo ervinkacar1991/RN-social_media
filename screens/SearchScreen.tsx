@@ -4,11 +4,11 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import SearchScreenHeader from "../components/search/SearchScreenHeader";
 import colors from "../colorPalette/colors";
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <SearchScreenHeader />
+        <SearchScreenHeader navigation={navigation} />
       </SafeAreaView>
     </SafeAreaProvider>
   );

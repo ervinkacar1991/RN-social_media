@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import api from "../../../services/api";
 import { ActivityIndicator } from "react-native";
 import colors from "../../../colorPalette/colors";
+import UserInfoSearchBox from "./UserInfoSearchBox";
 
 ////// TO DOOO, PROMENITI LOGIKU ZA FOLLOWING...
 
@@ -50,6 +51,12 @@ const UserInfoFollowingList = ({ item }) => {
 };
 
 const ListOfFollowing = ({ user }) => {
+  const [searchFollowingTerm, setSearchFollowingTerm] = useState("");
+
+  const handleFollowingSearch = (text) => {
+    setSearchFollowingTerm(text);
+  };
+
   const {
     isLoading,
     data: userFollowingInfo,
@@ -80,6 +87,10 @@ const ListOfFollowing = ({ user }) => {
     );
   }
 
+  const filteredFollowing = userFollowingInfo.results.filter((follower) =>
+    follower.username.toLowerCase().includes(searchFollowingTerm.toLowerCase())
+  );
+
   if (userFollowingInfo.results.length === 0) {
     return (
       <View style={styles.messageContainer}>
@@ -91,8 +102,9 @@ const ListOfFollowing = ({ user }) => {
   }
   return (
     <View style={styles.container}>
+      <UserInfoSearchBox onSearch={handleFollowingSearch} />
       <FlatList
-        data={userFollowingInfo.results}
+        data={filteredFollowing}
         renderItem={UserInfoFollowingList}
         contentContainerStyle={styles.listContainer}
       />

@@ -9,7 +9,7 @@ import api from "../../services/api";
 import SearchBox from "./SearchBox";
 import colors from "../../colorPalette/colors";
 
-const SearchScreenHeader = ({ initialTab = 0 }) => {
+const SearchScreenHeader = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const {
@@ -55,7 +55,7 @@ const SearchScreenHeader = ({ initialTab = 0 }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionic name="md-chevron-back" style={styles.icon} />
         </TouchableOpacity>
         <View>
