@@ -9,34 +9,31 @@ import api from "../../services/api";
 import SearchBox from "./SearchBox";
 import colors from "../../colorPalette/colors";
 import { debounce } from "lodash";
+import { useSearch } from "../../context/SearchContext";
 
 const SearchScreenHeader = ({ navigation }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const { searchTerm, setSearchTerm } = useSearch();
 
-  useEffect(() => {
-    const delaySearch = debounce((text) => {
-      setDebouncedSearchTerm(text);
-      console.log("Debounced search term:", text);
-    }, 5000);
+  const delaySearch = debounce(() => {
+    peopleRefetch();
+    usersRefetch();
+    postsRefetch();
+  }, 5000);
 
-    // if (searchTerm !== debouncedSearchTerm) {
-    //   delaySearch();
-    // }
-    delaySearch(searchTerm);
-
-    return delaySearch.cancel;
-  }, [searchTerm]);
+  // if (searchTerm !== debouncedSearchTerm) {
+  //   delaySearch();
+  // }
 
   const {
     isLoading: usersLoading,
     isError: usersError,
     data: usersData,
     error: usersQueryError,
+    refetch: usersRefetch,
   } = useQuery(
-    ["searchusers", debouncedSearchTerm],
-    () => api.fetchSearchUsers(debouncedSearchTerm),
-    { enabled: !!debouncedSearchTerm }
+    ["searchusers", searchTerm],
+    () => api.fetchSearchUsers(searchTerm),
+    { enabled: false }
   );
 
   const {
@@ -44,10 +41,11 @@ const SearchScreenHeader = ({ navigation }) => {
     isError: postsError,
     data: postsData,
     error: postsQueryError,
+    refetch: postsRefetch,
   } = useQuery(
-    ["searchposts", debouncedSearchTerm],
-    () => api.fetchSearchPosts(debouncedSearchTerm),
-    { enabled: !!debouncedSearchTerm }
+    ["searchposts", searchTerm],
+    () => api.fetchSearchPosts(searchTerm),
+    { enabled: false }
   );
 
   const {
@@ -55,10 +53,11 @@ const SearchScreenHeader = ({ navigation }) => {
     isError: peopleError,
     data: peopleData,
     error: peopleQueryError,
+    refetch: peopleRefetch,
   } = useQuery(
-    ["searchpeople", debouncedSearchTerm],
-    () => api.fetchSearchPeople(debouncedSearchTerm),
-    { enabled: !!debouncedSearchTerm }
+    ["searchpeople", searchTerm],
+    () => api.fetchSearchPeople(searchTerm),
+    { enabled: false }
   );
 
   // if (usersData) console.log(usersData);
@@ -94,11 +93,16 @@ const SearchScreenHeader = ({ navigation }) => {
         <Feather name="more-vertical" style={{ color: "#01200F" }} />
       </View>
 
-      <SearchBox onSearch={setSearchTerm} />
+      <SearchBox
+        onSearch={(text) => {
+          setSearchTerm(text);
+          delaySearch();
+        }}
+      />
 
       <SearchContent
-        usersData={usersData}
-        postsData={postsData}
+        usersData={usersResult}
+        postsData={postsResult}
         peopleData={popleResult}
       />
     </View>
