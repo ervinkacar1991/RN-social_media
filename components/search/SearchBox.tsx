@@ -6,7 +6,7 @@ import colors from "../../colorPalette/colors";
 const SearchBox = ({ onSearch }) => {
   const handleInputChange = (text) => {
     onSearch(text);
-    console.log(text);
+    // console.log(text);
   };
 
   return (

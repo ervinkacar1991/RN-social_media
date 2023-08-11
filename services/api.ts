@@ -55,6 +55,7 @@ const fetchSearchPosts = async (searchTerm: string) => {
 const fetchSearchPeople = async (searchTerm: string) => {
   try {
     const resp = await instance.get(`/search/pets/?search=${searchTerm}`);
+
     return resp.data;
   } catch (error) {
     throw error;

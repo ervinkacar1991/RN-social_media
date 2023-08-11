@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
@@ -8,9 +8,25 @@ import { useQuery } from "react-query";
 import api from "../../services/api";
 import SearchBox from "./SearchBox";
 import colors from "../../colorPalette/colors";
+import { debounce } from "lodash";
 
 const SearchScreenHeader = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
+  useEffect(() => {
+    const delaySearch = debounce((text) => {
+      setDebouncedSearchTerm(text);
+      console.log("Debounced search term:", text);
+    }, 5000);
+
+    // if (searchTerm !== debouncedSearchTerm) {
+    //   delaySearch();
+    // }
+    delaySearch(searchTerm);
+
+    return delaySearch.cancel;
+  }, [searchTerm]);
 
   const {
     isLoading: usersLoading,
@@ -18,9 +34,9 @@ const SearchScreenHeader = ({ navigation }) => {
     data: usersData,
     error: usersQueryError,
   } = useQuery(
-    ["searchusers", searchTerm],
-    () => api.fetchSearchUsers(searchTerm),
-    { enabled: !!searchTerm }
+    ["searchusers", debouncedSearchTerm],
+    () => api.fetchSearchUsers(debouncedSearchTerm),
+    { enabled: !!debouncedSearchTerm }
   );
 
   const {
@@ -29,9 +45,9 @@ const SearchScreenHeader = ({ navigation }) => {
     data: postsData,
     error: postsQueryError,
   } = useQuery(
-    ["searchposts", searchTerm],
-    () => api.fetchSearchPosts(searchTerm),
-    { enabled: !!searchTerm }
+    ["searchposts", debouncedSearchTerm],
+    () => api.fetchSearchPosts(debouncedSearchTerm),
+    { enabled: !!debouncedSearchTerm }
   );
 
   const {
@@ -40,9 +56,9 @@ const SearchScreenHeader = ({ navigation }) => {
     data: peopleData,
     error: peopleQueryError,
   } = useQuery(
-    ["searchpeople", searchTerm],
-    () => api.fetchSearchPeople(searchTerm),
-    { enabled: !!searchTerm }
+    ["searchpeople", debouncedSearchTerm],
+    () => api.fetchSearchPeople(debouncedSearchTerm),
+    { enabled: !!debouncedSearchTerm }
   );
 
   // if (usersData) console.log(usersData);

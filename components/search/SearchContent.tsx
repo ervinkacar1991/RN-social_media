@@ -1,5 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
+import { debounce } from "lodash";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SearchPeople from "./searchContentTabs/SearchPeople";
 import SearchUsers from "./searchContentTabs/SearchUsers";
