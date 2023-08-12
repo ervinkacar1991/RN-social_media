@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
@@ -14,15 +14,20 @@ import { useSearch } from "../../context/SearchContext";
 const SearchScreenHeader = ({ navigation }) => {
   const { searchTerm, setSearchTerm } = useSearch();
 
-  const delaySearch = debounce(() => {
-    peopleRefetch();
-    usersRefetch();
-    postsRefetch();
-  }, 5000);
+  // const delaySearch = debounce(() => {
+  //   peopleRefetch();
+  //   usersRefetch();
+  //   postsRefetch();
+  //   console.log("Debounced search term:");
+  // }, 5000);
 
   // if (searchTerm !== debouncedSearchTerm) {
   //   delaySearch();
   // }
+
+  const delaySearch = debounce((text) => {
+    setSearchTerm(text);
+  }, 1000);
 
   const {
     isLoading: usersLoading,
@@ -57,19 +62,21 @@ const SearchScreenHeader = ({ navigation }) => {
   } = useQuery(
     ["searchpeople", searchTerm],
     () => api.fetchSearchPeople(searchTerm),
-    { enabled: false }
+    { enabled: !!searchTerm }
   );
 
-  // if (usersData) console.log(usersData);
-  // if (postsData) console.log(postsData);
-  // if (peopleData) console.log(peopleData);
+  if (usersData) console.log(usersData);
+  if (postsData) console.log(postsData);
+  if (peopleData) console.log(peopleData);
 
-  const popleResult = peopleData?.results || [];
+  const peopleResult = peopleData?.results || [];
   const usersResult = usersData?.results || [];
   const postsResult = postsData?.results || [];
 
+  console.log("peopleResult: ", peopleResult);
+
   const onInputChange = (text: string) => {
-    setSearchTerm(text);
+    delaySearch(text);
   };
   return (
     <View style={styles.container}>
@@ -95,15 +102,15 @@ const SearchScreenHeader = ({ navigation }) => {
 
       <SearchBox
         onSearch={(text) => {
-          setSearchTerm(text);
-          delaySearch();
+          onInputChange(text);
+          // delaySearch(text);
         }}
       />
 
       <SearchContent
-        usersData={usersResult}
-        postsData={postsResult}
-        peopleData={popleResult}
+        // usersData={usersResult}
+        // postsData={postsResult}
+        peopleData={peopleResult}
       />
     </View>
   );

@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { debounce } from "lodash";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SearchPeople from "./searchContentTabs/SearchPeople";
 import SearchUsers from "./searchContentTabs/SearchUsers";
@@ -24,10 +23,10 @@ import colors from "../../colorPalette/colors";
 //   setActiveTab: React.Dispatch<React.SetStateAction<number>>;
 // }
 
-const SearchContent = ({ usersData, postsData, peopleData }) => {
+const SearchContent = ({ peopleData }) => {
   const WrappedSearchPeople = () => <SearchPeople people={peopleData} />;
-  const WrappedSearchPosts = () => <SearchPosts posts={postsData} />;
-  const WrappedSearchUsers = () => <SearchUsers users={usersData} />;
+  const WrappedSearchPosts = () => <SearchPosts />;
+  const WrappedSearchUsers = () => <SearchUsers />;
 
   const Tab = createMaterialTopTabNavigator();
 
