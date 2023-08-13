@@ -62,7 +62,7 @@ const SearchScreenHeader = ({ navigation }) => {
   } = useQuery(
     ["searchpeople", searchTerm],
     () => api.fetchSearchPeople(searchTerm),
-    { enabled: !!searchTerm }
+    { enabled: !!searchTerm, keepPreviousData: true }
   );
 
   if (usersData) console.log(usersData);

@@ -8,9 +8,7 @@ import {
 } from "react-native";
 import React, { useCallback } from "react";
 import colors from "../../../colorPalette/colors";
-import Feather from "react-native-vector-icons/Feather";
-import { useQuery } from "react-query";
-import api from "../../../services/api";
+import { Divider } from "react-native-paper";
 
 const DefaultAvatarUri =
   "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
@@ -19,29 +17,29 @@ const SearchPeople = ({ people }) => {
   console.log(people);
   const renderItem = useCallback(({ item }) => {
     return (
-      <View style={styles.listItem}>
-        <Image
-          source={{
-            uri: item.photo ? item.photo : DefaultAvatarUri,
-          }}
-          style={styles.photo}
-        />
-        <View style={styles.userInfo}>
-          <View>
-            <Text style={styles.username}>{item.username}</Text>
-            <Text style={styles.name}>{item.name}</Text>
+      <View>
+        <View style={styles.listItem}>
+          <Image
+            source={{
+              uri: item.photo ? item.photo : DefaultAvatarUri,
+            }}
+            style={styles.photo}
+          />
+          <View style={styles.userInfo}>
+            <View>
+              <Text style={styles.username}>{item.username}</Text>
+              <Text style={styles.name}>{item.name}</Text>
+            </View>
           </View>
-
-          <TouchableOpacity style={styles.followButton}>
-            <Text style={styles.followButtonText}>Follow</Text>
-          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.closeIcon}
-          // onPress={() => deleteItem(item.id)}
-        >
-          <Feather name="x" size={15} color="#a9a4a4" />
-        </TouchableOpacity>
+        <Divider
+          style={{
+            width: "98%",
+            alignSelf: "center",
+            backgroundColor: colors.dividerBackgroundColor,
+            marginBottom: 10,
+          }}
+        />
       </View>
     );
   }, []);
@@ -63,10 +61,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundColor,
   },
+
   listItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 10,
   },
   listContainer: {
     paddingVertical: 10,
@@ -93,29 +92,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 13,
     color: "#a9a4a4",
-  },
-  followButton: {
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 8,
-    backgroundColor: colors.buttonBackgroundColor,
-  },
-  followButtonText: {
-    color: "white",
-    fontWeight: "600",
-  },
-  closeIcon: {
-    padding: 5,
-  },
-  emptyContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  emptyText: {
-    fontSize: 20,
-    color: "white",
-    fontWeight: "bold",
   },
 });
 
