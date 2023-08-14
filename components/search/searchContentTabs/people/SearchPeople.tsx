@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import React, { useCallback } from "react";
-import colors from "../../../colorPalette/colors";
+import colors from "../../../../colorPalette/colors";
 import { Divider } from "react-native-paper";
 
 const DefaultAvatarUri =

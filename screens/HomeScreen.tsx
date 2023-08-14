@@ -30,7 +30,6 @@ const HomeScreen = ({ navigation }) => {
           backgroundColor: colors.backgroundColor,
         }}
       >
-        {/* <Text style={{ color: "white" }}>Loading...</Text> */}
         <Feather name="loader" size={32} color="white" />
       </View>
     );

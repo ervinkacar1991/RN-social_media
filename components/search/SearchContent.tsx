@@ -1,9 +1,9 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import SearchPeople from "./searchContentTabs/SearchPeople";
-import SearchUsers from "./searchContentTabs/SearchUsers";
-import SearchPosts from "./searchContentTabs/SearchPosts";
+import SearchPeople from "./searchContentTabs/people/SearchPeople";
+import SearchUsers from "./searchContentTabs/users/SearchUsers";
+import SearchPosts from "./searchContentTabs/posts/SearchPosts";
 import colors from "../../colorPalette/colors";
 
 // export interface CustomError {

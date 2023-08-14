@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import SearchPeople from "./searchContentTabs/SearchPeople";
-import SearchUsers from "./searchContentTabs/SearchUsers";
-import SearchPosts from "./searchContentTabs/SearchPosts";
+import SearchPeople from "./searchContentTabs/people/SearchPeople";
+import SearchUsers from "./searchContentTabs/users/SearchUsers";
+import SearchPosts from "./searchContentTabs/posts/SearchPosts";
 
 interface SearchTabsProps {
   activeTab: number;
