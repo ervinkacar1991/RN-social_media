@@ -16,12 +16,12 @@ const ActivityScreenHeader = () => {
     <View>
       <View style={styles.headerContainer}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Ionic
+          {/* <Ionic
             name="md-chevron-back"
             size={30}
             color="white"
             style={styles.icon}
-          />
+          /> */}
           <Text style={styles.headerText}>Notifications</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     letterSpacing: 0.7,
+    marginHorizontal: 5,
   },
   icon: {
     marginHorizontal: 5,

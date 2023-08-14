@@ -1,5 +1,5 @@
 import { StyleSheet, FlatList, View, Text } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import Header from "../components/home/Header";
 import Post from "../components/home/Post";
 import { useQuery } from "react-query";
@@ -16,6 +16,7 @@ interface CustomError {
 
 const HomeScreen = ({ navigation }) => {
   const { token } = useContext(UserContext);
+  const flatListRef = useRef(null);
 
   const { isLoading, isError, data, error } = useQuery("posts", api.fetchPosts);
 
@@ -42,13 +43,17 @@ const HomeScreen = ({ navigation }) => {
       </View>
     );
   }
+  const scrollToFirstPost = () => {
+    flatListRef.current.scrollToIndex({ index: 0, animated: true });
+  };
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <Header navigation={navigation} />
+        <Header navigation={navigation} onHomeButtonPress={scrollToFirstPost} />
 
         <FlatList
+          ref={flatListRef}
           data={data.results.reverse()}
           ListHeaderComponent={<Recommended />}
           renderItem={({ item }) => <Post post={item} />}

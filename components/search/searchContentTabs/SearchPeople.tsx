@@ -14,21 +14,23 @@ const DefaultAvatarUri =
   "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
 
 const SearchPeople = ({ people }) => {
-  console.log(people);
   const renderItem = useCallback(({ item }) => {
     return (
       <View>
         <View style={styles.listItem}>
-          <Image
-            source={{
-              uri: item.photo ? item.photo : DefaultAvatarUri,
-            }}
-            style={styles.photo}
-          />
+          <TouchableOpacity>
+            <Image
+              source={{
+                uri: item.photo ? item.photo : DefaultAvatarUri,
+              }}
+              style={styles.photo}
+            />
+          </TouchableOpacity>
           <View style={styles.userInfo}>
             <View>
-              <Text style={styles.username}>{item.username}</Text>
-              <Text style={styles.name}>{item.name}</Text>
+              <TouchableOpacity>
+                <Text style={styles.name}>{item.name}</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
 
   listItem: {
     flexDirection: "row",
-    alignItems: "center",
+
     marginBottom: 10,
   },
   listContainer: {
@@ -84,11 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginRight: 2,
   },
-  username: {
-    fontSize: 16,
-    color: "white",
-    fontWeight: "500",
-  },
+
   name: {
     fontSize: 13,
     color: "#a9a4a4",

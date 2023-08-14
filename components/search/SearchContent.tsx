@@ -23,9 +23,9 @@ import colors from "../../colorPalette/colors";
 //   setActiveTab: React.Dispatch<React.SetStateAction<number>>;
 // }
 
-const SearchContent = ({ peopleData }) => {
+const SearchContent = ({ peopleData, postsData }) => {
   const WrappedSearchPeople = () => <SearchPeople people={peopleData} />;
-  const WrappedSearchPosts = () => <SearchPosts />;
+  const WrappedSearchPosts = () => <SearchPosts posts={postsData} />;
   const WrappedSearchUsers = () => <SearchUsers />;
 
   const Tab = createMaterialTopTabNavigator();

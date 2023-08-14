@@ -2,14 +2,10 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
-const Header = ({ navigation }) => {
+const Header = ({ navigation, onHomeButtonPress }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
-        {/* <Image
-          style={styles.logo}
-          source={require("../../assets/header-logo.png")}
-        /> */}
+      <TouchableOpacity onPress={onHomeButtonPress}>
         <Text style={styles.title}>NIT-Social</Text>
       </TouchableOpacity>
       <View style={styles.iconsContainer}>

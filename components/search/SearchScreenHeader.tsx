@@ -34,7 +34,6 @@ const SearchScreenHeader = ({ navigation }) => {
     isError: usersError,
     data: usersData,
     error: usersQueryError,
-    refetch: usersRefetch,
   } = useQuery(
     ["searchusers", searchTerm],
     () => api.fetchSearchUsers(searchTerm),
@@ -46,11 +45,10 @@ const SearchScreenHeader = ({ navigation }) => {
     isError: postsError,
     data: postsData,
     error: postsQueryError,
-    refetch: postsRefetch,
   } = useQuery(
     ["searchposts", searchTerm],
     () => api.fetchSearchPosts(searchTerm),
-    { enabled: false }
+    { enabled: !!searchTerm, keepPreviousData: true }
   );
 
   const {
@@ -58,22 +56,19 @@ const SearchScreenHeader = ({ navigation }) => {
     isError: peopleError,
     data: peopleData,
     error: peopleQueryError,
-    refetch: peopleRefetch,
   } = useQuery(
     ["searchpeople", searchTerm],
     () => api.fetchSearchPeople(searchTerm),
     { enabled: !!searchTerm, keepPreviousData: true }
   );
 
-  if (usersData) console.log(usersData);
-  if (postsData) console.log(postsData);
-  if (peopleData) console.log(peopleData);
+  // if (usersData) console.log(usersData);
+  // if (postsData) console.log(postsData);
+  // if (peopleData) console.log(peopleData);
 
   const peopleResult = peopleData?.results || [];
   const usersResult = usersData?.results || [];
   const postsResult = postsData?.results || [];
-
-  console.log("peopleResult: ", peopleResult);
 
   const onInputChange = (text: string) => {
     delaySearch(text);
@@ -87,9 +82,10 @@ const SearchScreenHeader = ({ navigation }) => {
         <View>
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 21,
               color: "white",
               fontWeight: "bold",
+              letterSpacing: 0.7,
               marginRight: 20,
             }}
           >
@@ -109,7 +105,7 @@ const SearchScreenHeader = ({ navigation }) => {
 
       <SearchContent
         // usersData={usersResult}
-        // postsData={postsResult}
+        postsData={postsResult}
         peopleData={peopleResult}
       />
     </View>

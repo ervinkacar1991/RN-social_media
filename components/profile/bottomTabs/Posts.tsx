@@ -74,13 +74,6 @@ const Posts = ({ username }) => {
         keyExtractor={(item) => item.id}
         numColumns={numColumns}
       />
-      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
-      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
-      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
-      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
-      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
-      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
-      <View style={{ width: 132, height: 132, backgroundColor: "red" }}></View>
     </View>
   );
 };
