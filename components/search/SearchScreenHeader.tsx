@@ -14,17 +14,6 @@ import { useSearch } from "../../context/SearchContext";
 const SearchScreenHeader = ({ navigation }) => {
   const { searchTerm, setSearchTerm } = useSearch();
 
-  // const delaySearch = debounce(() => {
-  //   peopleRefetch();
-  //   usersRefetch();
-  //   postsRefetch();
-  //   console.log("Debounced search term:");
-  // }, 5000);
-
-  // if (searchTerm !== debouncedSearchTerm) {
-  //   delaySearch();
-  // }
-
   const delaySearch = debounce((text) => {
     setSearchTerm(text);
   }, 1000);
@@ -37,7 +26,7 @@ const SearchScreenHeader = ({ navigation }) => {
   } = useQuery(
     ["searchusers", searchTerm],
     () => api.fetchSearchUsers(searchTerm),
-    { enabled: false }
+    { enabled: !!searchTerm, keepPreviousData: true }
   );
 
   const {
@@ -61,10 +50,6 @@ const SearchScreenHeader = ({ navigation }) => {
     () => api.fetchSearchPeople(searchTerm),
     { enabled: !!searchTerm, keepPreviousData: true }
   );
-
-  // if (usersData) console.log(usersData);
-  // if (postsData) console.log(postsData);
-  // if (peopleData) console.log(peopleData);
 
   const peopleResult = peopleData?.results || [];
   const usersResult = usersData?.results || [];
@@ -99,14 +84,19 @@ const SearchScreenHeader = ({ navigation }) => {
       <SearchBox
         onSearch={(text) => {
           onInputChange(text);
-          // delaySearch(text);
         }}
       />
 
       <SearchContent
-        // usersData={usersResult}
+        usersData={usersResult}
         postsData={postsResult}
         peopleData={peopleResult}
+        usersLoading={usersLoading}
+        usersError={usersError}
+        postsLoading={postsLoading}
+        postsError={postsError}
+        peopleLoading={peopleLoading}
+        peopleError={peopleError}
       />
     </View>
   );

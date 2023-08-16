@@ -8,6 +8,7 @@ const colors = {
   dividerBackgroundColor: "#2e2e2e",
   userInfoSearchBoxBackgroundColor: "#242424",
   userInfoSearchBoxTextColor: "#a19f9f",
+  errorColor: "red",
 };
 
 export default colors;

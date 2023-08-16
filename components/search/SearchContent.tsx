@@ -1,50 +1,46 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import SearchPeople from "./searchContentTabs/people/SearchPeople";
 import SearchUsers from "./searchContentTabs/users/SearchUsers";
 import SearchPosts from "./searchContentTabs/posts/SearchPosts";
 import colors from "../../colorPalette/colors";
+import { set } from "react-native-reanimated";
 
-// export interface CustomError {
-//   message: string;
-// }
-// interface ImageData {
-//   id: string;
-//   photo_thumbnail: string | null;
-// }
-
-// interface SearchContentProps {
-//   data: ImageData[];
-//   isLoading: boolean;
-//   isError: boolean;
-//   error: Error | CustomError;
-//   activeTab: number;
-//   setActiveTab: React.Dispatch<React.SetStateAction<number>>;
-// }
-
-const SearchContent = ({ peopleData, postsData }) => {
-  const WrappedSearchPeople = () => <SearchPeople people={peopleData} />;
-  const WrappedSearchPosts = () => <SearchPosts posts={postsData} />;
-  const WrappedSearchUsers = () => <SearchUsers />;
+const SearchContent = ({
+  peopleData,
+  postsData,
+  usersData,
+  usersLoading,
+  postsLoading,
+  peopleLoading,
+  usersError,
+  postsError,
+  peopleError,
+}) => {
+  const WrappedSearchPeople = () => (
+    <SearchPeople
+      people={peopleData}
+      peopleLoading={peopleLoading}
+      peopleError={peopleError}
+    />
+  );
+  const WrappedSearchPosts = () => (
+    <SearchPosts
+      posts={postsData}
+      postsLoading={postsLoading}
+      postsError={postsError}
+    />
+  );
+  const WrappedSearchUsers = () => (
+    <SearchUsers
+      users={usersData}
+      usersLoading={usersLoading}
+      usersError={usersError}
+    />
+  );
 
   const Tab = createMaterialTopTabNavigator();
-
-  // if (isLoading) {
-  //   return (
-  //     <View>
-  //       <Text>Loading...</Text>
-  //     </View>
-  //   );
-  // }
-
-  // if (isError) {
-  //   return (
-  //     <View>
-  //       <Text>Error: {error.message}</Text>
-  //     </View>
-  //   );
-  // }
 
   return (
     <Tab.Navigator
@@ -59,7 +55,6 @@ const SearchContent = ({ peopleData, postsData }) => {
         },
         tabBarLabel: ({ focused, color }) => {
           const routeName = route.name;
-          // const formattedLabel = capitalizeFirstLetter(routeName);
           return (
             <Text
               style={{

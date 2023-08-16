@@ -9,11 +9,13 @@ import {
 import React, { useCallback } from "react";
 import colors from "../../../../colorPalette/colors";
 import { Divider } from "react-native-paper";
+import { ActivityIndicator } from "react-native-paper";
+import { Ionicons } from "@expo/vector-icons";
 
 const DefaultAvatarUri =
   "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
 
-const SearchPeople = ({ people }) => {
+const SearchPeople = ({ people, peopleLoading, peopleError }) => {
   const renderItem = useCallback(({ item }) => {
     return (
       <View>
@@ -45,6 +47,27 @@ const SearchPeople = ({ people }) => {
       </View>
     );
   }, []);
+
+  if (peopleLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={colors.primaryTextColor} />
+      </View>
+    );
+  }
+
+  if (peopleError) {
+    return (
+      <View style={styles.errorContainer}>
+        <Ionicons
+          name="alert-circle-outline"
+          size={40}
+          color={colors.errorColor}
+        />
+        <Text style={styles.errorText}>Error loading data.</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -86,10 +109,26 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginRight: 2,
   },
-
   name: {
     fontSize: 13,
     color: "#a9a4a4",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.backgroundColor,
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.backgroundColor,
+  },
+  errorText: {
+    color: colors.errorColor,
+    fontSize: 18,
+    marginTop: 10,
   },
 });
 
