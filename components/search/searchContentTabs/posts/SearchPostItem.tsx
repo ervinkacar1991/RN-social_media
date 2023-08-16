@@ -10,8 +10,9 @@ import {
 } from "react-native";
 import Ionic from "react-native-vector-icons/Ionicons";
 import Feather from "react-native-vector-icons/Feather";
+import colors from "../../../../colorPalette/colors";
 
-const SearchPostItemExample = ({ posts }) => {
+const SearchPostItem = ({ posts }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
 
@@ -32,7 +33,13 @@ const SearchPostItemExample = ({ posts }) => {
           <View style={styles.cardHeaderContainer} key={index}>
             <Image
               source={{ uri: item.user.photo_thumbnail }}
-              style={{ width: 30, height: 30, borderRadius: 100 }}
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 100,
+                borderWidth: 2,
+                borderColor: colors.storyBorderColor,
+              }}
             />
             <View style={{ paddingLeft: 8 }}>
               <Text style={{ fontSize: 12, fontWeight: "600" }}>
@@ -105,7 +112,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     backgroundColor: "white",
     width: 350,
-    height: 400,
+    height: 440,
     borderRadius: 15,
     marginTop: 30,
   },
@@ -117,7 +124,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 300,
+    height: 340,
   },
   iconContainer: {
     justifyContent: "space-around",
@@ -149,4 +156,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchPostItemExample;
+export default SearchPostItem;

@@ -12,7 +12,6 @@ const UserProfileInfoScreen = ({ navigation, route }) => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <UserProfileInfoHeader navigation={navigation} user={user} />
-
         <UserProfileInfoTabView user={user} />
       </SafeAreaView>
     </SafeAreaProvider>

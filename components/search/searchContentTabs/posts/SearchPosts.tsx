@@ -1,14 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import colors from "../../../../colorPalette/colors";
-import SearchPostsItem from "./SearchPostsItem";
-import SearchPostItemExample from "./SearchPostItemExample";
+import SearchPostItem from "./SearchPostItem";
 
 const SearchPosts = ({ posts }) => {
   return (
     <View style={styles.container}>
-      {/* <SearchPostsItem posts={posts} /> */}
-      <SearchPostItemExample posts={posts} />
+      <SearchPostItem posts={posts} />
     </View>
   );
 };
