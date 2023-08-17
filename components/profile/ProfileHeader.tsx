@@ -7,14 +7,11 @@ import {
   Modal,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import colors from "../../colorPalette/colors";
 import ProfileInfo from "./ProfileInfo";
 import { Feather } from "@expo/vector-icons";
-import { useQuery } from "react-query";
-import api from "../../services/api";
 import { UserContext } from "../../context/UserContext";
-import BottomSheet from "@gorhom/bottom-sheet";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
@@ -23,8 +20,6 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
   const { handleLogout } = useContext(UserContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-
-  // const bottomSheetRef = useRef(null);
 
   const onLogout = () => {
     handleLogout();
@@ -39,23 +34,12 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
   const onMenuItemPress = (menuItem) => {
     // Logika za menu iteme
     console.log("Selected menu item:", menuItem);
-    // You can close the dropdown here if needed
+    // Zatvaranje dropdowna
     toggleDropdown();
   };
   const onBackgroundPress = () => {
     toggleDropdown();
   };
-
-  const renderBottomSheetContent = () => (
-    <View style={styles.bottomSheetContent}>
-      <TouchableOpacity style={styles.bottomSheetItem}>
-        <Text style={styles.bottomSheetText}>Change Profile Photo</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.bottomSheetItem}>
-        <Text style={styles.bottomSheetText}>Share</Text>
-      </TouchableOpacity>
-    </View>
-  );
 
   return (
     <View>

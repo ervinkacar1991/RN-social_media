@@ -14,6 +14,7 @@ import CustomTabBarIcon from "../CustomTabBarIcon";
 import ProfileScreen from "./ProfileScreen";
 import UserProfileInfoScreen from "../components/profile/userProfileInfo/UserProfileInfoScreen";
 import UserPostsDetails from "../components/profile/UserPostsDetails";
+import ProfilePhotoEditScreen from "../components/profile/ProfilePhotoEditScreen";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -30,6 +31,7 @@ type ProfileStackParamList = {
   EditProfile: undefined;
   UserProfileInfo: undefined;
   UserPostsDetails: undefined;
+  ProfilePhotoEditScreen: undefined;
 };
 
 type HomeStackParamList = {
@@ -91,6 +93,10 @@ const ProfileStack: React.FC = () => {
       <PStack.Screen name="EditProfile" component={EditProfile} />
       <PStack.Screen name="UserProfileInfo" component={UserProfileInfoScreen} />
       <PStack.Screen name="UserPostsDetails" component={UserPostsDetails} />
+      <PStack.Screen
+        name="ProfilePhotoEditScreen"
+        component={ProfilePhotoEditScreen}
+      />
     </PStack.Navigator>
   );
 };

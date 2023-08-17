@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableOpacity,
   Text,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useRef } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -16,6 +17,8 @@ import UsersPostList from "../components/profile/UsersPostList";
 import UserProfileButtons from "../components/profile/UserProfileButtons";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import BottomSheet from "@gorhom/bottom-sheet";
+import Icon from "react-native-vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileScreen = () => {
   const tabs = ["Posts"];
@@ -24,6 +27,7 @@ const ProfileScreen = () => {
   const fetchUserPets = (username) => api.fetchUserEntities(username);
 
   const bottomSheetRef = useRef(null);
+  const navigation = useNavigation() as any;
 
   const {
     isLoading: isUserLoading,
@@ -52,10 +56,15 @@ const ProfileScreen = () => {
   }
   const renderBottomSheetContent = () => (
     <View style={styles.bottomSheetContent}>
-      <TouchableOpacity style={styles.bottomSheetItem}>
-        <Text style={styles.bottomSheetText}>Change Profile Photo</Text>
+      <TouchableOpacity
+        style={styles.bottomSheetItem}
+        onPress={() => navigation.navigate("ProfilePhotoEditScreen")}
+      >
+        <Icon name="camera" size={20} color="#ddd7d7" style={styles.icon} />
+        <Text style={styles.bottomSheetText}>View or edit profile photo</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.bottomSheetItem}>
+        <Icon name="share-2" size={20} color="#ddd7d7" style={styles.icon} />
         <Text style={styles.bottomSheetText}>Share</Text>
       </TouchableOpacity>
     </View>
@@ -64,31 +73,54 @@ const ProfileScreen = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <FlatList
-          ListHeaderComponent={
-            <>
-              <ProfileHeader user={userData} bottomSheetRef={bottomSheetRef} />
-              <UserProfileButtons />
-              <UsersPostList pets={userPets} />
-            </>
-          }
-          data={tabs}
-          renderItem={({ index }) => (
-            <ProfileBottom
-              key={index}
-              username={userData?.username}
-              // initialTab={index}
+        <TouchableWithoutFeedback
+          onPress={() => bottomSheetRef.current?.close()}
+        >
+          <View style={styles.contentContainer}>
+            <FlatList
+              ListHeaderComponent={
+                <>
+                  <ProfileHeader
+                    user={userData}
+                    bottomSheetRef={bottomSheetRef}
+                  />
+                  <UserProfileButtons />
+                  <UsersPostList pets={userPets} />
+                </>
+              }
+              data={tabs}
+              renderItem={({ index }) => (
+                <ProfileBottom
+                  key={index}
+                  username={userData?.username}
+                  // initialTab={index}
+                />
+              )}
+              keyExtractor={(item) => item}
+              stickyHeaderIndices={[1]}
             />
-          )}
-          keyExtractor={(item) => item}
-          stickyHeaderIndices={[1]}
-        />
+          </View>
+        </TouchableWithoutFeedback>
         <BottomSheet
           ref={bottomSheetRef}
-          style={{ marginTop: -48 }}
+          style={{ marginTop: -35 }}
           enablePanDownToClose
           snapPoints={[0.5, 200]}
           containerHeight={300}
+          backgroundComponent={({ style }) => (
+            <View
+              style={[
+                style,
+                {
+                  backgroundColor: "#393737",
+                  borderTopLeftRadius: 20,
+                  borderTopRightRadius: 20,
+                  borderColor: "#676666",
+                  borderWidth: 0.5,
+                },
+              ]}
+            />
+          )}
         >
           {renderBottomSheetContent()}
         </BottomSheet>
@@ -108,21 +140,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.backgroundColor,
   },
+  contentContainer: {
+    flex: 1,
+  },
   bottomSheetContent: {
     width: "100%",
     padding: 20,
-    backgroundColor: "#afb4f3",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    backgroundColor: "#393737",
   },
   bottomSheetItem: {
+    flexDirection: "row",
     paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderColor: "#ccc",
   },
   bottomSheetText: {
     fontSize: 18,
-    color: "#333",
+    fontWeight: "600",
+    color: "#ece9e9",
+  },
+  icon: {
+    marginRight: 10,
   },
 });
 
