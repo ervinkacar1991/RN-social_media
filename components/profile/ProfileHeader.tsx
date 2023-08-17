@@ -7,22 +7,24 @@ import {
   Modal,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import colors from "../../colorPalette/colors";
 import ProfileInfo from "./ProfileInfo";
 import { Feather } from "@expo/vector-icons";
 import { useQuery } from "react-query";
 import api from "../../services/api";
 import { UserContext } from "../../context/UserContext";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
 
-const ProfileHeader = ({ user }) => {
-  const { handleSetToken, handleLogout } = useContext(UserContext);
-  const [modalImageUri, setModalImageUri] = useState(null);
+const ProfileHeader = ({ user, bottomSheetRef }) => {
+  const { handleLogout } = useContext(UserContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  // const bottomSheetRef = useRef(null);
 
   const onLogout = () => {
     handleLogout();
@@ -44,10 +46,16 @@ const ProfileHeader = ({ user }) => {
     toggleDropdown();
   };
 
-  const onProfileImagePress = (photoUri) => {
-    setModalImageUri(photoUri);
-    toggleModal();
-  };
+  const renderBottomSheetContent = () => (
+    <View style={styles.bottomSheetContent}>
+      <TouchableOpacity style={styles.bottomSheetItem}>
+        <Text style={styles.bottomSheetText}>Change Profile Photo</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.bottomSheetItem}>
+        <Text style={styles.bottomSheetText}>Share</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
     <View>
@@ -116,7 +124,7 @@ const ProfileHeader = ({ user }) => {
       <ProfileInfo user={user?.username} />
 
       <View style={styles.profileInfoContainer}>
-        <TouchableOpacity onPress={() => onProfileImagePress(user?.photo)}>
+        <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
           <Image
             source={{
               uri: user?.photo,
@@ -137,25 +145,6 @@ const ProfileHeader = ({ user }) => {
           {user?.name}
         </Text>
       </View>
-      <Modal
-        visible={isModalVisible}
-        transparent={true}
-        onRequestClose={toggleModal}
-        animationType="slide"
-      >
-        <View style={styles.modalContainer}>
-          {/* Prikazivanje slike u modalu */}
-          <TouchableOpacity onPress={toggleModal}>
-            <Image
-              source={{
-                uri: modalImageUri,
-              }}
-              style={styles.modalImage}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -285,6 +274,22 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 18,
+  },
+  bottomSheetContent: {
+    width: "100%",
+    padding: 20,
+    backgroundColor: "white",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  bottomSheetItem: {
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderColor: "#ccc",
+  },
+  bottomSheetText: {
+    fontSize: 18,
+    color: "#333",
   },
 });
 

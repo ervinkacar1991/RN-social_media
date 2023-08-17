@@ -56,8 +56,7 @@ const AuthorizedStack: React.FC = () => {
           height: 80,
           backgroundColor: colors.backgroundColor,
           borderTopColor: "black",
-          borderTopEndRadius: 20,
-          borderTopStartRadius: 20,
+
           position: "absolute",
         },
         tabBarIcon: ({ focused, size }) => (
