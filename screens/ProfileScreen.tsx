@@ -6,7 +6,7 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { ActivityIndicator } from "react-native-paper";
 import { useQuery } from "react-query";
@@ -28,6 +28,14 @@ const ProfileScreen = () => {
 
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation() as any;
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      bottomSheetRef.current?.close();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const {
     isLoading: isUserLoading,

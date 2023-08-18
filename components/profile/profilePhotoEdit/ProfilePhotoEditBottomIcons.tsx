@@ -6,35 +6,29 @@ import colors from "../../../colorPalette/colors";
 const ProfilePhotoEditBottomIcons = () => {
   return (
     <View style={styles.iconContainer}>
-      <TouchableOpacity>
-        <View style={styles.editIcon}>
-          <Icon
-            name="edit-2"
-            size={22}
-            color="white"
-            style={styles.highlightedIcon}
-          />
-        </View>
+      <TouchableOpacity style={styles.editIcon}>
+        <Icon
+          name="edit-2"
+          size={22}
+          color="white"
+          style={styles.highlightedIcon}
+        />
       </TouchableOpacity>
-      <TouchableOpacity>
-        <View style={styles.cameraIcon}>
-          <Icon
-            name="camera"
-            size={22}
-            color="white"
-            style={styles.highlightedIcon}
-          />
-        </View>
+      <TouchableOpacity style={styles.cameraIcon}>
+        <Icon
+          name="camera"
+          size={22}
+          color="white"
+          style={styles.highlightedIcon}
+        />
       </TouchableOpacity>
-      <TouchableOpacity>
-        <View style={styles.deleteIcon}>
-          <Icon
-            name="trash-2"
-            size={22}
-            color="white"
-            style={styles.highlightedIcon}
-          />
-        </View>
+      <TouchableOpacity style={styles.deleteIcon}>
+        <Icon
+          name="trash-2"
+          size={22}
+          color="white"
+          style={styles.highlightedIcon}
+        />
       </TouchableOpacity>
     </View>
   );

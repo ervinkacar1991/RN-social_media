@@ -81,18 +81,13 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
                 >
                   <Text style={styles.dropdownText}>Change Cover</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.dropdownItem}
-                  onPress={() => onMenuItemPress("Change Profile Photo")}
-                >
-                  <Text style={styles.dropdownText}>Change Profile Photo</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+
+                {/* <TouchableOpacity
                   style={styles.dropdownItem}
                   onPress={() => onMenuItemPress("Share")}
                 >
                   <Text style={styles.dropdownText}>Share</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity
                   style={styles.dropdownItem}
                   onPress={() => onMenuItemPress("Settings")}
@@ -128,6 +123,15 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
         >
           {user?.name}
         </Text>
+        <TouchableOpacity style={styles.plusIconContainer}>
+          <Feather
+            name="plus"
+            size={22}
+            color="white"
+            onPress={toggleModal}
+            style={styles.highlightedIcon}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -168,8 +172,8 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 100,
-    borderWidth: 3,
-    borderColor: colors.storyBorderColor,
+    borderWidth: 4,
+    borderColor: "black",
   },
   topIcons: {
     flexDirection: "row",
@@ -274,6 +278,24 @@ const styles = StyleSheet.create({
   bottomSheetText: {
     fontSize: 18,
     color: "#333",
+  },
+  plusIconContainer: {
+    position: "absolute",
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
+    justifyContent: "center",
+    alignItems: "center",
+    bottom: 30,
+    right: 30,
+    backgroundColor: colors.buttonBackgroundColor,
+    borderColor: colors.backgroundColor,
+    borderWidth: 4,
+  },
+  highlightedIcon: {
+    textShadowColor: "rgba(255, 255, 255, 0.5)",
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 3,
   },
 });
 
