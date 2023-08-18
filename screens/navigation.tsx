@@ -14,7 +14,7 @@ import CustomTabBarIcon from "../CustomTabBarIcon";
 import ProfileScreen from "./ProfileScreen";
 import UserProfileInfoScreen from "../components/profile/userProfileInfo/UserProfileInfoScreen";
 import UserPostsDetails from "../components/profile/UserPostsDetails";
-import ProfilePhotoEditScreen from "../components/profile/ProfilePhotoEditScreen";
+import ProfilePhotoEditScreen from "../components/profile/profilePhotoEdit/ProfilePhotoEditScreen";
 
 type RootStackParamList = {
   HomeScreen: undefined;

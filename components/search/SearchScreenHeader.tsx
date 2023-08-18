@@ -69,7 +69,7 @@ const SearchScreenHeader = ({ navigation }) => {
             style={{
               fontSize: 21,
               color: "white",
-              fontWeight: "bold",
+              fontWeight: "600",
               letterSpacing: 0.7,
               marginRight: 20,
             }}

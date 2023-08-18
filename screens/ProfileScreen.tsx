@@ -58,7 +58,11 @@ const ProfileScreen = () => {
     <View style={styles.bottomSheetContent}>
       <TouchableOpacity
         style={styles.bottomSheetItem}
-        onPress={() => navigation.navigate("ProfilePhotoEditScreen")}
+        onPress={() =>
+          navigation.navigate("ProfilePhotoEditScreen", {
+            profilePhoto: userData?.photo,
+          })
+        }
       >
         <Icon name="camera" size={20} color="#ddd7d7" style={styles.icon} />
         <Text style={styles.bottomSheetText}>View or edit profile photo</Text>
