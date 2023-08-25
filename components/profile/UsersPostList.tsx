@@ -9,7 +9,6 @@ const UsersPostList = ({ pets }) => {
   //     ["fetchUserPets", username],
   //     () => api.fetchUserEntities(username)
   //   );
-  //   console.log(data);
 
   //   if (isLoading) {
   //     return <ActivityIndicator size="large" color="gray" />;

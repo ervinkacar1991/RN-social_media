@@ -86,8 +86,6 @@ const Recommended = () => {
   const navigation = useNavigation() as any;
   const [recommendedItems, setRecommendedItems] = useState(suggestionsData);
 
-  // console.log(suggestionsData);
-
   // const { isLoading, isError, data, error } = useQuery(
   //   "suggestedUsers",
   //   api.fetchSuggestedUsers

@@ -282,6 +282,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 50,
   },
+  errorText: {
+    color: "red", // Stil za "errorText"
+    marginBottom: 10,
+  },
 });
 
 export default SignupForm;

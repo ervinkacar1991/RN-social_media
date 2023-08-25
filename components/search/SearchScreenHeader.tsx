@@ -16,7 +16,7 @@ const SearchScreenHeader = ({ navigation }) => {
 
   const delaySearch = debounce((text) => {
     setSearchTerm(text);
-  }, 1000);
+  }, 400);
 
   const {
     isLoading: usersLoading,

@@ -102,11 +102,7 @@ const ProfileScreen = () => {
               }
               data={tabs}
               renderItem={({ index }) => (
-                <ProfileBottom
-                  key={index}
-                  username={userData?.username}
-                  // initialTab={index}
-                />
+                <ProfileBottom key={index} username={userData?.username} />
               )}
               keyExtractor={(item) => item}
               stickyHeaderIndices={[1]}

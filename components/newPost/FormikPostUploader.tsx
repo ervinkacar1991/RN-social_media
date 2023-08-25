@@ -21,8 +21,6 @@ const FormikPostUploader = ({ navigation }) => {
     <Formik
       initialValues={{ imageUrl: "", caption: "" }}
       onSubmit={(value) => {
-        console.log(value);
-        console.log("Your post was successfully uploaded!");
         navigation.goBack();
       }}
       validationSchema={uploadPostSchema}

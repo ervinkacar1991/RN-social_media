@@ -4,9 +4,7 @@ import { Ionicons as Ionic } from "@expo/vector-icons";
 import colors from "../../colorPalette/colors";
 
 const ActivitySearchBox = () => {
-  const handleInputChange = (text) => {
-    console.log(text);
-  };
+  const handleInputChange = (text) => {};
 
   return (
     <View

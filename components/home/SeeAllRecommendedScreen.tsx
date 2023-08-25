@@ -60,7 +60,7 @@ const SeeAllRecommendedScreen = ({ navigation }) => {
     },
     [deleteItem]
   );
-  // console.log(suggestionsData);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>

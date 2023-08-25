@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import ProfilePhotoEditBottomIcons from "./ProfilePhotoEditBottomIcons";
+import colors from "../../../colorPalette/colors";
 
-const ProfilePhotoEditBody = ({ profilePhoto }) => {
+const ProfilePhotoEditBody = ({ profilePhoto, bottomSheetRef }) => {
   return (
     <View style={styles.container}>
       <Image
@@ -12,7 +13,7 @@ const ProfilePhotoEditBody = ({ profilePhoto }) => {
         style={styles.profilePhoto}
         resizeMode="cover"
       />
-      <ProfilePhotoEditBottomIcons />
+      <ProfilePhotoEditBottomIcons bottomSheetRef={bottomSheetRef} />
     </View>
   );
 };
@@ -29,6 +30,8 @@ const styles = StyleSheet.create({
     width: 350,
     borderRadius: 175,
     position: "relative",
+    borderColor: colors.storyBorderColor,
+    borderWidth: 5,
   },
 });
 

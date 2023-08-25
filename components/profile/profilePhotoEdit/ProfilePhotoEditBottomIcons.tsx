@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "react-native-vector-icons/Feather";
 import colors from "../../../colorPalette/colors";
 
-const ProfilePhotoEditBottomIcons = () => {
+const ProfilePhotoEditBottomIcons = ({ bottomSheetRef }) => {
   return (
     <View style={styles.iconContainer}>
       <TouchableOpacity style={styles.editIcon}>
@@ -14,7 +14,10 @@ const ProfilePhotoEditBottomIcons = () => {
           style={styles.highlightedIcon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.cameraIcon}>
+      <TouchableOpacity
+        style={styles.cameraIcon}
+        onPress={() => bottomSheetRef.current?.expand()}
+      >
         <Icon
           name="camera"
           size={22}

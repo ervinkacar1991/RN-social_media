@@ -11,7 +11,6 @@ import React from "react";
 import { useQuery } from "react-query";
 import api from "../../../services/api";
 import colors from "../../../colorPalette/colors";
-import { ActivityIndicator } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -48,22 +47,15 @@ const Posts = ({ username }) => {
     api.fetchUserPosts(username)
   );
 
-  // console.log(postsData.results.map((item) => item.id));
-
-  if (isPostsLoading) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="white" />
-      </View>
-    );
-  }
-
   if (isPostsError) {
     return (
       <View style={styles.errorContainer}>
         <Feather name="alert-triangle" size={32} color="white" />
       </View>
     );
+  }
+  if (!postsData || !postsData.results) {
+    return null;
   }
 
   return (
@@ -80,8 +72,8 @@ const Posts = ({ username }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: colors.backgroundColor,
+    marginBottom: 50,
   },
 
   postContainer: {

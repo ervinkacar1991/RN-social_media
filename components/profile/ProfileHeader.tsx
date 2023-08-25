@@ -33,7 +33,7 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
   };
   const onMenuItemPress = (menuItem) => {
     // Logika za menu iteme
-    console.log("Selected menu item:", menuItem);
+
     // Zatvaranje dropdowna
     toggleDropdown();
   };
