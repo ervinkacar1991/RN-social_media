@@ -51,7 +51,7 @@ const SearchPeople = ({ people, peopleLoading, peopleError }) => {
   if (peopleLoading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primaryTextColor} />
+        <ActivityIndicator size="large" color={"white"} />
       </View>
     );
   }
