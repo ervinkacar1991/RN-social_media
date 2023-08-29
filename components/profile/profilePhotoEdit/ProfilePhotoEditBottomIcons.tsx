@@ -2,9 +2,23 @@ import { View, TouchableOpacity, StyleSheet, Modal, Text } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/Feather";
 import colors from "../../../colorPalette/colors";
+import { useMutation, useQueryClient } from "react-query";
+import api from "../../../services/api";
+
+const DefaultProfilePhotoUri =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
 
 const ProfilePhotoEditBottomIcons = ({ bottomSheetRef }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation(api.deleteProfilePhoto, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("profilePhoto");
+      queryClient.setQueryData("profilePhoto", DefaultProfilePhotoUri);
+    },
+  });
 
   const handleDeleteIconPress = () => {
     setShowModal(true);
@@ -15,9 +29,7 @@ const ProfilePhotoEditBottomIcons = ({ bottomSheetRef }) => {
   };
 
   const handleConfirmDelete = () => {
-    // Implement the actual delete logic here
-    // Call an API or perform any necessary actions
-    // After deletion, you can close the modal
+    deleteMutation.mutate();
     setShowModal(false);
   };
 

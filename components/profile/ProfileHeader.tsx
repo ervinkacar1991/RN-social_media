@@ -16,6 +16,8 @@ import { UserContext } from "../../context/UserContext";
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
 
+const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
+
 const ProfileHeader = ({ user, bottomSheetRef }) => {
   const { handleLogout } = useContext(UserContext);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -106,7 +108,7 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
         <TouchableOpacity onPress={() => bottomSheetRef.current?.expand()}>
           <Image
             source={{
-              uri: user?.photo,
+              uri: user?.photo || DefaultProfilePhotoUri,
             }}
             style={styles.profilePhoto}
             resizeMode="cover"
