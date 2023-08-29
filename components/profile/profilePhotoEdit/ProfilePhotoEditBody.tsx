@@ -3,12 +3,14 @@ import React from "react";
 import ProfilePhotoEditBottomIcons from "./ProfilePhotoEditBottomIcons";
 import colors from "../../../colorPalette/colors";
 
+const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
+
 const ProfilePhotoEditBody = ({ profilePhoto, bottomSheetRef }) => {
   return (
     <View style={styles.container}>
       <Image
         source={{
-          uri: profilePhoto,
+          uri: profilePhoto || DefaultProfilePhotoUri,
         }}
         style={styles.profilePhoto}
         resizeMode="cover"

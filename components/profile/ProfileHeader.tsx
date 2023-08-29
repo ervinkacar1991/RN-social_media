@@ -12,6 +12,7 @@ import colors from "../../colorPalette/colors";
 import ProfileInfo from "./ProfileInfo";
 import { Feather } from "@expo/vector-icons";
 import { UserContext } from "../../context/UserContext";
+import ProfileCoverPhotoModal from "../../modals/ProfileCoverPhotoModal";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
@@ -43,9 +44,13 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
     toggleDropdown();
   };
 
+  const handleCoverPhotoPress = () => {
+    toggleModal();
+  };
+
   return (
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity onLongPress={handleCoverPhotoPress}>
         <Image
           source={{
             uri: user?.cover ? user?.cover : DefaultCovereUri,
@@ -54,6 +59,12 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
           resizeMode="cover"
         />
       </TouchableOpacity>
+      <ProfileCoverPhotoModal
+        isModalVisible={isModalVisible}
+        toggleModal={toggleModal}
+        coverPhoto={user?.cover}
+      />
+
       <View style={styles.topIcons}>
         <View style={styles.usernameContainer}>
           <Text style={styles.username}>{user?.username}</Text>
@@ -83,13 +94,6 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
                 >
                   <Text style={styles.dropdownText}>Change Cover</Text>
                 </TouchableOpacity>
-
-                {/* <TouchableOpacity
-                  style={styles.dropdownItem}
-                  onPress={() => onMenuItemPress("Share")}
-                >
-                  <Text style={styles.dropdownText}>Share</Text>
-                </TouchableOpacity> */}
                 <TouchableOpacity
                   style={styles.dropdownItem}
                   onPress={() => onMenuItemPress("Settings")}

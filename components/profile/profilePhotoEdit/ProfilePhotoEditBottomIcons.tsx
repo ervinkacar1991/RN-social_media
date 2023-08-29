@@ -1,21 +1,33 @@
-import { View, TouchableOpacity, StyleSheet, Modal, Text } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  Text,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/Feather";
 import colors from "../../../colorPalette/colors";
 import { useMutation, useQueryClient } from "react-query";
 import api from "../../../services/api";
+import { useNavigation } from "@react-navigation/native";
 
-const DefaultProfilePhotoUri =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
+const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
 
 const ProfilePhotoEditBottomIcons = ({ bottomSheetRef }) => {
   const [showModal, setShowModal] = useState(false);
+  const navigation = useNavigation() as any;
 
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation(api.deleteProfilePhoto, {
     onSuccess: () => {
       queryClient.invalidateQueries("profilePhoto");
+      Alert.alert("Photo deleted successfully", "", [
+        { text: "OK", onPress: () => navigation.goBack() },
+      ]);
+
       queryClient.setQueryData("profilePhoto", DefaultProfilePhotoUri);
     },
   });
