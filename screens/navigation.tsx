@@ -15,6 +15,7 @@ import ProfileScreen from "./ProfileScreen";
 import UserProfileInfoScreen from "../components/profile/userProfileInfo/UserProfileInfoScreen";
 import UserPostsDetails from "../components/profile/UserPostsDetails";
 import ProfilePhotoEditScreen from "../components/profile/profilePhotoEdit/ProfilePhotoEditScreen";
+import ProfilePhotoCameraScreen from "../components/profile/profilePhotoEdit/ProfilePhotoCameraScreen";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -32,6 +33,7 @@ type ProfileStackParamList = {
   UserProfileInfo: undefined;
   UserPostsDetails: undefined;
   ProfilePhotoEditScreen: undefined;
+  ProfilePhotoCameraScreen: undefined;
 };
 
 type HomeStackParamList = {
@@ -93,9 +95,14 @@ const ProfileStack: React.FC = () => {
       <PStack.Screen name="EditProfile" component={EditProfile} />
       <PStack.Screen name="UserProfileInfo" component={UserProfileInfoScreen} />
       <PStack.Screen name="UserPostsDetails" component={UserPostsDetails} />
+
       <PStack.Screen
         name="ProfilePhotoEditScreen"
         component={ProfilePhotoEditScreen}
+      />
+      <PStack.Screen
+        name="ProfilePhotoCameraScreen"
+        component={ProfilePhotoCameraScreen}
       />
     </PStack.Navigator>
   );

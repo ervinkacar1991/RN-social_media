@@ -14,14 +14,23 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "nit.social.app"
+      "bundleIdentifier": "nit.social.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "We need access to your camera to take profile pictures.",
+        "NSPhotoLibraryUsageDescription": "We need access to your photo library to select profile pictures."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "nit.social.app"
+      "package": "nit.social.app",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

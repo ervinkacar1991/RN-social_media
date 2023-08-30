@@ -13,6 +13,7 @@ import Ionic from "react-native-vector-icons/Ionicons";
 import colors from "../colorPalette/colors";
 import { useMutation, useQueryClient } from "react-query";
 import api from "../services/api";
+import { useNavigation } from "@react-navigation/native";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
@@ -24,14 +25,14 @@ const ProfileCoverPhotoModal = ({
   navigation,
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
+  const navigation2 = useNavigation();
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation(api.deleteCoverPhoto, {
     onSuccess: () => {
       queryClient.invalidateQueries("coverPhoto");
       Alert.alert("Photo deleted successfully", "", [
-        { text: "OK", onPress: () => navigation.navigate("ProfileScreen") },
+        { text: "OK", onPress: () => toggleModal() },
       ]);
 
       queryClient.setQueryData("coverPhoto", DefaultCovereUri);

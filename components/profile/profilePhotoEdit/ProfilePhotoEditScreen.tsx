@@ -1,10 +1,9 @@
+import React, { useRef, useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useRef, useEffect } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../../colorPalette/colors";
 import ProfilePhotoEditHeader from "./ProfilePhotoEditHeader";
 import ProfilePhotoEditBody from "./ProfilePhotoEditBody";
-import ProfilePhotoEditBottomIcons from "./ProfilePhotoEditBottomIcons";
 import BottomSheet from "@gorhom/bottom-sheet";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
@@ -13,6 +12,7 @@ const ProfilePhotoEditScreen = ({ route }) => {
   const { profilePhoto } = route.params;
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation() as any;
+  // const [isCameraVisible, setIsCameraVisible] = useState(false);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -34,7 +34,10 @@ const ProfilePhotoEditScreen = ({ route }) => {
       >
         Add profile photo
       </Text>
-      <TouchableOpacity style={styles.bottomSheetItem}>
+      <TouchableOpacity
+        style={styles.bottomSheetItem}
+        onPress={() => navigation.navigate("ProfilePhotoCameraScreen")}
+      >
         <Icon name="camera" size={20} color="#ddd7d7" style={styles.icon} />
         <Text style={styles.bottomSheetText}>Take a photo</Text>
       </TouchableOpacity>
@@ -49,6 +52,21 @@ const ProfilePhotoEditScreen = ({ route }) => {
       </TouchableOpacity>
     </View>
   );
+
+  // const openCamera = async () => {
+  //   const { status } = await Camera.getCameraPermissionsAsync();
+  //   console.log(status);
+
+  //   if (status !== "granted") {
+  //     const { status: newStatus } =
+  //       await Camera.requestCameraPermissionsAsync();
+  //     if (newStatus !== "granted") {
+  //       return;
+  //     }
+  //   }
+
+  //   // setIsCameraVisible(true);
+  // };
 
   return (
     <SafeAreaProvider>

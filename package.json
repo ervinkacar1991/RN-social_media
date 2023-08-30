@@ -20,6 +20,8 @@
     "axios": "^1.4.0",
     "email-validator": "^2.0.4",
     "expo": "~48.0.11",
+    "expo-camera": "~13.2.1",
+    "expo-image-picker": "~14.1.1",
     "expo-status-bar": "~1.4.4",
     "expo-updates": "~0.16.4",
     "formik": "^2.2.9",
