@@ -91,6 +91,10 @@ const deleteProfilePhoto = async () => {
   const resp = await instance.delete("/accounts/me/change-photo/");
   return resp.data;
 };
+const deleteCoverPhoto = async () => {
+  const resp = await instance.delete("/accounts/me/change-cover/");
+  return resp.data;
+};
 
 const api = {
   login,
@@ -109,6 +113,7 @@ const api = {
   fetchUserFollowing,
   fetchNotifications,
   deleteProfilePhoto,
+  deleteCoverPhoto,
 };
 
 export default Object.freeze(api);

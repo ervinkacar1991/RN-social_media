@@ -19,7 +19,7 @@ const DefaultCovereUri =
 
 const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
 
-const ProfileHeader = ({ user, bottomSheetRef }) => {
+const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
   const { handleLogout } = useContext(UserContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
@@ -63,6 +63,7 @@ const ProfileHeader = ({ user, bottomSheetRef }) => {
         isModalVisible={isModalVisible}
         toggleModal={toggleModal}
         coverPhoto={user?.cover}
+        navigation={navigation}
       />
 
       <View style={styles.topIcons}>

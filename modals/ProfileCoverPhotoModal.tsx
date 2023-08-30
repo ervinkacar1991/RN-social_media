@@ -5,20 +5,44 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 import Ionic from "react-native-vector-icons/Ionicons";
 import colors from "../colorPalette/colors";
+import { useMutation, useQueryClient } from "react-query";
+import api from "../services/api";
+
+const DefaultCovereUri =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
 
 const ProfileCoverPhotoModal = ({
   isModalVisible,
   toggleModal,
   coverPhoto,
+  navigation,
 }) => {
-  const navigation = useNavigation();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation(api.deleteCoverPhoto, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("coverPhoto");
+      Alert.alert("Photo deleted successfully", "", [
+        { text: "OK", onPress: () => navigation.navigate("ProfileScreen") },
+      ]);
+
+      queryClient.setQueryData("coverPhoto", DefaultCovereUri);
+    },
+  });
+
+  const handleConfirmDeleteCover = () => {
+    deleteMutation.mutate();
+    console.log("delete cover photo");
+    setShowDeleteModal(false);
+  };
 
   return (
     <Modal
@@ -27,7 +51,6 @@ const ProfileCoverPhotoModal = ({
       animationType="slide"
       onRequestClose={toggleModal}
     >
-      {/* Add your modal content here */}
       <View style={styles.modalContainer}>
         <View style={styles.headerContainer}>
           <TouchableOpacity onPress={toggleModal}>
@@ -52,7 +75,7 @@ const ProfileCoverPhotoModal = ({
         <View style={styles.coverPhotoContainer}>
           <Image
             source={{
-              uri: coverPhoto,
+              uri: coverPhoto || DefaultCovereUri,
             }}
             style={styles.coverPhoto}
             resizeMode="cover"
@@ -98,11 +121,7 @@ const ProfileCoverPhotoModal = ({
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={styles.deleteModalButton}
-                      onPress={() => {
-                        setShowDeleteModal(false);
-                        // Pozovite funkciju za brisanje ovde
-                        // handleConfirmDelete();
-                      }}
+                      onPress={handleConfirmDeleteCover}
                     >
                       <Text
                         style={[
