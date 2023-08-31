@@ -96,6 +96,13 @@ const deleteCoverPhoto = async () => {
   return resp.data;
 };
 
+const updateProfilePhoto = async (formData: FormData) => {
+  const resp = await instance.put("/accounts/me/change-photo/", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
@@ -114,6 +121,7 @@ const api = {
   fetchNotifications,
   deleteProfilePhoto,
   deleteCoverPhoto,
+  updateProfilePhoto,
 };
 
 export default Object.freeze(api);

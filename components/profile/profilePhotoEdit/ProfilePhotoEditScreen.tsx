@@ -7,13 +7,17 @@ import ProfilePhotoEditBody from "./ProfilePhotoEditBody";
 import BottomSheet from "@gorhom/bottom-sheet";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
+import api from "../../../services/api";
+import * as ImagePicker from "expo-image-picker";
+import { useQueryClient } from "react-query";
 
 const ProfilePhotoEditScreen = ({ route }) => {
   const { profilePhoto } = route.params;
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation() as any;
   // const [isCameraVisible, setIsCameraVisible] = useState(false);
-
+  const queryClient = useQueryClient();
+  const [image, setImage] = useState(profilePhoto);
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       bottomSheetRef.current?.close();
@@ -21,6 +25,37 @@ const ProfilePhotoEditScreen = ({ route }) => {
 
     return unsubscribe;
   }, [navigation]);
+
+  const handleSaveImage = async () => {
+    let result: any = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    if (result.cancelled) {
+      return;
+    }
+
+    // ImagePicker saves the taken photo to disk and returns a local URI to it
+    let localUri = result.uri;
+    let filename = localUri.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // Upload the image using the fetch and FormData APIs
+    let formData = new FormData();
+    // Assume "photo" is the name of the form field the server expects
+    formData.append("photo", { uri: localUri, name: filename, type } as any);
+
+    const res = await api.updateProfilePhoto(formData);
+    setImage(res?.photo_thumbnail);
+    console.log("res", res);
+    // setIsPreviewVisible(false);
+    queryClient.refetchQueries("fetchUser");
+    navigation.goBack();
+  };
 
   const renderBottomSheetContent = () => (
     <View style={styles.bottomSheetContent}>
@@ -36,7 +71,7 @@ const ProfilePhotoEditScreen = ({ route }) => {
       </Text>
       <TouchableOpacity
         style={styles.bottomSheetItem}
-        onPress={() => navigation.navigate("ProfilePhotoCameraScreen")}
+        onPress={handleSaveImage}
       >
         <Icon name="camera" size={20} color="#ddd7d7" style={styles.icon} />
         <Text style={styles.bottomSheetText}>Take a photo</Text>
@@ -73,7 +108,7 @@ const ProfilePhotoEditScreen = ({ route }) => {
       <SafeAreaView style={styles.container}>
         <ProfilePhotoEditHeader />
         <ProfilePhotoEditBody
-          profilePhoto={profilePhoto}
+          profilePhoto={image}
           bottomSheetRef={bottomSheetRef}
         />
         <BottomSheet
