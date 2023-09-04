@@ -13,7 +13,8 @@ import Ionic from "react-native-vector-icons/Ionicons";
 import colors from "../colorPalette/colors";
 import { useMutation, useQueryClient } from "react-query";
 import api from "../services/api";
-import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import { ActivityIndicator } from "react-native-paper";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
@@ -25,7 +26,8 @@ const ProfileCoverPhotoModal = ({
   navigation,
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const navigation2 = useNavigation();
+  const [loading, setLoading] = useState(false);
+  const [cover, setCover] = useState(coverPhoto);
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation(api.deleteCoverPhoto, {
@@ -43,6 +45,45 @@ const ProfileCoverPhotoModal = ({
     deleteMutation.mutate();
     console.log("delete cover photo");
     setShowDeleteModal(false);
+  };
+
+  const handleSaveCoverImage = async () => {
+    setLoading(true);
+    try {
+      let result: any = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+
+      if (result.canceled) {
+        setLoading(false);
+        return;
+      }
+
+      let selectedAssets = result?.assets;
+      let localUri = selectedAssets[0]?.uri;
+      let filename = localUri.split("/").pop();
+
+      // Infer the type of the image
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+
+      // Upload the image using the fetch and FormData APIs
+      let formData = new FormData();
+      // Assume "photo" is the name of the form field the server expects
+      formData.append("cover", { uri: localUri, name: filename, type } as any);
+
+      const res = await api.updateCoverPhoto(formData);
+      setCover(res?.cover_thumbnail);
+      console.log("res", res);
+      // setIsPreviewVisible(false);
+      queryClient.refetchQueries("fetchUser");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      toggleModal();
+    }
   };
 
   return (
@@ -87,8 +128,11 @@ const ProfileCoverPhotoModal = ({
             <Feather name="edit" style={styles.icon} />
             <Text style={styles.textColor}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Feather name="plus-circle" style={styles.icon} />
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={handleSaveCoverImage}
+          >
+            <Feather name="camera" style={styles.icon} />
             <Text style={styles.textColor}>Add Cover</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -139,6 +183,11 @@ const ProfileCoverPhotoModal = ({
             </Modal>
           )}
         </View>
+        {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="white" />
+          </View>
+        )}
       </View>
     </Modal>
   );
@@ -239,6 +288,17 @@ const styles = StyleSheet.create({
   },
   deleteButtonText: {
     // color: "white",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.backgroundColor,
   },
 });
 

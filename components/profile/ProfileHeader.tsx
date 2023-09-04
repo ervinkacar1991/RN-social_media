@@ -135,7 +135,7 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
             name="plus"
             size={22}
             color="white"
-            onPress={toggleModal}
+            onPress={() => bottomSheetRef.current?.expand()}
             style={styles.highlightedIcon}
           />
         </TouchableOpacity>

@@ -103,6 +103,13 @@ const updateProfilePhoto = async (formData: FormData) => {
   return resp.data;
 };
 
+const updateCoverPhoto = async (formData: FormData) => {
+  const resp = await instance.put("/accounts/me/change-cover/", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return resp.data;
+};
+
 const api = {
   login,
   signup,
@@ -122,6 +129,7 @@ const api = {
   deleteProfilePhoto,
   deleteCoverPhoto,
   updateProfilePhoto,
+  updateCoverPhoto,
 };
 
 export default Object.freeze(api);
