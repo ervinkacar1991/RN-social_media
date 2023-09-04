@@ -29,6 +29,7 @@ const ProfilePhotoEditBottomIcons = ({ bottomSheetRef }) => {
       ]);
 
       queryClient.setQueryData("profilePhoto", DefaultProfilePhotoUri);
+      queryClient.refetchQueries("fetchUser");
     },
   });
 
