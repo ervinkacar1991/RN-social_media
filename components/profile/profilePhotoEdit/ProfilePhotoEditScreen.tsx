@@ -10,14 +10,15 @@ import { useNavigation } from "@react-navigation/native";
 import api from "../../../services/api";
 import * as ImagePicker from "expo-image-picker";
 import { useQueryClient } from "react-query";
+import { ActivityIndicator } from "react-native-paper";
 
 const ProfilePhotoEditScreen = ({ route }) => {
   const { profilePhoto } = route.params;
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation() as any;
-  // const [isCameraVisible, setIsCameraVisible] = useState(false);
   const queryClient = useQueryClient();
   const [image, setImage] = useState(profilePhoto);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       bottomSheetRef.current?.close();
@@ -27,17 +28,19 @@ const ProfilePhotoEditScreen = ({ route }) => {
   }, [navigation]);
 
   const handleSaveImage = async () => {
+    setLoading(true);
     let result: any = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [4, 3],
     });
 
-    if (result.cancelled) {
+    if (result.canceled) {
+      setLoading(false);
       return;
     }
 
-    // ImagePicker saves the taken photo to disk and returns a local URI to it
-    let localUri = result.uri;
+    let selectedAssets = result?.assets;
+    let localUri = selectedAssets[0]?.uri;
     let filename = localUri.split("/").pop();
 
     // Infer the type of the image
@@ -88,21 +91,6 @@ const ProfilePhotoEditScreen = ({ route }) => {
     </View>
   );
 
-  // const openCamera = async () => {
-  //   const { status } = await Camera.getCameraPermissionsAsync();
-  //   console.log(status);
-
-  //   if (status !== "granted") {
-  //     const { status: newStatus } =
-  //       await Camera.requestCameraPermissionsAsync();
-  //     if (newStatus !== "granted") {
-  //       return;
-  //     }
-  //   }
-
-  //   // setIsCameraVisible(true);
-  // };
-
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -134,6 +122,11 @@ const ProfilePhotoEditScreen = ({ route }) => {
         >
           {renderBottomSheetContent()}
         </BottomSheet>
+        {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={colors.primaryTextColor} />
+          </View>
+        )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -160,6 +153,17 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.backgroundColor,
   },
 });
 
