@@ -55,7 +55,9 @@ const HomeScreen = ({ navigation }) => {
           ref={flatListRef}
           data={data.results.reverse()}
           ListHeaderComponent={<Recommended />}
-          renderItem={({ item }) => <Post post={item} />}
+          renderItem={({ item }) => (
+            <Post post={item} navigation={navigation} />
+          )}
         />
       </SafeAreaView>
     </SafeAreaProvider>

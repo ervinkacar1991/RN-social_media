@@ -16,7 +16,7 @@ const SearchScreenHeader = ({ navigation }) => {
 
   const delaySearch = debounce((text) => {
     setSearchTerm(text);
-  }, 400);
+  }, 200);
 
   const {
     isLoading: usersLoading,
@@ -54,6 +54,8 @@ const SearchScreenHeader = ({ navigation }) => {
   const peopleResult = peopleData?.results || [];
   const usersResult = usersData?.results || [];
   const postsResult = postsData?.results || [];
+
+  console.table(postsResult);
 
   const onInputChange = (text: string) => {
     delaySearch(text);

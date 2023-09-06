@@ -65,7 +65,6 @@ const ProfileCoverPhotoModal = ({
       let localUri = selectedAssets[0]?.uri;
       let filename = localUri.split("/").pop();
 
-      // Ovaj deo odnosi se na tip slike
       let match = /\.(\w+)$/.exec(filename);
       let type = match ? `image/${match[1]}` : `image`;
 

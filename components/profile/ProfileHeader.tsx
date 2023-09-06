@@ -72,13 +72,12 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
           <Feather name="chevron-down" style={styles.chevronIcon} />
         </View>
         <View style={styles.menuContainer}>
-          <Feather name="plus-square" style={styles.plusIcon} />
           <TouchableOpacity onPress={onLogout}>
             <Feather name="log-out" style={styles.menuIcon} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleDropdown}>
+          {/* <TouchableOpacity onPress={toggleDropdown}>
             <Feather name="more-vertical" style={styles.menuIcon} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <Modal
           visible={isDropdownVisible}

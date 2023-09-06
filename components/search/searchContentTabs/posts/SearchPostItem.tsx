@@ -26,11 +26,12 @@ const SearchPostItem = ({ posts }) => {
     setModalVisible(false);
   };
 
-  const renderItem = ({ item }) => (
-    <View style={styles.cardContainer} key={item.id}>
-      <View>
-        {item.images.map((index) => (
-          <View style={styles.cardHeaderContainer} key={index}>
+  const renderItem = ({ item }) => {
+    console.log({ item });
+    return (
+      <View style={styles.cardContainer} key={item.id}>
+        <View>
+          <View style={styles.cardHeaderContainer}>
             <Image
               source={{ uri: item.user.photo_thumbnail }}
               style={{
@@ -47,29 +48,29 @@ const SearchPostItem = ({ posts }) => {
               </Text>
             </View>
           </View>
-        ))}
+        </View>
+        <Image
+          source={{ uri: item.images[0].image }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+        <View style={styles.iconContainer}>
+          <TouchableOpacity>
+            <Ionic name="ios-heart-outline" size={26} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Ionic name="ios-person-circle" size={26} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Feather name="navigation" size={26} color="black" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => openModal(item)}>
+            <Ionic name="pencil-outline" size={20} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <Image
-        source={{ uri: item.images[0].image }}
-        style={styles.image}
-        resizeMode="cover"
-      />
-      <View style={styles.iconContainer}>
-        <TouchableOpacity>
-          <Ionic name="ios-heart-outline" size={26} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionic name="ios-person-circle" size={26} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Feather name="navigation" size={26} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => openModal(item)}>
-          <Ionic name="pencil-outline" size={20} color="black" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.container}>

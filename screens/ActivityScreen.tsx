@@ -5,6 +5,7 @@ import colors from "../colorPalette/colors";
 import api from "../services/api";
 import { useQuery } from "react-query";
 import ActivityScreenHeader from "../components/activityScreen/ActivityScreenHeader";
+import ActivityScreenBody from "../components/activityScreen/ActivityScreenBody";
 
 const ActivityScreen = () => {
   const { isLoading, data, error } = useQuery(
@@ -16,6 +17,7 @@ const ActivityScreen = () => {
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <ActivityScreenHeader />
+        <ActivityScreenBody data={data} />
       </SafeAreaView>
     </SafeAreaProvider>
   );

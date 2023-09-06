@@ -34,7 +34,7 @@ const postFooterIcons = [
   },
 ];
 
-const Post = ({ post }) => {
+const Post = ({ post, navigation }) => {
   return (
     <View style={{ marginBottom: 30 }}>
       <Divider
@@ -49,6 +49,7 @@ const Post = ({ post }) => {
       <PostHeader
         name={post?.user?.username}
         profileImg={post.user.photo_thumbnail}
+        navigation={navigation}
       />
       <PostImage post={post} />
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
@@ -62,7 +63,7 @@ const Post = ({ post }) => {
   );
 };
 
-const PostHeader = ({ name, profileImg }) => (
+const PostHeader = ({ name, profileImg, navigation }) => (
   <View
     style={{
       flexDirection: "row",
@@ -73,7 +74,9 @@ const PostHeader = ({ name, profileImg }) => (
     }}
   >
     <View style={{ flexDirection: "row", alignItems: "center" }}>
-      <Image source={{ uri: profileImg }} style={styles.story} />
+      <TouchableOpacity>
+        <Image source={{ uri: profileImg }} style={styles.story} />
+      </TouchableOpacity>
       <Text style={{ color: "white", marginLeft: 5, fontWeight: "600" }}>
         {name}
       </Text>
