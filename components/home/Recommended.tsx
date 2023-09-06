@@ -7,7 +7,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../colorPalette/colors";
 
-const RenderRecommendedList = ({ item, onDelete }) => {
+const RenderRecommendedList = ({ item }) => {
   const [isFollow, setIsFollow] = useState(false);
 
   return (
@@ -30,7 +30,6 @@ const RenderRecommendedList = ({ item, onDelete }) => {
           top: 10,
           right: 10,
         }}
-        onPress={onDelete}
       >
         <AntDesign
           name="close"
@@ -86,60 +85,55 @@ const Recommended = () => {
   const navigation = useNavigation() as any;
   const [recommendedItems, setRecommendedItems] = useState(suggestionsData);
 
-  // const { isLoading, isError, data, error } = useQuery(
-  //   "suggestedUsers",
-  //   api.fetchSuggestedUsers
-  // );
+  const { isLoading, isError, data, error } = useQuery(
+    "suggestedUsers",
+    api.fetchSuggestedUsers
+  );
 
-  // if (isLoading) {
-  //   return <Text>Loading...</Text>;
-  // }
-  const handleDeleteRecommended = (itemId) => {
-    const updatedRecommendedItems = recommendedItems.filter(
-      (item) => item.id !== itemId
-    );
-    setRecommendedItems(updatedRecommendedItems);
-  };
+  const handleDeleteRecommended = () => {};
   return (
     <View>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          paddingHorizontal: 8,
-        }}
-      >
-        <Text
-          style={{ color: "white", paddingVertical: 10, fontWeight: "bold" }}
-        >
-          Suggested For You
-        </Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("SeeAllRecommendedScreen")}
-        >
-          <Text
+      {data?.length > 0 ? (
+        <View>
+          <View
             style={{
-              color: "#2493D9",
-              paddingVertical: 10,
-              fontWeight: "bold",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 8,
             }}
           >
-            See All
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <FlatList
-        data={recommendedItems}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <RenderRecommendedList
-            item={item}
-            onDelete={() => handleDeleteRecommended(item.id)}
+            <Text
+              style={{
+                color: "white",
+                paddingVertical: 10,
+                fontWeight: "bold",
+              }}
+            >
+              Suggested For You
+            </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SeeAllRecommendedScreen")}
+            >
+              <Text
+                style={{
+                  color: "#2493D9",
+                  paddingVertical: 10,
+                  fontWeight: "bold",
+                }}
+              >
+                See All
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            data={data}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <RenderRecommendedList item={item} />}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
           />
-        )}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-      />
+        </View>
+      ) : null}
     </View>
   );
 };

@@ -44,7 +44,6 @@ const ProfileCoverPhotoModal = ({
 
   const handleConfirmDeleteCover = () => {
     deleteMutation.mutate();
-    console.log("delete cover photo");
     setShowDeleteModal(false);
   };
 

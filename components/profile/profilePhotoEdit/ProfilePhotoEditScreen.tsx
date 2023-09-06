@@ -52,7 +52,6 @@ const ProfilePhotoEditScreen = ({ route }) => {
 
     const res = await api.updateProfilePhoto(formData);
     setImage(res?.photo_thumbnail);
-    console.log("res", res);
     // setIsPreviewVisible(false);
     queryClient.refetchQueries("fetchUser");
     navigation.goBack();

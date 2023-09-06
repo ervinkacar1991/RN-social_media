@@ -55,8 +55,6 @@ const SearchScreenHeader = ({ navigation }) => {
   const usersResult = usersData?.results || [];
   const postsResult = postsData?.results || [];
 
-  console.table(postsResult);
-
   const onInputChange = (text: string) => {
     delaySearch(text);
   };

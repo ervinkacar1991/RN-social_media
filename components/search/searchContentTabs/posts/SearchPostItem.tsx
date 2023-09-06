@@ -27,7 +27,6 @@ const SearchPostItem = ({ posts }) => {
   };
 
   const renderItem = ({ item }) => {
-    console.log({ item });
     return (
       <View style={styles.cardContainer} key={item.id}>
         <View>
