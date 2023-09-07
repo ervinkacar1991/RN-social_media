@@ -70,17 +70,17 @@ const SearchContent = ({
       <Tab.Screen
         name="People"
         component={WrappedSearchPeople}
-        options={{ lazy: true }}
+        options={{ lazy: false }}
       ></Tab.Screen>
       <Tab.Screen
         name="Posts"
         component={WrappedSearchPosts}
-        options={{ lazy: true }}
+        options={{ lazy: false }}
       ></Tab.Screen>
       <Tab.Screen
         name="Users"
         component={WrappedSearchUsers}
-        options={{ lazy: true }}
+        options={{ lazy: false }}
       ></Tab.Screen>
     </Tab.Navigator>
   );

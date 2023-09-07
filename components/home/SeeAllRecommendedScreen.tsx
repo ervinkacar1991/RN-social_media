@@ -11,55 +11,51 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons as Ionic } from "@expo/vector-icons";
 import Feather from "react-native-vector-icons/Feather";
 import colors from "../../colorPalette/colors";
-import { suggestionsData } from "../../suggestionsData";
 import { Divider } from "react-native-paper";
-import { set } from "react-native-reanimated";
 
 const DefaultAvatarUri =
   "https://st4.depositphotos.com/4329009/19956/v/600/depositphotos_199564354-stock-illustration-creative-vector-illustration-default-avatar.jpg";
 
-const SeeAllRecommendedScreen = ({ navigation }) => {
-  const [data, setData] = useState(suggestionsData);
+const SeeAllRecommendedScreen = ({ navigation, route }) => {
+  const { recommendedUsers } = route.params;
+  const [sugData, setSugData] = useState(recommendedUsers);
 
   const deleteItem = useCallback(
     (id) => {
-      const newData = data.filter((item) => item.id !== id);
-      setData(newData);
+      const newData = sugData.filter((item) => item.id !== id);
+      setSugData(newData);
     },
-    [data]
+    [recommendedUsers]
   );
 
-  const renderItem = useCallback(
-    ({ item }) => {
-      return (
-        <View style={styles.listItem}>
-          <Image
-            source={{
-              uri: item.photo ? item.photo : DefaultAvatarUri,
-            }}
-            style={styles.photo}
-          />
-          <View style={styles.userInfo}>
-            <View>
-              <Text style={styles.username}>{item.username}</Text>
-              <Text style={styles.name}>{item.name}</Text>
-            </View>
-
-            <TouchableOpacity style={styles.followButton}>
-              <Text style={styles.followButtonText}>Follow</Text>
-            </TouchableOpacity>
+  const renderItem = useCallback(({ item }) => {
+    return (
+      <View style={styles.listItem}>
+        <Image
+          source={{
+            uri: item.photo ? item.photo : DefaultAvatarUri,
+          }}
+          style={styles.photo}
+        />
+        <View style={styles.userInfo}>
+          <View>
+            <Text style={styles.username}>{item.username}</Text>
+            <Text style={styles.name}>{item.name}</Text>
           </View>
-          <TouchableOpacity
-            style={styles.closeIcon}
-            onPress={() => deleteItem(item.id)}
-          >
-            <Feather name="x" size={15} color="#a9a4a4" />
+
+          <TouchableOpacity style={styles.followButton}>
+            <Text style={styles.followButtonText}>Follow</Text>
           </TouchableOpacity>
         </View>
-      );
-    },
-    [deleteItem]
-  );
+        <TouchableOpacity
+          style={styles.closeIcon}
+          onPress={() => deleteItem(item.id)}
+        >
+          <Feather name="x" size={15} color="#a9a4a4" />
+        </TouchableOpacity>
+      </View>
+    );
+  }, []);
 
   return (
     <SafeAreaProvider>
@@ -86,13 +82,13 @@ const SeeAllRecommendedScreen = ({ navigation }) => {
         <Divider
           style={{ backgroundColor: "#2e2e2e", height: 0.3, marginTop: 20 }}
         />
-        {data.length === 0 ? (
+        {sugData.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>No more recommendations :)</Text>
           </View>
         ) : (
           <FlatList
-            data={data}
+            data={sugData}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.listContainer}

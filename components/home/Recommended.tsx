@@ -83,7 +83,6 @@ const RenderRecommendedList = ({ item }) => {
 
 const Recommended = () => {
   const navigation = useNavigation() as any;
-  const [recommendedItems, setRecommendedItems] = useState(suggestionsData);
 
   const { isLoading, isError, data, error } = useQuery(
     "suggestedUsers",
@@ -112,7 +111,11 @@ const Recommended = () => {
               Suggested For You
             </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate("SeeAllRecommendedScreen")}
+              onPress={() =>
+                navigation.navigate("SeeAllRecommendedScreen", {
+                  recommendedUsers: data,
+                })
+              }
             >
               <Text
                 style={{
