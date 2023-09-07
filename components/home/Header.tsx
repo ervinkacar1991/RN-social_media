@@ -1,12 +1,30 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import React, { useEffect } from "react";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
 
 const Header = ({ navigation, onHomeButtonPress }) => {
+  const titlePosition = useSharedValue(1000);
+
+  const animatedTitleStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: titlePosition.value }],
+    };
+  });
+
+  useEffect(() => {
+    titlePosition.value = withSpring(0, { damping: 5, stiffness: 40 });
+  }, []);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={onHomeButtonPress}>
-        <Text style={styles.title}>NIT-Social</Text>
+        <Animated.Text style={[styles.title, animatedTitleStyle]}>
+          NIT-Social
+        </Animated.Text>
       </TouchableOpacity>
       <View style={styles.iconsContainer}>
         <TouchableOpacity>
