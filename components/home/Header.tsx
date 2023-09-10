@@ -23,7 +23,7 @@ const Header = ({ navigation, onHomeButtonPress }) => {
     <View style={styles.container}>
       <TouchableOpacity onPress={onHomeButtonPress}>
         <Animated.Text style={[styles.title, animatedTitleStyle]}>
-          NIT-Social
+          LinkedNit
         </Animated.Text>
       </TouchableOpacity>
       <View style={styles.iconsContainer}>
@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "Cochin",
     color: "white",
-    fontSize: 26,
+    fontSize: 30,
+    letterSpacing: 1,
   },
   unreadBadge: {
     backgroundColor: "#FF3250",

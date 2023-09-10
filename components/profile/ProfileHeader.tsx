@@ -7,11 +7,10 @@ import {
   Modal,
   TouchableWithoutFeedback,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import colors from "../../colorPalette/colors";
 import ProfileInfo from "./ProfileInfo";
 import { Feather } from "@expo/vector-icons";
-import { UserContext } from "../../context/UserContext";
 import ProfileCoverPhotoModal from "../../modals/ProfileCoverPhotoModal";
 
 const DefaultCovereUri =
@@ -20,13 +19,8 @@ const DefaultCovereUri =
 const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
 
 const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
-  const { handleLogout } = useContext(UserContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-
-  const onLogout = () => {
-    handleLogout();
-  };
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -72,14 +66,13 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
           <Feather name="chevron-down" style={styles.chevronIcon} />
         </View>
         <View style={styles.menuContainer}>
-          <TouchableOpacity onPress={onLogout}>
-            <Feather name="log-out" style={styles.menuIcon} />
-          </TouchableOpacity>
-          {/* <TouchableOpacity onPress={toggleDropdown}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AccountSettings")}
+          >
             <Feather name="more-vertical" style={styles.menuIcon} />
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
-        <Modal
+        {/* <Modal
           visible={isDropdownVisible}
           transparent={true}
           animationType="fade"
@@ -103,7 +96,7 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
               </View>
             </View>
           </TouchableWithoutFeedback>
-        </Modal>
+        </Modal> */}
       </View>
 
       <ProfileInfo user={user?.username} />

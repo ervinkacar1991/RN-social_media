@@ -65,7 +65,7 @@ const LoginForm = ({ navigation }) => {
                 styles.inputField,
                 {
                   borderColor:
-                    1 > values.username.length || values.username.length > 3
+                    1 > values.username.length || values.username.length > 2
                       ? "#ccc"
                       : "red",
                 },
