@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
@@ -15,6 +16,7 @@ import { useMutation, useQueryClient } from "react-query";
 import api from "../services/api";
 import * as ImagePicker from "expo-image-picker";
 import { ActivityIndicator } from "react-native-paper";
+import AddOrUploadCover from "./AddOrUploadCover";
 
 const DefaultCovereUri =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRHYig3H-sA-cJkJq7SKQTf24WWhWDiK6PbA&usqp=CAU";
@@ -26,6 +28,7 @@ const ProfileCoverPhotoModal = ({
   navigation,
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAddCoverModal, setShowAddCoverModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [cover, setCover] = useState(coverPhoto);
   const queryClient = useQueryClient();
@@ -42,6 +45,10 @@ const ProfileCoverPhotoModal = ({
     },
   });
 
+  const handleAddCover = () => {
+    setShowAddCoverModal(true);
+  };
+
   const handleConfirmDeleteCover = () => {
     deleteMutation.mutate();
     setShowDeleteModal(false);
@@ -51,6 +58,42 @@ const ProfileCoverPhotoModal = ({
     setLoading(true);
     try {
       let result: any = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+      });
+
+      if (result.canceled) {
+        setLoading(false);
+        return;
+      }
+
+      let selectedAssets = result?.assets;
+      let localUri = selectedAssets[0]?.uri;
+      let filename = localUri.split("/").pop();
+
+      let match = /\.(\w+)$/.exec(filename);
+      let type = match ? `image/${match[1]}` : `image`;
+
+      let formData = new FormData();
+
+      formData.append("cover", { uri: localUri, name: filename, type } as any);
+
+      const res = await api.updateCoverPhoto(formData);
+      setCover(res?.cover_thumbnail);
+      console.log("res", res);
+      // setIsPreviewVisible(false);
+      queryClient.refetchQueries("fetchUser");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      toggleModal();
+    }
+  };
+  const handleUploadCoverImage = async () => {
+    setLoading(true);
+    try {
+      let result: any = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         aspect: [4, 3],
       });
@@ -126,13 +169,17 @@ const ProfileCoverPhotoModal = ({
             <Feather name="edit" style={styles.icon} />
             <Text style={styles.textColor}>Edit</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={handleSaveCoverImage}
-          >
+          <TouchableOpacity style={styles.iconButton} onPress={handleAddCover}>
             <Feather name="camera" style={styles.icon} />
             <Text style={styles.textColor}>Add Cover</Text>
           </TouchableOpacity>
+          <AddOrUploadCover
+            showAddCoverModal={showAddCoverModal}
+            setShowAddCoverModal={setShowAddCoverModal}
+            handleSaveCoverImage={handleSaveCoverImage}
+            handleUploadCoverImage={handleUploadCoverImage}
+            loading={loading}
+          />
           <TouchableOpacity
             style={styles.iconButton}
             onPress={() => setShowDeleteModal(true)}
@@ -147,45 +194,44 @@ const ProfileCoverPhotoModal = ({
               animationType="slide"
               onRequestClose={() => setShowDeleteModal(false)}
             >
-              <View style={styles.deleteModalContainer}>
-                <View style={styles.deleteModalContent}>
-                  <Text style={styles.deleteModalText}>
-                    Delete cover photo?
-                  </Text>
-                  <View style={styles.deleteModalButtons}>
-                    <TouchableOpacity
-                      style={[
-                        styles.deleteModalButton,
-                        styles.deleteModalButtonWithBorder,
-                      ]}
-                      onPress={() => setShowDeleteModal(false)}
-                    >
-                      <Text style={styles.deleteModalButtonText}>Cancel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      style={styles.deleteModalButton}
-                      onPress={handleConfirmDeleteCover}
-                    >
-                      <Text
+              <TouchableWithoutFeedback
+                onPress={() => setShowDeleteModal(false)}
+              >
+                <View style={styles.deleteModalContainer}>
+                  <View style={styles.deleteModalContent}>
+                    <Text style={styles.deleteModalText}>
+                      Delete cover photo?
+                    </Text>
+                    <View style={styles.deleteModalButtons}>
+                      <TouchableOpacity
                         style={[
-                          styles.deleteModalButtonText,
-                          styles.deleteButtonText,
+                          styles.deleteModalButton,
+                          styles.deleteModalButtonWithBorder,
                         ]}
+                        onPress={() => setShowDeleteModal(false)}
                       >
-                        Delete
-                      </Text>
-                    </TouchableOpacity>
+                        <Text style={styles.deleteModalButtonText}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.deleteModalButton}
+                        onPress={handleConfirmDeleteCover}
+                      >
+                        <Text
+                          style={[
+                            styles.deleteModalButtonText,
+                            styles.deleteButtonText,
+                          ]}
+                        >
+                          Delete
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
-              </View>
+              </TouchableWithoutFeedback>
             </Modal>
           )}
         </View>
-        {loading && (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="white" />
-          </View>
-        )}
       </View>
     </Modal>
   );
@@ -286,17 +332,6 @@ const styles = StyleSheet.create({
   },
   deleteButtonText: {
     // color: "white",
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: colors.backgroundColor,
   },
 });
 

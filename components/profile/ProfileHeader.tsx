@@ -72,31 +72,6 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
             <Feather name="more-vertical" style={styles.menuIcon} />
           </TouchableOpacity>
         </View>
-        {/* <Modal
-          visible={isDropdownVisible}
-          transparent={true}
-          animationType="fade"
-          onRequestClose={toggleDropdown}
-        >
-          <TouchableWithoutFeedback onPress={onBackgroundPress}>
-            <View style={styles.modalBackground}>
-              <View style={styles.dropdownContainer}>
-                <TouchableOpacity
-                  style={styles.dropdownItem}
-                  onPress={() => onMenuItemPress("Change Cover")}
-                >
-                  <Text style={styles.dropdownText}>Change Cover</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.dropdownItem}
-                  onPress={() => onMenuItemPress("Settings")}
-                >
-                  <Text style={styles.dropdownText}>Settings</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal> */}
       </View>
 
       <ProfileInfo user={user?.username} />
