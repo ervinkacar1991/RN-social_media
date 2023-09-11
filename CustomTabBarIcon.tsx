@@ -8,7 +8,7 @@ const CustomTabBarIcon = ({ focused, size, routeName }) => {
     iconName = focused ? "home-sharp" : "home-outline";
   } else if (routeName === "Search") {
     iconName = focused ? "search" : "ios-search-outline";
-  } else if (routeName === "Reels") {
+  } else if (routeName === "AddPost") {
     iconName = focused ? "add-circle" : "add-circle-outline";
     size = focused ? 50 : 30;
   } else if (routeName === "Activity") {

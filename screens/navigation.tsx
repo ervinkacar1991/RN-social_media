@@ -5,7 +5,6 @@ import LoginScreen from "./LoginScreen";
 import SignupScreen from "./SignupScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SearchScreen from "./SearchScreen";
-import ReelsScreen from "./ReelsScreen";
 import ActivityScreen from "./ActivityScreen";
 import EditProfile from "../components/profile/EditProfile";
 import SeeAllRecommendedScreen from "../components/home/SeeAllRecommendedScreen";
@@ -16,6 +15,7 @@ import UserProfileInfoScreen from "../components/profile/userProfileInfo/UserPro
 import UserPostsDetails from "../components/profile/UserPostsDetails";
 import ProfilePhotoEditScreen from "../components/profile/profilePhotoEdit/ProfilePhotoEditScreen";
 import AccountSettingsScreen from "../components/profile/acountSettings/AccountSettingsScreen";
+import AddPostScreen from "./AddPostScreen";
 
 type RootStackParamList = {
   HomeScreen: undefined;
@@ -23,9 +23,6 @@ type RootStackParamList = {
   LoginScreen: undefined;
   SignupScreen: undefined;
 };
-// type BottomTabParamList = {
-//   SignedInStack: undefined;
-// };
 
 type ProfileStackParamList = {
   ProfileScreen: undefined;
@@ -43,7 +40,6 @@ type HomeStackParamList = {
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-// const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const screenOptions = {
   headerShown: false,
@@ -75,7 +71,7 @@ const AuthorizedStack: React.FC = () => {
     >
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="Reels" component={ReelsScreen} />
+      <Tab.Screen name="AddPost" component={AddPostScreen} />
       <Tab.Screen name="Activity" component={ActivityScreen} />
       <Tab.Screen name="Profile" component={ProfileStack} />
     </Tab.Navigator>

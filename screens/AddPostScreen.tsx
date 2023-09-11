@@ -2,12 +2,15 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import colors from "../colorPalette/colors";
+import AddPostHeader from "../components/addPost/header/AddPostHeader";
+import AddPostBody from "../components/addPost/body/AddPostBody";
 
-const ReelsScreen = () => {
+const AddPostScreen = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <Text style={{ color: "white" }}>Add Post Screen</Text>
+        <AddPostHeader navigation={navigation} />
+        <AddPostBody />
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -20,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ReelsScreen;
+export default AddPostScreen;
