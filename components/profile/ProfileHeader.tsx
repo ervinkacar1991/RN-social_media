@@ -67,7 +67,11 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
         </View>
         <View style={styles.menuContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("AccountSettings")}
+            onPress={() =>
+              navigation.navigate("AccountSettings", {
+                profilePhoto: user?.photo,
+              })
+            }
           >
             <Feather name="more-vertical" style={styles.menuIcon} />
           </TouchableOpacity>

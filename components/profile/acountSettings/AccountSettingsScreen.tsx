@@ -5,12 +5,16 @@ import colors from "../../../colorPalette/colors";
 import AccountSettingsHeader from "./header/AccountSettingsHeader";
 import AccountSettingsBody from "./body/AccountSettingsBody";
 
-const AccountSettingsScreen = ({ navigation }) => {
+const AccountSettingsScreen = ({ navigation, route }) => {
+  const { profilePhoto } = route.params;
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <AccountSettingsHeader navigation={navigation} />
-        <AccountSettingsBody />
+        <AccountSettingsBody
+          profilePhoto={profilePhoto}
+          navigation={navigation}
+        />
       </SafeAreaView>
     </SafeAreaProvider>
   );

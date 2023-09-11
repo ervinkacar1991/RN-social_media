@@ -11,7 +11,9 @@ import colors from "../../../../colorPalette/colors";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { UserContext } from "../../../../context/UserContext";
 
-const AccountSettingsBody = () => {
+const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
+
+const AccountSettingsBody = ({ profilePhoto, navigation }) => {
   const { handleLogout } = useContext(UserContext);
 
   const onLogout = () => {
@@ -24,27 +26,42 @@ const AccountSettingsBody = () => {
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Image
             source={{
-              uri: "https://i.stack.imgur.com/l60Hf.png",
+              uri: profilePhoto ? profilePhoto : DefaultProfilePhotoUri,
             }}
             style={styles.profileImage}
           />
           <Text style={styles.nameStyle}>name</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
           <Text style={styles.editStyle}>Edit</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.optionsContainer}>
-        <OptionItem label="Change Password" iconName="key" index={0} onPress />
+        <OptionItem
+          label="Change Password"
+          iconName="key"
+          index={0}
+          onPress={() => {}}
+        />
         <OptionItem
           label="Privacy Policy"
           iconName="shield"
           index={1}
-          onPress
+          onPress={() => {}}
         />
-        <OptionItem label="Contact Us" iconName="envelope" index={2} onPress />
-        <OptionItem label="Blocked Accounts" iconName="ban" index={3} onPress />
+        <OptionItem
+          label="Contact Us"
+          iconName="envelope"
+          index={2}
+          onPress={() => {}}
+        />
+        <OptionItem
+          label="Blocked Accounts"
+          iconName="ban"
+          index={3}
+          onPress={() => {}}
+        />
         <OptionItem
           label="Logout"
           iconName="sign-out"

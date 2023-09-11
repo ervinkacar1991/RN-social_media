@@ -19,10 +19,11 @@ instance.interceptors.request.use(
     return config;
   },
   (err) => {
+    if (err.response.status === 401) {
+      AsyncStorage.removeItem("token");
+    }
     return Promise.reject(err);
   }
 );
-
-//@TODO: Add token to headers with axios interceptors on request!!
 
 export default instance;
