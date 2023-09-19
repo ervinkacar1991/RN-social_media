@@ -110,6 +110,19 @@ const updateCoverPhoto = async (formData: FormData) => {
   return resp.data;
 };
 
+const addPost = async (formData: FormData, username: string) => {
+  try {
+    const resp = await instance.post(`/feed/${username}/posts/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return resp;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const api = {
   login,
   signup,
@@ -130,6 +143,7 @@ const api = {
   deleteCoverPhoto,
   updateProfilePhoto,
   updateCoverPhoto,
+  addPost,
 };
 
 export default Object.freeze(api);

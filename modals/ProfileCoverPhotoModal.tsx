@@ -81,13 +81,13 @@ const ProfileCoverPhotoModal = ({
       const res = await api.updateCoverPhoto(formData);
       setCover(res?.cover_thumbnail);
       console.log("res", res);
-      // setIsPreviewVisible(false);
       queryClient.refetchQueries("fetchUser");
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
       toggleModal();
+      setShowAddCoverModal(false);
     }
   };
   const handleUploadCoverImage = async () => {
@@ -117,13 +117,12 @@ const ProfileCoverPhotoModal = ({
       const res = await api.updateCoverPhoto(formData);
       setCover(res?.cover_thumbnail);
       console.log("res", res);
-      // setIsPreviewVisible(false);
       queryClient.refetchQueries("fetchUser");
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      toggleModal();
+      setShowAddCoverModal(false);
     }
   };
 

@@ -1,5 +1,11 @@
-import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import ProfilePhotoEditBottomIcons from "./ProfilePhotoEditBottomIcons";
 import colors from "../../../colorPalette/colors";
 
@@ -7,16 +13,18 @@ const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
 
 const ProfilePhotoEditBody = ({ profilePhoto, bottomSheetRef }) => {
   return (
-    <View style={styles.container}>
-      <Image
-        source={{
-          uri: profilePhoto || DefaultProfilePhotoUri,
-        }}
-        style={styles.profilePhoto}
-        resizeMode="cover"
-      />
-      <ProfilePhotoEditBottomIcons bottomSheetRef={bottomSheetRef} />
-    </View>
+    <TouchableWithoutFeedback onPress={() => bottomSheetRef.current?.close()}>
+      <View style={styles.container}>
+        <Image
+          source={{
+            uri: profilePhoto || DefaultProfilePhotoUri,
+          }}
+          style={styles.profilePhoto}
+          resizeMode="cover"
+        />
+        <ProfilePhotoEditBottomIcons bottomSheetRef={bottomSheetRef} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -25,7 +33,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    // marginBottom: 100,
   },
   profilePhoto: {
     height: 350,
