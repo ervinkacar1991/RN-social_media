@@ -40,7 +40,7 @@ const UserPostsDetailsBody = ({ post }) => {
   const comments = post?.comments;
 
   return (
-    <View style={{ marginBottom: 30 }}>
+    <View>
       <Divider style={styles.divider} />
 
       <UserPostHeader
@@ -77,7 +77,14 @@ const UserPostHeader = ({ profileImg, username }) => (
       </Text>
     </View>
     <View>
-      <Text style={{ color: "white", marginRight: 5, fontWeight: "900" }}>
+      <Text
+        style={{
+          color: "white",
+          marginRight: 7,
+          fontWeight: "900",
+          fontSize: 18,
+        }}
+      >
         ...
       </Text>
     </View>

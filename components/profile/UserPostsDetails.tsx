@@ -21,8 +21,8 @@ const UserPostsDetails = ({ navigation, route }) => {
           data={posts.results}
           renderItem={({ item }) => <UserPostsDetailsBody post={item} />}
           getItemLayout={(data, index) => ({
-            length: 620,
-            offset: 620 * index,
+            length: 594,
+            offset: 597 * index,
             index,
           })}
           initialScrollIndex={index}
