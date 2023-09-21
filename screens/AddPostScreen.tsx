@@ -1,11 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import colors from "../colorPalette/colors";
 import AddPostHeader from "../components/addPost/header/AddPostHeader";
 import AddPostBody from "../components/addPost/body/AddPostBody";
-import api from "../services/api";
-import { useMutation, useQueryClient } from "react-query";
 
 const AddPostScreen = ({ navigation }) => {
   return (

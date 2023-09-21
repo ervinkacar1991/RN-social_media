@@ -30,7 +30,7 @@ const AuthNavigator = () => {
 };
 
 const Root = () => {
-  const { handleSetToken } = useContext(UserContext);
+  const { handleSetToken, handleSetUser } = useContext(UserContext);
 
   const loadFromStorage = async () => {
     const token = await AsyncStorage.getItem("token");

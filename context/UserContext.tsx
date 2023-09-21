@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
 } from "react";
+import api from "../services/api";
 
 interface User {
   id: string;
@@ -49,6 +50,18 @@ const UserProvider = ({ children }: UserProviderProps) => {
 
   const handleSetUser = useCallback((newUser: User | null) => {
     setuser(newUser);
+  }, []);
+
+  const loadUser = useCallback(async () => {
+    try {
+      const response = await api.fetchUser();
+      setuser(response);
+    } catch (error) {
+      throw error;
+    }
+  }, []);
+  useEffect(() => {
+    loadUser();
   }, []);
 
   const loadFromStorage = async () => {

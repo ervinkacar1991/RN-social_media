@@ -1,23 +1,16 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Button,
-  Image,
-  StyleSheet,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Button, StyleSheet } from "react-native";
+import React, { useState, useContext } from "react";
 import * as ImagePicker from "expo-image-picker";
 import api from "../../../services/api";
-import { useMutation, QueryClient } from "react-query";
+import { QueryClient } from "react-query";
 import colors from "../../../colorPalette/colors";
 import { ActivityIndicator } from "react-native-paper";
-
-const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
+import { UserContext } from "../../../context/UserContext";
 
 const AddPostBody = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
+  const { user } = useContext(UserContext);
 
   const queryClient = new QueryClient();
 
@@ -48,7 +41,7 @@ const AddPostBody = ({ navigation }) => {
       type: type,
     });
     try {
-      const res = await api.addPost(formData, "ema");
+      const res = await api.addPost(formData, user.username);
       setImage(res?.data?.photo_thumbnail);
       queryClient.refetchQueries("fetchUser");
       navigation.navigate("Profile");

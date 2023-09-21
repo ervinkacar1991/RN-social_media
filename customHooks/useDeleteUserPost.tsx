@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import api from "./services/api";
+import api from "../services/api";
 
 const useDeleteUserPost = () => {
   const queryClient = useQueryClient();

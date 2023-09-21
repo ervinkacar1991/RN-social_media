@@ -4,8 +4,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../colorPalette/colors";
 import UserPostsDetailsHeader from "./UserPostsDetailsHeader";
 import UserPostsDetailsBody from "./UserPostsDetailsBody";
-import { useMutation } from "react-query";
-import useDeleteUserPost from "../../useDeleteUserPost";
+import useDeleteUserPost from "../../customHooks/useDeleteUserPost";
 
 const UserPostsDetails = ({ navigation, route }) => {
   const { posts, postId } = route.params;
