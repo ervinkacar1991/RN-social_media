@@ -6,9 +6,10 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Divider } from "react-native-paper";
 import colors from "../../colorPalette/colors";
+import UserPostSettings from "../../modals/UserPostSettings";
 
 const postFooterIcons = [
   {
@@ -35,9 +36,14 @@ const postFooterIcons = [
 ];
 
 const UserPostsDetailsBody = ({ post, onDelete, postId }) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const images = post?.images.map((image) => image.image);
   const likes = post?.likes;
   const comments = post?.comments;
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   return (
     <View>
@@ -46,6 +52,7 @@ const UserPostsDetailsBody = ({ post, onDelete, postId }) => {
       <UserPostHeader
         profileImg={post?.user?.photo_thumbnail}
         username={post?.user?.username}
+        toggleModal={toggleModal}
       />
       <UserPostImage images={images} />
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
@@ -56,11 +63,15 @@ const UserPostsDetailsBody = ({ post, onDelete, postId }) => {
         {/* <CommentSection comments={post.comments} /> */}
         <Comments comments={comments} />
       </View>
+      <UserPostSettings
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
     </View>
   );
 };
 
-const UserPostHeader = ({ profileImg, username }) => (
+const UserPostHeader = ({ profileImg, username, toggleModal }) => (
   <View
     style={{
       flexDirection: "row",
@@ -77,16 +88,18 @@ const UserPostHeader = ({ profileImg, username }) => (
       </Text>
     </View>
     <View>
-      <Text
-        style={{
-          color: "white",
-          marginRight: 7,
-          fontWeight: "900",
-          fontSize: 18,
-        }}
-      >
-        ...
-      </Text>
+      <TouchableOpacity onPress={toggleModal}>
+        <Text
+          style={{
+            color: "white",
+            marginRight: 7,
+            fontWeight: "900",
+            fontSize: 18,
+          }}
+        >
+          ...
+        </Text>
+      </TouchableOpacity>
     </View>
   </View>
 );

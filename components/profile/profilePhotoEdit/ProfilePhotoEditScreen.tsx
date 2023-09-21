@@ -19,6 +19,7 @@ const ProfilePhotoEditScreen = ({ route }) => {
   const queryClient = useQueryClient();
   const [image, setImage] = useState(profilePhoto);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       bottomSheetRef.current?.close();
@@ -140,7 +141,7 @@ const ProfilePhotoEditScreen = ({ route }) => {
               style={[
                 style,
                 {
-                  backgroundColor: "#393737",
+                  backgroundColor: "#303030",
                   borderTopLeftRadius: 10,
                   borderTopRightRadius: 10,
                   borderColor: "#676666",

@@ -80,10 +80,9 @@ const ProfileCoverPhotoModal = ({
 
       const res = await api.updateCoverPhoto(formData);
       setCover(res?.cover_thumbnail);
-      console.log("res", res);
       queryClient.refetchQueries("fetchUser");
     } catch (error) {
-      console.log(error);
+      throw error;
     } finally {
       setLoading(false);
       toggleModal();
@@ -116,10 +115,9 @@ const ProfileCoverPhotoModal = ({
 
       const res = await api.updateCoverPhoto(formData);
       setCover(res?.cover_thumbnail);
-      console.log("res", res);
       queryClient.refetchQueries("fetchUser");
     } catch (error) {
-      console.log(error);
+      throw error;
     } finally {
       setLoading(false);
       setShowAddCoverModal(false);
