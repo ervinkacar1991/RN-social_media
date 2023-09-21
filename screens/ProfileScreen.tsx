@@ -106,7 +106,7 @@ const ProfileScreen = () => {
                 <ProfileBottom key={index} username={userData?.username} />
               )}
               keyExtractor={(item) => item}
-              stickyHeaderIndices={[1]}
+              // stickyHeaderIndices={[1]}
             />
           </View>
         </TouchableWithoutFeedback>

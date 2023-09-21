@@ -34,7 +34,7 @@ const postFooterIcons = [
   },
 ];
 
-const UserPostsDetailsBody = ({ post }) => {
+const UserPostsDetailsBody = ({ post, onDelete, postId }) => {
   const images = post?.images.map((image) => image.image);
   const likes = post?.likes;
   const comments = post?.comments;
@@ -49,7 +49,7 @@ const UserPostsDetailsBody = ({ post }) => {
       />
       <UserPostImage images={images} />
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
-        <PostFooter />
+        <PostFooter onDelete={onDelete} postId={postId} />
 
         <Likes likes={likes} />
         {/* <Caption post={post} /> */}
@@ -111,28 +111,48 @@ const UserPostImage = ({ images }) => {
   );
 };
 
-const PostFooter = () => (
+const PostFooter = ({ onDelete, postId }) => (
   <View style={{ flexDirection: "row" }}>
     <View style={styles.leftFooterIconsContainer}>
-      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[0].imageUrl} />
-      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[1].imageUrl} />
-      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[2].imageUrl} />
+      <PostIcon
+        imgStyle={styles.footerIcon}
+        imgUrl={postFooterIcons[0].imageUrl}
+        onDelete={onDelete}
+        postId={postId}
+      />
+      <PostIcon
+        imgStyle={styles.footerIcon}
+        imgUrl={postFooterIcons[1].imageUrl}
+        onDelete={onDelete}
+        postId={postId}
+      />
+      <PostIcon
+        imgStyle={styles.footerIcon}
+        imgUrl={postFooterIcons[2].imageUrl}
+        onDelete={onDelete}
+        postId={postId}
+      />
     </View>
     <View style={{ flex: 1, alignItems: "flex-end" }}>
-      <Icon imgStyle={styles.footerIcon} imgUrl={postFooterIcons[3].imageUrl} />
+      <PostIcon
+        imgStyle={styles.footerIcon}
+        imgUrl={postFooterIcons[3].imageUrl}
+        onDelete={onDelete}
+        postId={postId}
+      />
     </View>
   </View>
 );
 
-const Icon = ({ imgUrl, imgStyle }) => (
-  <TouchableOpacity>
+const PostIcon = ({ imgUrl, imgStyle, onDelete, postId }) => (
+  <TouchableOpacity onPress={() => onDelete(postId)}>
     <Image style={imgStyle} source={{ uri: imgUrl }} />
   </TouchableOpacity>
 );
 
 const Likes = ({ likes }) => (
   <View style={{ flexDirection: "row", marginTop: 4 }}>
-    <Text style={{ color: "white", fontWeight: "600" }}>
+    <Text style={{ color: "white", fontWeight: "500" }}>
       {`${likes.toLocaleString()} likes`}
     </Text>
   </View>
@@ -142,7 +162,7 @@ const Comments = ({ comments }) => (
   <>
     <View style={{ flexDirection: "row", marginTop: 5 }}>
       <Text style={{ color: "white" }}>
-        <Text style={{ fontWeight: "600" }}>{`${comments} comments`}</Text>
+        <Text style={{ fontWeight: "500" }}>{`${comments} comments`}</Text>
       </Text>
     </View>
   </>
@@ -158,8 +178,8 @@ const styles = StyleSheet.create({
     borderColor: colors.storyBorderColor,
   },
   footerIcon: {
-    width: 30,
-    height: 30,
+    width: 27,
+    height: 27,
   },
   leftFooterIconsContainer: {
     flexDirection: "row",

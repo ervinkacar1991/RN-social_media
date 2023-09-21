@@ -1,24 +1,24 @@
 import {
   View,
-  Text,
   FlatList,
   StyleSheet,
   Image,
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import api from "../../../services/api";
 import colors from "../../../colorPalette/colors";
 import { Feather } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 const windowWidth = Dimensions.get("window").width;
 const numColumns = 3;
 const imageSize = (windowWidth - 16 * (numColumns - 3)) / numColumns;
 
 const Posts = ({ username }) => {
+  const isFocused = useIsFocused();
   const navigation = useNavigation() as any;
   const renderPostItem = ({ item }) => (
     <TouchableOpacity
@@ -43,9 +43,16 @@ const Posts = ({ username }) => {
     isLoading: isPostsLoading,
     data: postsData,
     isError: isPostsError,
+    refetch,
   } = useQuery(["fetchUserPosts", username], () =>
     api.fetchUserPosts(username)
   );
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused]);
 
   if (isPostsError) {
     return (

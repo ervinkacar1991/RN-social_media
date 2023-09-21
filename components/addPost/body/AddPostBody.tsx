@@ -1,8 +1,17 @@
-import { View, Text, TouchableOpacity, Button, Image } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+  Image,
+  StyleSheet,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import api from "../../../services/api";
 import { useMutation, QueryClient } from "react-query";
+import colors from "../../../colorPalette/colors";
+import { ActivityIndicator } from "react-native-paper";
 
 const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
 
@@ -21,7 +30,6 @@ const AddPostBody = ({ navigation }) => {
     });
 
     if (result.canceled) {
-      console.log("cancelled");
       setLoading(false);
       return;
     }
@@ -34,23 +42,30 @@ const AddPostBody = ({ navigation }) => {
     let type = match ? `image/${match[1]}` : `image`;
 
     let formData = new FormData() as any;
-    formData.append("photo", {
+    formData.append("images[0][image]", {
       uri: localUri,
       name: filename,
       type: type,
     });
+    try {
+      const res = await api.addPost(formData, "ema");
+      setImage(res?.data?.photo_thumbnail);
+      queryClient.refetchQueries("fetchUser");
+      navigation.navigate("Profile");
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // try {
-  //   const res = await api.addPost(formData, "ema");
-  //   setImage(res?.data?.photo_thumbnail);
-  //   queryClient.refetchQueries("fetchUser");
-  //   navigation.goBack();
-  // } catch (error) {
-  //   throw error;
-  // } finally {
-  //   setLoading(false);
-  // }
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="white" />
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -61,5 +76,14 @@ const AddPostBody = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.backgroundColor,
+  },
+});
 
 export default AddPostBody;

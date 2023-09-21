@@ -72,6 +72,15 @@ const fetchUserPosts = async (username: string) => {
   return resp.data;
 };
 
+const deleteUserPost = async (username: string, post_id: string) => {
+  try {
+    const resp = await instance.delete(`/feed/${username}/posts/${post_id}/`);
+    return resp.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const fetchUserFollowers = async (username: string) => {
   const resp = await instance.get(`/relations/${username}/followers/`);
   return resp.data;
@@ -144,6 +153,7 @@ const api = {
   updateProfilePhoto,
   updateCoverPhoto,
   addPost,
+  deleteUserPost,
 };
 
 export default Object.freeze(api);
