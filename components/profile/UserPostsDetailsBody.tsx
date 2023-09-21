@@ -53,10 +53,12 @@ const UserPostsDetailsBody = ({ post, onDelete, postId }) => {
         profileImg={post?.user?.photo_thumbnail}
         username={post?.user?.username}
         toggleModal={toggleModal}
+        onDelete={onDelete}
+        postId={postId}
       />
       <UserPostImage images={images} />
       <View style={{ marginHorizontal: 15, marginTop: 10 }}>
-        <PostFooter onDelete={onDelete} postId={postId} />
+        <PostFooter />
 
         <Likes likes={likes} />
         {/* <Caption post={post} /> */}
@@ -66,12 +68,20 @@ const UserPostsDetailsBody = ({ post, onDelete, postId }) => {
       <UserPostSettings
         isModalVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
+        onDelete={onDelete}
+        postId={postId}
       />
     </View>
   );
 };
 
-const UserPostHeader = ({ profileImg, username, toggleModal }) => (
+const UserPostHeader = ({
+  profileImg,
+  username,
+  toggleModal,
+  onDelete,
+  postId,
+}) => (
   <View
     style={{
       flexDirection: "row",
@@ -124,41 +134,33 @@ const UserPostImage = ({ images }) => {
   );
 };
 
-const PostFooter = ({ onDelete, postId }) => (
+const PostFooter = () => (
   <View style={{ flexDirection: "row" }}>
     <View style={styles.leftFooterIconsContainer}>
       <PostIcon
         imgStyle={styles.footerIcon}
         imgUrl={postFooterIcons[0].imageUrl}
-        onDelete={onDelete}
-        postId={postId}
       />
       <PostIcon
         imgStyle={styles.footerIcon}
         imgUrl={postFooterIcons[1].imageUrl}
-        onDelete={onDelete}
-        postId={postId}
       />
       <PostIcon
         imgStyle={styles.footerIcon}
         imgUrl={postFooterIcons[2].imageUrl}
-        onDelete={onDelete}
-        postId={postId}
       />
     </View>
     <View style={{ flex: 1, alignItems: "flex-end" }}>
       <PostIcon
         imgStyle={styles.footerIcon}
         imgUrl={postFooterIcons[3].imageUrl}
-        onDelete={onDelete}
-        postId={postId}
       />
     </View>
   </View>
 );
 
-const PostIcon = ({ imgUrl, imgStyle, onDelete, postId }) => (
-  <TouchableOpacity onPress={() => onDelete(postId)}>
+const PostIcon = ({ imgUrl, imgStyle }) => (
+  <TouchableOpacity>
     <Image style={imgStyle} source={{ uri: imgUrl }} />
   </TouchableOpacity>
 );

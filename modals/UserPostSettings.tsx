@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -11,7 +11,12 @@ import { Divider } from "react-native-paper";
 import colors from "../colorPalette/colors";
 import Icon from "react-native-vector-icons/Feather";
 
-const UserPostSettings = ({ isModalVisible, setIsModalVisible }) => {
+const UserPostSettings = ({
+  isModalVisible,
+  setIsModalVisible,
+  onDelete,
+  postId,
+}) => {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Modal
@@ -27,13 +32,6 @@ const UserPostSettings = ({ isModalVisible, setIsModalVisible }) => {
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              {/* <TouchableOpacity
-                onPress={() => {
-                  setIsModalVisible(!isModalVisible);
-                }}
-              >
-                <Text>Close Modal</Text>
-              </TouchableOpacity> */}
               <View style={styles.modalInnerContent}>
                 <TouchableOpacity style={styles.buttonContainer}>
                   <Icon
@@ -52,7 +50,10 @@ const UserPostSettings = ({ isModalVisible, setIsModalVisible }) => {
                     backgroundColor: colors.secondaryTextColor,
                   }}
                 />
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity
+                  style={styles.buttonContainer}
+                  onPress={onDelete}
+                >
                   <Icon name="trash" size={23} color={"red"} solid={false} />
                   <Text style={styles.deleteButton}>Delete</Text>
                 </TouchableOpacity>
