@@ -18,7 +18,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import {
   handleEditFromGallery,
   handleEditTakePhoto,
-} from "../../../util/utilFunctions";
+} from "../../../util/imageUploadUtils";
 import { styles } from "./EditProfileStyles";
 
 const EditProfile = ({ navigation, route }) => {
@@ -38,11 +38,11 @@ const EditProfile = ({ navigation, route }) => {
 
   const toast = useToast();
 
-  const handleUploadImageWrapper = () => {
+  const handleEditImageWrapper = () => {
     handleEditFromGallery(setImage, setLoading, queryClient, bottomSheetRef);
   };
 
-  const handleSaveImageWrapper = () => {
+  const handleEditTakePhotoImageWrapper = () => {
     handleEditTakePhoto(setImage, setLoading, queryClient, bottomSheetRef);
   };
 
@@ -71,14 +71,14 @@ const EditProfile = ({ navigation, route }) => {
       </Text>
       <TouchableOpacity
         style={styles.bottomSheetItem}
-        onPress={handleSaveImageWrapper}
+        onPress={handleEditTakePhotoImageWrapper}
       >
         <Icon name="camera" size={20} color="#ddd7d7" style={styles.icon} />
         <Text style={styles.bottomSheetText}>Take a photo</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.bottomSheetItem}
-        onPress={handleUploadImageWrapper}
+        onPress={handleEditImageWrapper}
       >
         <Icon
           name="upload-cloud"

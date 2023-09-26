@@ -11,6 +11,10 @@ import api from "../../../services/api";
 import * as ImagePicker from "expo-image-picker";
 import { useQueryClient } from "react-query";
 import { ActivityIndicator } from "react-native-paper";
+import {
+  handleUploadProfilePhoto,
+  handleTakeProfilePhoto,
+} from "../../../util/imageUploadUtils";
 
 const ProfilePhotoEditScreen = ({ route }) => {
   const { profilePhoto } = route.params || {};
@@ -28,63 +32,12 @@ const ProfilePhotoEditScreen = ({ route }) => {
     return unsubscribe;
   }, [navigation]);
 
-  const handleUploadImage = async () => {
-    setLoading(true);
-    let result: any = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-
-    if (result.canceled) {
-      setLoading(false);
-      return;
-    }
-
-    let selectedAssets = result?.assets;
-    let localUri = selectedAssets[0]?.uri;
-    let filename = localUri.split("/").pop();
-
-    let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
-
-    let formData = new FormData();
-
-    formData.append("photo", { uri: localUri, name: filename, type } as any);
-
-    const res = await api.updateProfilePhoto(formData);
-    setImage(res?.photo_thumbnail);
-    queryClient.refetchQueries("fetchUser");
-    navigation.goBack();
+  const handleUploadProfilePhotoWrapper = () => {
+    handleUploadProfilePhoto(setImage, setLoading, queryClient, navigation);
   };
 
-  const handleSaveImage = async () => {
-    setLoading(true);
-    let result: any = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-
-    if (result.canceled) {
-      setLoading(false);
-      return;
-    }
-
-    let selectedAssets = result?.assets;
-    let localUri = selectedAssets[0]?.uri;
-    let filename = localUri.split("/").pop();
-
-    let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
-
-    let formData = new FormData();
-
-    formData.append("photo", { uri: localUri, name: filename, type } as any);
-
-    const res = await api.updateProfilePhoto(formData);
-    setImage(res?.photo_thumbnail);
-    queryClient.refetchQueries("fetchUser");
-
-    navigation.goBack();
+  const handleUploadTakePhotoWrapper = () => {
+    handleTakeProfilePhoto(setImage, setLoading, queryClient, navigation);
   };
 
   const renderBottomSheetContent = () => (
@@ -101,14 +54,14 @@ const ProfilePhotoEditScreen = ({ route }) => {
       </Text>
       <TouchableOpacity
         style={styles.bottomSheetItem}
-        onPress={handleSaveImage}
+        onPress={handleUploadTakePhotoWrapper}
       >
         <Icon name="camera" size={20} color="#ddd7d7" style={styles.icon} />
         <Text style={styles.bottomSheetText}>Take a photo</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.bottomSheetItem}
-        onPress={handleUploadImage}
+        onPress={handleUploadProfilePhotoWrapper}
       >
         <Icon
           name="upload-cloud"
