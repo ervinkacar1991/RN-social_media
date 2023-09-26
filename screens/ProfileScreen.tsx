@@ -97,7 +97,7 @@ const ProfileScreen = () => {
                     bottomSheetRef={bottomSheetRef}
                     navigation={navigation}
                   />
-                  <UserProfileButtons />
+                  <UserProfileButtons profilePhoto={userData?.photo} />
                   <UsersPostList pets={userPets} />
                 </>
               }

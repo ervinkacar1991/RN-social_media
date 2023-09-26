@@ -13,7 +13,7 @@ import { useQueryClient } from "react-query";
 import { ActivityIndicator } from "react-native-paper";
 
 const ProfilePhotoEditScreen = ({ route }) => {
-  const { profilePhoto } = route.params;
+  const { profilePhoto } = route.params || {};
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation() as any;
   const queryClient = useQueryClient();
@@ -53,7 +53,6 @@ const ProfilePhotoEditScreen = ({ route }) => {
 
     const res = await api.updateProfilePhoto(formData);
     setImage(res?.photo_thumbnail);
-    // setIsPreviewVisible(false);
     queryClient.refetchQueries("fetchUser");
     navigation.goBack();
   };
@@ -83,8 +82,8 @@ const ProfilePhotoEditScreen = ({ route }) => {
 
     const res = await api.updateProfilePhoto(formData);
     setImage(res?.photo_thumbnail);
-    // setIsPreviewVisible(false);
     queryClient.refetchQueries("fetchUser");
+
     navigation.goBack();
   };
 

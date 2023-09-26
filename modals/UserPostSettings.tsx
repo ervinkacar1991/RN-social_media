@@ -76,16 +76,15 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: "#303030",
     width: "100%",
-    height: 200,
-    padding: 25,
+    height: 180,
+    padding: 20,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
   modalInnerContent: {
-    width: "100%",
-    height: "100%",
     backgroundColor: "#454545",
     borderRadius: 15,
+    padding: 8,
   },
   buttonContainer: {
     width: "100%",
@@ -94,7 +93,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginLeft: 18,
     gap: 15,
-    // backgroundColor: "red",
   },
   editButton: {
     color: colors.primaryTextColor,

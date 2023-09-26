@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../colorPalette/colors";
 
-const UserProfileButtons = () => {
+const UserProfileButtons = ({ profilePhoto }) => {
   const navigation = useNavigation() as any;
   return (
     <View
@@ -18,7 +18,9 @@ const UserProfileButtons = () => {
     >
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("EditProfile");
+          navigation.navigate("EditProfile", {
+            profilePhoto: profilePhoto,
+          });
         }}
         style={{
           width: "100%",
