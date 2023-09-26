@@ -6,7 +6,7 @@ import SignupScreen from "./SignupScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SearchScreen from "./SearchScreen";
 import ActivityScreen from "./ActivityScreen";
-import EditProfile from "../components/profile/EditProfile";
+import EditProfile from "../components/profile/editScreen/EditProfile";
 import SeeAllRecommendedScreen from "../components/home/SeeAllRecommendedScreen";
 import colors from "../colorPalette/colors";
 import CustomTabBarIcon from "../CustomTabBarIcon";
