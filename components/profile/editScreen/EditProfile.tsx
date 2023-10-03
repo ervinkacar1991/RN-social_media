@@ -11,7 +11,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect, useRef } from "react";
 import { useToast } from "react-native-toast-notifications";
 import colors from "../../../colorPalette/colors";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useMutation } from "react-query";
 import { ActivityIndicator } from "react-native-paper";
 import Icon from "react-native-vector-icons/Feather";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -20,11 +20,21 @@ import {
   handleEditTakePhoto,
 } from "../../../util/imageUploadUtils";
 import { styles } from "./EditProfileStyles";
+import api from "../../../services/api";
 
 const EditProfile = ({ navigation, route }) => {
-  const { profilePhoto } = route.params;
+  const {
+    profilePhoto,
+    username,
+    name: initalName,
+    bio: initalBio,
+  } = route.params;
+
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(profilePhoto);
+  const [name, setName] = useState(initalName);
+  const [userUsername, setUserUsername] = useState(username);
+  const [bio, setBio] = useState(initalBio);
   const queryClient = useQueryClient();
   const bottomSheetRef = useRef(null);
 
@@ -46,15 +56,33 @@ const EditProfile = ({ navigation, route }) => {
     handleEditTakePhoto(setImage, setLoading, queryClient, bottomSheetRef);
   };
 
-  const handleShowToast = () => {
-    toast.show("Edited successfully !", {
-      duration: 2000,
-      type: "success",
-      animationType: "slide-in",
-      textStyle: { fontWeight: "bold" },
-      style: { backgroundColor: colors.buttonBackgroundColor },
-    });
-    navigation.goBack();
+  const handleEditUserProfile = () => {
+    if (!name || !userUsername || !bio) {
+      toast.show("Molimo popunite sva polja", { type: "warning" });
+      return;
+    }
+
+    const requestBody = {
+      username: userUsername,
+      name: name,
+      bio: bio,
+    };
+
+    api
+      .editUserProfile(requestBody)
+      .then((updatedUser) => {
+        console.log("Profil uspešno ažuriran:", updatedUser);
+        toast.show("Profil uspešno ažuriran.", { type: "success" });
+        queryClient.invalidateQueries("fetchUser");
+        navigation.goBack();
+        queryClient.invalidateQueries("profi");
+      })
+      .catch((error) => {
+        console.error("Greška prilikom ažuriranja korisničkog profila:", error);
+        toast.show("Došlo je do greške pri ažuriranju profila.", {
+          type: "danger",
+        });
+      });
   };
 
   const renderBottomSheetContent = () => (
@@ -115,7 +143,7 @@ const EditProfile = ({ navigation, route }) => {
             >
               Edit Profile
             </Text>
-            <TouchableOpacity onPress={handleShowToast}>
+            <TouchableOpacity onPress={handleEditUserProfile}>
               <Ionic
                 name="checkmark"
                 style={{ fontSize: 35, color: "#3493D9" }}
@@ -160,7 +188,8 @@ const EditProfile = ({ navigation, route }) => {
               </Text>
               <TextInput
                 placeholder="name"
-                defaultValue="ema"
+                value={name}
+                onChangeText={(text) => setName(text)}
                 style={styles.textInput}
               />
             </View>
@@ -170,7 +199,8 @@ const EditProfile = ({ navigation, route }) => {
               </Text>
               <TextInput
                 placeholder="accountname"
-                defaultValue="ema"
+                value={userUsername}
+                onChangeText={(text) => setUserUsername(text)}
                 style={styles.textInput}
               />
             </View>
@@ -180,7 +210,8 @@ const EditProfile = ({ navigation, route }) => {
               </Text>
               <TextInput
                 placeholder="bio"
-                defaultValue="bio"
+                value={bio}
+                onChangeText={(text) => setBio(text)}
                 style={styles.textInput}
               />
             </View>

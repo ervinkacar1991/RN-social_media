@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../../colorPalette/colors";
 
-const UserProfileButtons = ({ profilePhoto }) => {
+const UserProfileButtons = ({ profilePhoto, username, name, bio }) => {
   const navigation = useNavigation() as any;
   return (
     <View
@@ -20,6 +20,9 @@ const UserProfileButtons = ({ profilePhoto }) => {
         onPress={() => {
           navigation.navigate("EditProfile", {
             profilePhoto: profilePhoto,
+            username: username,
+            name: name,
+            bio: bio,
           });
         }}
         style={{

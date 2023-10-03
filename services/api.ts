@@ -132,6 +132,16 @@ const addPost = async (formData: FormData, username: string) => {
   }
 };
 
+const editUserProfile = async (requestBody) => {
+  try {
+    const resp = await instance.patch("/accounts/me/", requestBody);
+    return resp.data;
+  } catch (error) {
+    console.error("Greška prilikom ažuriranja korisničkog profila:", error);
+    throw error;
+  }
+};
+
 const api = {
   login,
   signup,
@@ -154,6 +164,7 @@ const api = {
   updateCoverPhoto,
   addPost,
   deleteUserPost,
+  editUserProfile,
 };
 
 export default Object.freeze(api);

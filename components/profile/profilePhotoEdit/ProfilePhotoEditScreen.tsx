@@ -1,5 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ImageSourcePropType,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import colors from "../../../colorPalette/colors";
 import ProfilePhotoEditHeader from "./ProfilePhotoEditHeader";
@@ -7,8 +13,6 @@ import ProfilePhotoEditBody from "./ProfilePhotoEditBody";
 import BottomSheet from "@gorhom/bottom-sheet";
 import Icon from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import api from "../../../services/api";
-import * as ImagePicker from "expo-image-picker";
 import { useQueryClient } from "react-query";
 import { ActivityIndicator } from "react-native-paper";
 import {
@@ -16,7 +20,17 @@ import {
   handleTakeProfilePhoto,
 } from "../../../util/imageUploadUtils";
 
-const ProfilePhotoEditScreen = ({ route }) => {
+interface ProfilePhotoEditScreenProps {
+  route: {
+    params: {
+      profilePhoto: ImageSourcePropType;
+    };
+  };
+}
+
+const ProfilePhotoEditScreen: React.FC<ProfilePhotoEditScreenProps> = ({
+  route,
+}) => {
   const { profilePhoto } = route.params || {};
   const bottomSheetRef = useRef(null);
   const navigation = useNavigation() as any;
@@ -32,11 +46,11 @@ const ProfilePhotoEditScreen = ({ route }) => {
     return unsubscribe;
   }, [navigation]);
 
-  const handleUploadProfilePhotoWrapper = () => {
+  const handleUploadProfilePhotoWrapper = (): void => {
     handleUploadProfilePhoto(setImage, setLoading, queryClient, navigation);
   };
 
-  const handleUploadTakePhotoWrapper = () => {
+  const handleUploadTakePhotoWrapper = (): void => {
     handleTakeProfilePhoto(setImage, setLoading, queryClient, navigation);
   };
 
