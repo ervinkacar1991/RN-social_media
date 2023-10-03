@@ -13,7 +13,13 @@ import { UserContext } from "../../../../context/UserContext";
 
 const DefaultProfilePhotoUri = "https://i.stack.imgur.com/l60Hf.png";
 
-const AccountSettingsBody = ({ profilePhoto, navigation }) => {
+const AccountSettingsBody = ({
+  profilePhoto,
+  navigation,
+  username,
+  name,
+  bio,
+}) => {
   const { handleLogout } = useContext(UserContext);
 
   const onLogout = () => {
@@ -30,9 +36,18 @@ const AccountSettingsBody = ({ profilePhoto, navigation }) => {
             }}
             style={styles.profileImage}
           />
-          <Text style={styles.nameStyle}>name</Text>
+          <Text style={styles.nameStyle}>{username}</Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("EditProfile", {
+              profilePhoto,
+              username,
+              name,
+              bio,
+            })
+          }
+        >
           <Text style={styles.editStyle}>Edit</Text>
         </TouchableOpacity>
       </View>

@@ -29,9 +29,6 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
     setDropdownVisible(!isDropdownVisible);
   };
   const onMenuItemPress = (menuItem) => {
-    // Logika za menu iteme
-
-    // Zatvaranje dropdowna
     toggleDropdown();
   };
   const onBackgroundPress = () => {
@@ -70,6 +67,9 @@ const ProfileHeader = ({ user, bottomSheetRef, navigation }) => {
             onPress={() =>
               navigation.navigate("AccountSettings", {
                 profilePhoto: user?.photo,
+                username: user?.username,
+                name: user?.name,
+                bio: user?.bio,
               })
             }
           >

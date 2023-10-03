@@ -74,7 +74,7 @@ const EditProfile = ({ navigation, route }) => {
         console.log("Profil uspešno ažuriran:", updatedUser);
         toast.show("Profil uspešno ažuriran.", { type: "success" });
         queryClient.invalidateQueries("fetchUser");
-        navigation.goBack();
+        navigation.navigate("ProfileScreen");
         queryClient.invalidateQueries("profi");
       })
       .catch((error) => {

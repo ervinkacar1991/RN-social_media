@@ -6,13 +6,16 @@ import AccountSettingsHeader from "./header/AccountSettingsHeader";
 import AccountSettingsBody from "./body/AccountSettingsBody";
 
 const AccountSettingsScreen = ({ navigation, route }) => {
-  const { profilePhoto } = route.params;
+  const { profilePhoto, username, name, bio } = route.params;
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
         <AccountSettingsHeader navigation={navigation} />
         <AccountSettingsBody
           profilePhoto={profilePhoto}
+          username={username}
+          name={name}
+          bio={bio}
           navigation={navigation}
         />
       </SafeAreaView>
